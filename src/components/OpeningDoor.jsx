@@ -4,22 +4,23 @@ import { wedding } from '../data/wedding'
 import { usePrefersReducedMotion } from '../hooks/usePrefersReducedMotion'
 import { useLanguage } from '../context/LanguageContext'
 
-const DOOR_MS = 1.45
+const DOOR_MS = 1.35
 const EASE_DOOR = [0.22, 1, 0.36, 1]
 const EASE_OUT = [0.16, 1, 0.3, 1]
 
-const PETAL_COLORS = ['#a84d55', '#8b1520', '#c9a24a', '#d4b05c', '#c47a7a', '#7a1c28']
+const PETAL_COLORS = ['#a84d55', '#8b1520', '#c47a7a', '#6e1a26', '#d4a0a5']
 
 function makePetals(count) {
   return Array.from({ length: count }, (_, i) => ({
     id: i,
-    left: `${8 + ((i * 17) % 84)}%`,
-    delay: (i % 12) * 0.05,
-    duration: 1.6 + (i % 5) * 0.25,
-    size: 10 + (i % 6) * 3,
+    left: `${6 + ((i * 13) % 88)}%`,
+    top: `${8 + ((i * 19) % 78)}%`,
+    delay: (i % 10) * 0.08,
+    duration: 5 + (i % 6) * 0.7,
+    size: 8 + (i % 5) * 4,
     color: PETAL_COLORS[i % PETAL_COLORS.length],
-    rotate: (i % 2 === 0 ? 1 : -1) * (40 + (i % 8) * 20),
-    drift: (i % 2 === 0 ? 1 : -1) * (40 + (i % 7) * 18),
+    rotate: (i % 2 === 0 ? 1 : -1) * (20 + (i % 8) * 15),
+    drift: (i % 2 === 0 ? 1 : -1) * (12 + (i % 5) * 8),
   }))
 }
 
@@ -43,13 +44,14 @@ function formatInviteDate(iso) {
 }
 
 /**
- * Premium sealed-envelope welcome — matches formal maroon invitation open UI.
+ * Formal maroon starting page — Om medallion, florals, open CTA.
  */
 export function OpeningDoor({ open, onOpen }) {
   const reduced = usePrefersReducedMotion()
   const { lang } = useLanguage()
   const [opening, setOpening] = useState(false)
-  const petals = useMemo(() => makePetals(reduced ? 0 : 24), [reduced])
+  const petals = useMemo(() => makePetals(reduced ? 0 : 18), [reduced])
+  const cascade = useMemo(() => makePetals(reduced ? 0 : 22), [reduced])
   const initials = useMemo(() => coupleInitials(), [])
   const dateLabel = useMemo(
     () => formatInviteDate(wedding.muhurtham.datetime),
@@ -73,7 +75,7 @@ export function OpeningDoor({ open, onOpen }) {
     <AnimatePresence>
       {!open && (
         <motion.div
-          className="fixed inset-0 z-50 flex cursor-pointer flex-col items-center justify-center overflow-hidden bg-[#5a1018]"
+          className="fixed inset-0 z-50 flex cursor-pointer flex-col items-center justify-center overflow-hidden bg-[#4a0e14]"
           onClick={handleOpen}
           onKeyDown={(e) => {
             if (e.key === 'Enter' || e.key === ' ') {
@@ -87,72 +89,98 @@ export function OpeningDoor({ open, onOpen }) {
           exit={
             reduced
               ? { opacity: 0, transition: { duration: 0.3 } }
-              : { opacity: 0, transition: { delay: DOOR_MS * 0.55, duration: 0.45 } }
+              : { opacity: 0, transition: { delay: DOOR_MS * 0.5, duration: 0.4 } }
           }
         >
-          {/* Double gold frame */}
+          {/* Soft vignette */}
           <div
-            className="pointer-events-none absolute inset-3 rounded-[2px] border border-gold/55 sm:inset-5 md:inset-7"
-            aria-hidden="true"
-          />
-          <div
-            className="pointer-events-none absolute inset-[14px] rounded-[2px] border border-gold/30 sm:inset-[22px] md:inset-[30px]"
-            aria-hidden="true"
-          />
-
-          <div
-            className="pointer-events-none absolute inset-0 opacity-80"
+            className="pointer-events-none absolute inset-0"
             style={{
               background:
-                'radial-gradient(ellipse at 50% 40%, rgba(212,176,92,0.14) 0%, transparent 55%)',
+                'radial-gradient(ellipse at 50% 45%, rgba(110,26,38,0.5) 0%, transparent 55%), radial-gradient(ellipse at 50% 50%, transparent 40%, rgba(20,3,6,0.55) 100%)',
             }}
           />
 
-          {/* Soft swing panels behind content */}
+          {/* Gold frame */}
+          <div
+            className="pointer-events-none absolute inset-4 border border-gold/45 sm:inset-6 md:inset-8"
+            aria-hidden="true"
+          />
+          <div
+            className="pointer-events-none absolute inset-[18px] border border-gold/20 sm:inset-[26px] md:inset-[34px]"
+            aria-hidden="true"
+          />
+
+          {/* Floating ambient petals */}
+          {!reduced && (
+            <div className="pointer-events-none absolute inset-0 z-[1] overflow-hidden" aria-hidden="true">
+              {petals.map((p) => (
+                <motion.span
+                  key={`a-${p.id}`}
+                  className="absolute rounded-[45%_55%_50%_50%] opacity-40 blur-[0.5px]"
+                  style={{
+                    left: p.left,
+                    top: p.top,
+                    width: p.size,
+                    height: p.size * 1.3,
+                    background: `radial-gradient(ellipse at 30% 30%, #f0cfc4, ${p.color})`,
+                  }}
+                  animate={{
+                    y: [0, p.drift, 0],
+                    x: [0, p.drift * 0.4, 0],
+                    rotate: [0, p.rotate * 0.3, 0],
+                    opacity: [0.15, 0.4, 0.15],
+                  }}
+                  transition={{
+                    duration: p.duration,
+                    delay: p.delay,
+                    repeat: Infinity,
+                    ease: 'easeInOut',
+                  }}
+                />
+              ))}
+            </div>
+          )}
+
+          {/* Corner florals + hanging lamps */}
+          <CornerDecor />
+
+          {/* Door panels for open swing */}
           <div
             className="absolute inset-0 z-[2] flex"
             style={{ perspective: '1400px', perspectiveOrigin: '50% 50%' }}
           >
             <motion.div
-              className="relative h-full w-1/2 origin-left bg-[#5a1018]"
-              style={{
-                transformStyle: 'preserve-3d',
-                boxShadow:
-                  'inset -1px 0 0 color-mix(in srgb, var(--color-gold) 35%, transparent)',
-              }}
+              className="h-full w-1/2 origin-left bg-[#4a0e14]/95"
+              style={{ transformStyle: 'preserve-3d' }}
               initial={false}
               animate={
                 opening && !reduced
-                  ? { rotateY: -102, opacity: 0.9 }
-                  : { rotateY: 0, opacity: 1 }
+                  ? { rotateY: -105, opacity: 0.85 }
+                  : { rotateY: 0, opacity: 0 }
               }
-              exit={reduced ? { opacity: 0 } : { rotateY: -110, x: '-8%' }}
               transition={doorTransition}
             />
             <motion.div
-              className="relative h-full w-1/2 origin-right bg-[#5a1018]"
-              style={{
-                transformStyle: 'preserve-3d',
-                boxShadow:
-                  'inset 1px 0 0 color-mix(in srgb, var(--color-gold) 35%, transparent)',
-              }}
+              className="h-full w-1/2 origin-right bg-[#4a0e14]/95"
+              style={{ transformStyle: 'preserve-3d' }}
               initial={false}
               animate={
                 opening && !reduced
-                  ? { rotateY: 102, opacity: 0.9 }
-                  : { rotateY: 0, opacity: 1 }
+                  ? { rotateY: 105, opacity: 0.85 }
+                  : { rotateY: 0, opacity: 0 }
               }
-              exit={reduced ? { opacity: 0 } : { rotateY: 110, x: '8%' }}
               transition={doorTransition}
             />
           </div>
 
-          {!reduced && (
+          {/* Cascade petals on open */}
+          {opening && !reduced && (
             <div className="pointer-events-none absolute inset-0 z-[5] overflow-hidden" aria-hidden="true">
-              {petals.map((p) => (
+              {cascade.map((p) => (
                 <motion.span
-                  key={p.id}
-                  className="absolute top-[-8%] rounded-[40%_60%_55%_45%]"
+                  key={`c-${p.id}`}
+                  className="absolute top-[-6%] rounded-[40%_60%_55%_45%]"
                   style={{
                     left: p.left,
                     width: p.size,
@@ -160,98 +188,90 @@ export function OpeningDoor({ open, onOpen }) {
                     background: `radial-gradient(ellipse at 30% 30%, #f7f0ea, ${p.color})`,
                   }}
                   initial={{ y: 0, opacity: 0 }}
-                  animate={
-                    opening
-                      ? {
-                          y: ['0vh', '110vh'],
-                          x: [0, p.drift],
-                          opacity: [0, 1, 0],
-                          rotate: [0, p.rotate],
-                        }
-                      : { opacity: 0 }
-                  }
-                  transition={
-                    opening
-                      ? { duration: p.duration, delay: p.delay, ease: 'easeIn' }
-                      : { duration: 0 }
-                  }
+                  animate={{
+                    y: '115vh',
+                    x: [0, p.drift],
+                    opacity: [0, 1, 0],
+                    rotate: p.rotate,
+                  }}
+                  transition={{ duration: 1.4 + (p.id % 4) * 0.15, delay: p.delay * 0.4, ease: 'easeIn' }}
                 />
               ))}
             </div>
           )}
 
-          {/* Center invite card content */}
+          {/* Center content */}
           <motion.div
-            className="relative z-10 flex w-full max-w-md flex-col items-center px-8 text-center sm:px-10"
-            initial={reduced ? false : { opacity: 0, y: 14 }}
+            className="relative z-10 flex w-full max-w-lg flex-col items-center px-6 text-center sm:px-10"
+            initial={reduced ? false : { opacity: 0, y: 16 }}
             animate={
               opening
-                ? { opacity: 0, y: -16, scale: 0.97 }
+                ? { opacity: 0, y: -18, scale: 0.97 }
                 : { opacity: 1, y: 0, scale: 1 }
             }
-            transition={{ duration: opening ? 0.5 : 0.75, delay: opening ? 0 : 0.08, ease: EASE_OUT }}
+            transition={{ duration: opening ? 0.45 : 0.8, delay: opening ? 0 : 0.1, ease: EASE_OUT }}
           >
-            <p
-              className="font-display text-[clamp(0.95rem,0.85rem+0.4vw,1.15rem)] tracking-[0.08em] text-gold"
-              lang="hi"
-            >
-              ॥ श्री गणेशाय नमः ॥
-            </p>
-            <p className="mt-1.5 font-tamil text-xs text-gold/55">
-              {wedding.invocation.pillaiyar.ta}
-            </p>
+            <GoldDiamond className="mb-5 h-5 w-5 text-gold sm:mb-6" />
 
-            <p className="mt-7 font-sans text-[0.62rem] font-medium tracking-[0.32em] text-ivory/80 uppercase sm:text-[0.68rem]">
-              {lang === 'ta'
-                ? wedding.togetherWith.ta
-                : 'Together with our families'}
-            </p>
-
-            <div className="relative mt-8 mb-2 flex items-center justify-center">
-              <FloralWreath className="absolute h-[220px] w-[220px] text-[#8a3a42] opacity-70 sm:h-[250px] sm:w-[250px]" />
-              <SealedEnvelope
-                pulse={!reduced && !opening}
-                className="relative z-[1]"
-              />
+            <div className="space-y-1.5 text-gold">
+              <p className="font-tamil text-[clamp(0.95rem,0.85rem+0.4vw,1.15rem)] leading-[1.7]">
+                || ஸ்ரீ கணபதயே நம: ||
+              </p>
+              <p className="font-tamil text-[0.8rem] leading-[1.7] text-gold/85 sm:text-[0.9rem]">
+                {wedding.invocation.pillaiyar.ta}
+              </p>
+              <p className="font-tamil text-[0.8rem] leading-[1.7] text-gold/75 sm:text-[0.88rem]">
+                {wedding.invocation.murugan.ta}
+              </p>
+              <p className="font-tamil text-[0.78rem] leading-[1.7] text-gold/65 sm:text-[0.85rem]">
+                குடும்பத்தினருடன் இணைந்து
+              </p>
             </div>
 
-            <p className="mt-6 font-display text-[clamp(2.4rem,1.8rem+2.5vw,3.5rem)] font-light leading-none tracking-[0.06em] text-gold">
+            <div className="relative my-7 sm:my-8">
+              <OmMedallion pulse={!reduced && !opening} />
+            </div>
+
+            <p className="font-display text-[clamp(2.2rem,1.6rem+2.2vw,3.25rem)] font-light leading-none tracking-[0.08em] text-gold">
               <span>{initials.bride}</span>
-              <span className="mx-3 inline-block text-[0.45em] align-middle text-gold/90" aria-hidden="true">
-                ✦
+              <span className="mx-3 inline-block text-[0.4em] align-middle" aria-hidden="true">
+                ✥
               </span>
               <span>{initials.groom}</span>
             </p>
 
-            <p className="mt-4 font-sans text-[0.85rem] tracking-[0.28em] text-gold/90 tabular-nums sm:text-[0.95rem]">
+            <p className="mt-4 font-sans text-[0.9rem] tracking-[0.32em] text-gold tabular-nums sm:text-base">
               {dateLabel}
             </p>
 
             <motion.div
-              className="mt-9 inline-flex min-h-[50px] min-w-[220px] items-center justify-center rounded-full px-10 py-3 sm:min-w-[260px]"
-              style={{
-                background:
-                  'linear-gradient(180deg, #e8d08a 0%, #d4b05c 45%, #b8923a 100%)',
-                boxShadow:
-                  '0 6px 24px rgba(0,0,0,0.28), inset 0 1px 0 rgba(255,255,255,0.35)',
-              }}
+              className="mt-8 inline-flex min-h-[48px] items-center justify-center gap-2.5 rounded-full border border-gold/70 bg-transparent px-7 py-2.5 sm:mt-9 sm:px-9"
               animate={
                 reduced || opening
                   ? undefined
                   : {
-                      boxShadow: [
-                        '0 6px 24px rgba(0,0,0,0.28), inset 0 1px 0 rgba(255,255,255,0.35)',
-                        '0 8px 32px rgba(212,176,92,0.45), inset 0 1px 0 rgba(255,255,255,0.4)',
-                        '0 6px 24px rgba(0,0,0,0.28), inset 0 1px 0 rgba(255,255,255,0.35)',
+                      borderColor: [
+                        'rgba(212,176,92,0.55)',
+                        'rgba(212,176,92,0.95)',
+                        'rgba(212,176,92,0.55)',
                       ],
                     }
               }
-              transition={{ duration: 2.6, repeat: Infinity, ease: 'easeInOut' }}
+              transition={{ duration: 2.8, repeat: Infinity, ease: 'easeInOut' }}
             >
-              <span className="font-sans text-[0.72rem] font-semibold tracking-[0.22em] text-[#3d0a12] uppercase">
-                {lang === 'ta' ? 'அழைப்பிதழைத் திற' : 'Open Invitation'}
+              <LotusIcon className="h-4 w-4 text-gold" />
+              <span className="font-tamil text-[0.95rem] text-gold sm:text-base">
+                அழைப்பிதழை திற
               </span>
             </motion.div>
+
+            {lang !== 'ta' && (
+              <p className="mt-2.5 font-sans text-[0.62rem] tracking-[0.28em] text-gold/50 uppercase">
+                Open Invitation
+              </p>
+            )}
+
+            <LotusIcon className="mt-7 h-5 w-5 text-gold/70 sm:mt-8" />
           </motion.div>
         </motion.div>
       )}
@@ -259,118 +279,149 @@ export function OpeningDoor({ open, onOpen }) {
   )
 }
 
-function SealedEnvelope({ className = '', pulse = false }) {
+function CornerDecor() {
+  return (
+    <div className="pointer-events-none absolute inset-0 z-[3]" aria-hidden="true">
+      {/* Top lamps */}
+      <img
+        src="/images/icon-lantern.jpg"
+        alt=""
+        className="absolute top-8 left-6 h-14 w-14 rounded-full object-cover opacity-90 shadow-lg ring-1 ring-gold/35 sm:top-10 sm:left-10 sm:h-16 sm:w-16 md:left-14"
+        style={{ mixBlendMode: 'screen' }}
+        draggable={false}
+      />
+      <img
+        src="/images/icon-lantern.jpg"
+        alt=""
+        className="absolute top-8 right-6 h-14 w-14 rounded-full object-cover opacity-90 shadow-lg ring-1 ring-gold/35 sm:top-10 sm:right-10 sm:h-16 sm:w-16 md:right-14"
+        style={{ mixBlendMode: 'screen' }}
+        draggable={false}
+      />
+
+      {/* Top floral hints */}
+      <img
+        src="/images/icon-lotus.jpg"
+        alt=""
+        className="absolute top-16 left-2 h-20 w-20 -rotate-12 object-contain opacity-35 blur-[0.5px] sm:left-4 sm:h-28 sm:w-28"
+        draggable={false}
+      />
+      <img
+        src="/images/icon-lotus.jpg"
+        alt=""
+        className="absolute top-16 right-2 h-20 w-20 rotate-12 object-contain opacity-35 blur-[0.5px] sm:right-4 sm:h-28 sm:w-28"
+        draggable={false}
+      />
+
+      {/* Bottom florals */}
+      <img
+        src="/images/icon-lotus.jpg"
+        alt=""
+        className="absolute bottom-4 left-0 h-28 w-28 -rotate-6 object-contain opacity-45 sm:bottom-6 sm:h-36 sm:w-36 md:h-44 md:w-44"
+        draggable={false}
+      />
+      <img
+        src="/images/icon-lotus.jpg"
+        alt=""
+        className="absolute bottom-4 right-0 h-28 w-28 rotate-6 object-contain opacity-45 sm:bottom-6 sm:h-36 sm:w-36 md:h-44 md:w-44"
+        draggable={false}
+      />
+      <img
+        src="/images/icon-rings.jpg"
+        alt=""
+        className="absolute bottom-8 left-16 h-16 w-16 rounded-full object-cover opacity-40 sm:left-24 sm:h-20 sm:w-20"
+        style={{ mixBlendMode: 'luminosity' }}
+        draggable={false}
+      />
+      <img
+        src="/images/icon-rings.jpg"
+        alt=""
+        className="absolute bottom-8 right-16 h-16 w-16 rounded-full object-cover opacity-40 sm:right-24 sm:h-20 sm:w-20"
+        style={{ mixBlendMode: 'luminosity' }}
+        draggable={false}
+      />
+    </div>
+  )
+}
+
+function OmMedallion({ pulse = false }) {
   return (
     <motion.div
-      className={`relative h-[108px] w-[148px] sm:h-[120px] sm:w-[164px] ${className}`}
-      animate={pulse ? { y: [0, -3, 0] } : undefined}
-      transition={{ duration: 3.2, repeat: Infinity, ease: 'easeInOut' }}
+      className="relative flex h-[150px] w-[150px] items-center justify-center sm:h-[180px] sm:w-[180px]"
+      animate={pulse ? { scale: [1, 1.03, 1] } : undefined}
+      transition={{ duration: 3.6, repeat: Infinity, ease: 'easeInOut' }}
     >
-      {/* Envelope body */}
-      <div
-        className="absolute inset-0 overflow-hidden rounded-[4px] border border-gold/25"
-        style={{
-          background: `
-            linear-gradient(145deg, #7a1c28 0%, #5a1018 50%, #3d0a12 100%)
-          `,
-          boxShadow: '0 10px 28px rgba(0,0,0,0.35)',
-        }}
+      <svg viewBox="0 0 200 200" className="absolute inset-0 h-full w-full text-gold" aria-hidden="true">
+        <defs>
+          <radialGradient id="omGlow" cx="40%" cy="35%" r="65%">
+            <stop offset="0%" stopColor="#f0d98a" />
+            <stop offset="45%" stopColor="#d4b05c" />
+            <stop offset="100%" stopColor="#8a6a28" />
+          </radialGradient>
+        </defs>
+        {/* Outer petals */}
+        {Array.from({ length: 16 }, (_, i) => {
+          const a = (i / 16) * Math.PI * 2
+          const x = 100 + Math.cos(a) * 78
+          const y = 100 + Math.sin(a) * 78
+          const rot = (a * 180) / Math.PI + 90
+          return (
+            <ellipse
+              key={i}
+              cx={x}
+              cy={y}
+              rx="7"
+              ry="16"
+              fill="url(#omGlow)"
+              opacity="0.85"
+              transform={`rotate(${rot} ${x} ${y})`}
+            />
+          )
+        })}
+        <circle cx="100" cy="100" r="62" fill="none" stroke="url(#omGlow)" strokeWidth="2.5" />
+        <circle cx="100" cy="100" r="54" fill="none" stroke="#d4b05c" strokeWidth="1" opacity="0.7" />
+        <circle cx="100" cy="100" r="48" fill="#3d0a12" stroke="url(#omGlow)" strokeWidth="3" />
+        {/* Inner ring dots */}
+        {Array.from({ length: 20 }, (_, i) => {
+          const a = (i / 20) * Math.PI * 2
+          return (
+            <circle
+              key={`d-${i}`}
+              cx={100 + Math.cos(a) * 42}
+              cy={100 + Math.sin(a) * 42}
+              r="1.6"
+              fill="#d4b05c"
+              opacity="0.8"
+            />
+          )
+        })}
+      </svg>
+      <span
+        className="relative z-[1] select-none font-display text-[3.25rem] leading-none text-gold sm:text-[3.85rem]"
+        style={{ textShadow: '0 2px 12px rgba(0,0,0,0.35)' }}
+        aria-hidden="true"
       >
-        {/* Diamond pattern */}
-        <div
-          className="absolute inset-0 opacity-[0.22]"
-          style={{
-            backgroundImage: `
-              linear-gradient(45deg, transparent 46%, rgba(212,176,92,0.55) 49%, rgba(212,176,92,0.55) 51%, transparent 54%),
-              linear-gradient(-45deg, transparent 46%, rgba(212,176,92,0.55) 49%, rgba(212,176,92,0.55) 51%, transparent 54%)
-            `,
-            backgroundSize: '18px 18px',
-          }}
-          aria-hidden="true"
-        />
-        {/* Flap suggestion */}
-        <div
-          className="absolute inset-x-0 top-0 h-[42%]"
-          style={{
-            background:
-              'linear-gradient(180deg, rgba(212,176,92,0.12) 0%, transparent 100%)',
-            clipPath: 'polygon(0 0, 100% 0, 50% 100%)',
-          }}
-          aria-hidden="true"
-        />
-      </div>
-
-      {/* Om seal */}
-      <div
-        className="absolute top-1/2 left-1/2 z-[2] flex h-[58px] w-[58px] -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full sm:h-[64px] sm:w-[64px]"
-        style={{
-          background:
-            'radial-gradient(circle at 35% 30%, #f0d98a 0%, #d4b05c 42%, #a88435 78%, #7a6428 100%)',
-          boxShadow:
-            '0 4px 14px rgba(0,0,0,0.4), inset 0 2px 3px rgba(255,255,255,0.45), inset 0 -3px 6px rgba(90,50,10,0.35)',
-        }}
-      >
-        <span
-          className="select-none font-display text-[1.65rem] leading-none text-[#3d0a12] sm:text-[1.85rem]"
-          aria-hidden="true"
-        >
-          ॐ
-        </span>
-      </div>
+        ॐ
+      </span>
     </motion.div>
   )
 }
 
-function FloralWreath({ className = '' }) {
+function GoldDiamond({ className = '' }) {
   return (
-    <svg
-      viewBox="0 0 200 200"
-      className={className}
-      fill="none"
-      aria-hidden="true"
-    >
-      <circle
-        cx="100"
-        cy="100"
-        r="78"
-        stroke="currentColor"
-        strokeWidth="0.6"
-        opacity="0.35"
-      />
-      {Array.from({ length: 24 }, (_, i) => {
-        const a = (i / 24) * Math.PI * 2
-        const x = 100 + Math.cos(a) * 78
-        const y = 100 + Math.sin(a) * 78
-        const rot = (a * 180) / Math.PI + 90
-        return (
-          <g key={i} transform={`translate(${x} ${y}) rotate(${rot})`}>
-            <ellipse
-              cx="0"
-              cy="-6"
-              rx="3.2"
-              ry="7"
-              fill="currentColor"
-              opacity={0.55}
-            />
-            <ellipse
-              cx="4"
-              cy="-2"
-              rx="2.4"
-              ry="5"
-              fill="currentColor"
-              opacity={0.4}
-            />
-            <ellipse
-              cx="-4"
-              cy="-2"
-              rx="2.4"
-              ry="5"
-              fill="currentColor"
-              opacity={0.4}
-            />
-          </g>
-        )
-      })}
+    <svg viewBox="0 0 24 24" className={className} fill="currentColor" aria-hidden="true">
+      <path d="M12 2 L14.5 9.5 L22 12 L14.5 14.5 L12 22 L9.5 14.5 L2 12 L9.5 9.5 Z" opacity="0.9" />
+      <circle cx="12" cy="12" r="2.2" />
+    </svg>
+  )
+}
+
+function LotusIcon({ className = '' }) {
+  return (
+    <svg viewBox="0 0 24 24" className={className} fill="currentColor" aria-hidden="true">
+      <path d="M12 20c-1.5-2.5-4-4-4-7 0-2 1.5-3.5 4-4.5 2.5 1 4 2.5 4 4.5 0 3-2.5 4.5-4 7z" opacity="0.95" />
+      <path d="M12 8.5C10 6 7 5 5.5 5.5c.5 2.5 2.5 4.5 6.5 6 4-1.5 6-3.5 6.5-6C17 5 14 6 12 8.5z" opacity="0.75" />
+      <path d="M7 14c-2.5.5-4 2-4.5 4 2.2.3 4.5-.5 6.5-2.5C7.5 14.5 7 14 7 14z" opacity="0.7" />
+      <path d="M17 14c2.5.5 4 2 4.5 4-2.2.3-4.5-.5-6.5-2.5 1.5-1 2-1.5 2-1.5z" opacity="0.7" />
     </svg>
   )
 }
