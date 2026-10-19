@@ -68,7 +68,7 @@ export function OpeningDoor({ open, onOpen }) {
           className="fixed inset-0 z-50 flex cursor-pointer flex-col items-center justify-center overflow-hidden"
           style={{
             background:
-              'radial-gradient(ellipse 80% 70% at 50% 42%, #6b1520 0%, #4a0e14 45%, #2a070c 100%)',
+              'radial-gradient(ellipse 68% 82% at 50% 44%, #4d090c 0%, #390508 54%, #210306 100%)',
           }}
           onClick={handleOpen}
           onKeyDown={(e) => {
@@ -91,11 +91,12 @@ export function OpeningDoor({ open, onOpen }) {
             }}
           />
 
-          {/* Thin gold frame */}
-          <div
-            className="pointer-events-none absolute inset-5 border border-[#d4b05c]/50 sm:inset-7 md:inset-9"
-            aria-hidden="true"
-          />
+          {/* Fine double frame and central ornamental axis */}
+          <div className="pointer-events-none absolute inset-[14px] border border-[#d4b05c]/45 sm:inset-[26px] md:inset-[30px]" aria-hidden="true" />
+          <div className="pointer-events-none absolute inset-[19px] border border-[#d4b05c]/20 sm:inset-[31px] md:inset-[35px]" aria-hidden="true" />
+          <div className="pointer-events-none absolute top-0 bottom-0 left-1/2 w-px bg-gradient-to-b from-[#d4b05c]/55 via-[#d4b05c]/15 to-[#d4b05c]/50" aria-hidden="true" />
+          <FrameCorners />
+          <div className="pointer-events-none absolute bottom-[3.2%] left-[19%] right-[19%] h-px bg-gradient-to-r from-transparent via-[#d4b05c]/80 to-transparent" aria-hidden="true" />
 
           {/* Soft floating petal / bokeh orbs */}
           {!reduced && (
@@ -142,22 +143,21 @@ export function OpeningDoor({ open, onOpen }) {
             }
             transition={{ duration: opening ? 0.4 : 0.75, ease: EASE_OUT }}
           >
-            <div className="space-y-1 text-[#e4c86a]">
-              <p className="font-tamil text-[clamp(1.05rem,0.95rem+0.45vw,1.25rem)] leading-[1.75] tracking-wide">
+            <div className="space-y-0.5 text-[#e4c86a]">
+              <OrnamentDivider />
+              <p className="mt-5 font-tamil text-[clamp(1.05rem,0.95rem+0.45vw,1.25rem)] leading-[1.75] tracking-wide">
                 || ஸ்ரீ கணபதயே நம: ||
               </p>
               <p className="font-tamil text-[0.88rem] leading-[1.75] text-[#e4c86a]/90 sm:text-[0.95rem]">
                 பிள்ளையார் துணை
               </p>
-              <p className="font-tamil text-[0.88rem] leading-[1.75] text-[#e4c86a]/85 sm:text-[0.95rem]">
-                முருகன் துணை
-              </p>
-              <p className="font-tamil text-[0.82rem] leading-[1.75] text-[#e4c86a]/75 sm:text-[0.9rem]">
-                குடும்பத்தினருடன் இணைந்து
+              <OrnamentDivider small />
+              <p className="mt-3 font-tamil text-[0.82rem] leading-[1.75] text-ivory/90 sm:text-[0.9rem]">
+                {wedding.togetherWith.ta}
               </p>
             </div>
 
-            <div className="my-8 sm:my-9">
+            <div className="my-7 sm:my-8">
               <OmMedallion pulse={!reduced && !opening} />
             </div>
 
@@ -166,9 +166,7 @@ export function OpeningDoor({ open, onOpen }) {
               style={{ fontSize: 'clamp(2.4rem, 1.7rem + 2.6vw, 3.4rem)' }}
             >
               {initials.bride}
-              <span className="mx-3 inline-block text-[0.38em] align-middle opacity-90" aria-hidden="true">
-                ❖
-              </span>
+              <span className="mx-3 inline-block text-[0.38em] align-middle opacity-90" aria-hidden="true">❖</span>
               {initials.groom}
             </p>
 
@@ -176,8 +174,9 @@ export function OpeningDoor({ open, onOpen }) {
               {dateLabel}
             </p>
 
+            <OrnamentDivider />
             <motion.div
-              className="mt-9 inline-flex min-h-[50px] items-center justify-center gap-2.5 rounded-full border border-[#d4b05c]/75 bg-transparent px-8 py-2.5"
+              className="mt-6 inline-flex min-h-[58px] min-w-[260px] items-center justify-center gap-3 rounded-full border border-[#e3bd61] bg-[#320508]/65 px-8 py-2.5 shadow-[inset_0_0_0_3px_rgba(212,176,92,0.12),0_0_22px_rgba(0,0,0,0.3)]"
               animate={
                 reduced || opening
                   ? undefined
@@ -191,7 +190,7 @@ export function OpeningDoor({ open, onOpen }) {
               }
               transition={{ duration: 2.8, repeat: Infinity, ease: 'easeInOut' }}
             >
-              <SparkleIcon className="h-3.5 w-3.5 shrink-0 text-[#e4c86a]" />
+              <LotusIcon className="h-4 w-4 shrink-0 text-[#e4c86a]" />
               <span className="font-tamil text-[1rem] text-[#e4c86a]">அழைப்பிதழை திற</span>
             </motion.div>
           </motion.div>
@@ -204,67 +203,42 @@ export function OpeningDoor({ open, onOpen }) {
 function CornerDecor() {
   return (
     <div className="pointer-events-none absolute inset-0 z-[3] overflow-hidden" aria-hidden="true">
-      {/* Top-left lotus + lamp */}
-      <CornerLotus
-        className="absolute -top-2 -left-2 h-36 w-36 sm:h-44 sm:w-44 md:h-52 md:w-52"
-        lamp
-      />
-      {/* Top-right */}
-      <CornerLotus
-        className="absolute -top-2 -right-2 h-36 w-36 sm:h-44 sm:w-44 md:h-52 md:w-52"
-        lamp
-        mirror
-      />
-      {/* Bottom-left */}
-      <CornerLotus
-        className="absolute -bottom-4 -left-4 h-40 w-40 sm:h-52 sm:w-52 md:h-60 md:w-60"
-      />
-      {/* Bottom-right */}
-      <CornerLotus
-        className="absolute -bottom-4 -right-4 h-40 w-40 sm:h-52 sm:w-52 md:h-60 md:w-60"
-        mirror
-        accent
-      />
+      <FloralCorner className="absolute -left-3 -top-3 h-44 w-44 sm:h-64 sm:w-64" />
+      <FloralCorner className="absolute -right-3 -top-3 h-44 w-44 sm:h-64 sm:w-64 scale-x-[-1]" />
+      <FloralCorner className="absolute -bottom-6 -left-3 h-48 w-48 sm:h-72 sm:w-72 scale-y-[-1]" />
+      <FloralCorner className="absolute -bottom-6 -right-3 h-48 w-48 sm:h-72 sm:w-72 scale-[-1]" />
+      <HangingLamp className="absolute left-[4%] top-[14%] hidden h-44 w-20 sm:block md:h-56" />
+      <HangingLamp className="absolute right-[4%] top-[14%] hidden h-44 w-20 scale-x-[-1] sm:block md:h-56" />
     </div>
   )
 }
 
-function CornerLotus({ className = '', lamp = false, mirror = false, accent = false }) {
-  return (
-    <div className={`relative ${className}`}>
-      <img
-        src="/images/icon-lotus.jpg"
-        alt=""
-        className={`h-full w-full rounded-full object-cover shadow-[0_8px_32px_rgba(0,0,0,0.35)] ${
-          mirror ? 'scale-x-[-1]' : ''
-        }`}
-        style={{
-          maskImage:
-            'radial-gradient(circle at 50% 50%, #000 42%, transparent 72%)',
-          WebkitMaskImage:
-            'radial-gradient(circle at 50% 50%, #000 42%, transparent 72%)',
-          opacity: 0.92,
-        }}
-        draggable={false}
-      />
-      {lamp && (
-        <img
-          src="/images/icon-lantern.jpg"
-          alt=""
-          className="absolute top-[12%] left-1/2 h-[38%] w-[38%] -translate-x-1/2 rounded-full object-cover shadow-md ring-1 ring-[#d4b05c]/50"
-          draggable={false}
-        />
-      )}
-      {accent && (
-        <img
-          src="/images/icon-lotus.jpg"
-          alt=""
-          className="absolute right-[18%] bottom-[22%] h-[28%] w-[28%] rounded-full object-cover opacity-80 ring-1 ring-white/30"
-          draggable={false}
-        />
-      )}
-    </div>
-  )
+function FrameCorners() {
+  return <div className="pointer-events-none absolute inset-0 z-[2]" aria-hidden="true">
+    {['left-4 top-4', 'right-4 top-4 scale-x-[-1]', 'left-4 bottom-4 scale-y-[-1]', 'right-4 bottom-4 scale-[-1]'].map((pos) => <svg key={pos} viewBox="0 0 92 92" className={`absolute h-16 w-16 text-[#d4b05c]/80 sm:h-20 sm:w-20 ${pos}`} fill="none"><path d="M4 88V20Q4 4 20 4h68M8 61V22Q8 8 22 8h39M12 39V24Q12 12 24 12h15" stroke="currentColor" strokeWidth="1.2"/><path d="M13 20q9-2 9-11m-8 17q12-2 12-14m-2 17q10-2 11-12" stroke="currentColor" strokeWidth=".8"/><path d="M5 33l8-8 4 9-8 7z" stroke="currentColor" strokeWidth=".8"/></svg>)}
+  </div>
+}
+
+function FloralCorner({ className = '' }) {
+  return <svg viewBox="0 0 260 260" className={`pointer-events-none ${className}`} fill="none" aria-hidden="true">
+    <defs><radialGradient id="flowerGold"><stop stopColor="#fff1bb"/><stop offset=".55" stopColor="#d7a449"/><stop offset="1" stopColor="#781a20"/></radialGradient></defs>
+    <path d="M0 8C55 16 56 54 89 75s49 22 63 63 39 62 100 75" stroke="#9d652e" strokeWidth="3" opacity=".55"/>
+    <path d="M10 0c14 44 40 44 51 70M0 42c26 2 38 17 43 40M34 0c4 21 13 30 30 37" stroke="#d09c50" strokeWidth="2" opacity=".65"/>
+    {[[40,35,18],[72,72,15],[107,104,19],[149,143,17],[203,190,23],[35,93,12],[91,35,12],[184,226,15]].map(([x,y,r],i)=><g key={i} transform={`translate(${x} ${y})`}><circle r={r} fill="url(#flowerGold)" opacity=".82"/>{Array.from({length:8},(_,j)=><ellipse key={j} cx="0" cy={-r*.65} rx={r*.22} ry={r*.48} fill="#f1d28a" opacity=".78" transform={`rotate(${j*45})`}/>)}<circle r={r*.19} fill="#fff0b1"/></g>)}
+    {[ [57,52],[91,88],[129,124],[171,164],[222,208] ].map(([x,y],i)=><g key={`l${i}`} fill="#789151" opacity=".8" transform={`translate(${x} ${y}) rotate(${i%2?55:-40})`}><ellipse cx="-9" rx="10" ry="4"/><ellipse cx="9" cy="-8" rx="11" ry="4"/></g>)}
+  </svg>
+}
+
+function HangingLamp({ className = '' }) {
+  return <svg viewBox="0 0 80 220" className={`pointer-events-none ${className}`} fill="none" aria-hidden="true"><path d="M40 0v84" stroke="#d6a94f" strokeWidth="2"/><circle cx="40" cy="85" r="4" fill="#f4d579"/><path d="M40 88v23m-5-4q5 8 10 0M24 118h32l-4 8H28zM20 126q20 27 40 0l-6 18H26zM32 144h16v8H32zM36 152h8v12h-8zM30 164h20l-5 7h-10z" fill="#b77b2b" stroke="#f1cf77" strokeWidth="1.5"/><path d="M29 119c-7-12 1-17 3-8m5 8c-3-17 4-20 5-8m4 8c1-15 8-16 7-5m-30 19q17 7 34 0" stroke="#ffdc83" strokeWidth="2"/><path d="M38 116q2-7 4 0" stroke="#fff5c1" strokeWidth="3"/></svg>
+}
+
+function OrnamentDivider({ small = false }) {
+  return <div className={`flex w-60 items-center justify-center gap-2 text-[#d9ad53]/80 ${small ? 'my-2' : 'my-4'}`} aria-hidden="true"><span className="h-px flex-1 bg-gradient-to-r from-transparent to-current"/><LotusIcon className={small ? 'h-3 w-3' : 'h-4 w-4'}/><span className="h-px flex-1 bg-gradient-to-l from-transparent to-current"/></div>
+}
+
+function LotusIcon({ className = '' }) {
+  return <svg viewBox="0 0 24 24" className={className} fill="currentColor" aria-hidden="true"><path d="M12 3c-2.3 2.4-3.5 4.6-3.5 6.6 0 1.6 1.3 2.8 3.5 3.3 2.2-.5 3.5-1.7 3.5-3.3C15.5 7.6 14.3 5.4 12 3ZM5 8c-.4 3.2.4 5.3 2.3 6.4 1.1.6 2.3.7 3.6.3C9 11.8 7 9.6 5 8Zm14 0c-2 1.6-4 3.8-5.9 6.7 1.3.4 2.5.3 3.6-.3C18.6 13.3 19.4 11.2 19 8ZM3 14c2 4.4 5 6.6 9 6.6s7-2.2 9-6.6c-2.4 1.6-5.4 2.4-9 2.4S5.4 15.6 3 14Z"/></svg>
 }
 
 function OmMedallion({ pulse = false }) {
@@ -346,11 +320,3 @@ function OmMedallion({ pulse = false }) {
   )
 }
 
-function SparkleIcon({ className = '' }) {
-  return (
-    <svg viewBox="0 0 24 24" className={className} fill="currentColor" aria-hidden="true">
-      <path d="M12 2l1.2 6.3L19.5 12l-6.3 1.2L12 22l-1.2-8.8L4.5 12l6.3-3.7L12 2z" />
-      <path d="M19 4l.5 2.2L21.5 7l-2 0.5L19 9.5l-.5-2L16.5 7l2-.5L19 4z" opacity="0.85" />
-    </svg>
-  )
-}
