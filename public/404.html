@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="ta">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#7B1E1E" />
+    <title>பக்கம் இல்லை - Page not found</title>
+    <style>
+      :root {
+        --maroon: #7b1e1e;
+        --gold: #d4a017;
+        --sandal: #fff8e7;
+      }
+      * { box-sizing: border-box; }
+      body {
+        margin: 0;
+        min-height: 100dvh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 1.5rem;
+        font-family: Georgia, "Times New Roman", serif;
+        background: linear-gradient(180deg, #fff8e7 0%, #f5e6c8 100%);
+        color: var(--maroon);
+        text-align: center;
+      }
+      .card {
+        max-width: 26rem;
+        padding: 2rem 1.5rem;
+        border: 2px solid var(--gold);
+        box-shadow: inset 0 0 0 4px var(--sandal), inset 0 0 0 6px var(--gold);
+        background: rgba(255, 248, 231, 0.85);
+      }
+      h1 {
+        margin: 0 0 0.75rem;
+        font-size: 1.5rem;
+        color: var(--gold);
+      }
+      p { margin: 0 0 1.25rem; line-height: 1.5; opacity: 0.85; }
+      a {
+        display: inline-block;
+        padding: 0.65rem 1.1rem;
+        background: var(--maroon);
+        color: var(--sandal);
+        text-decoration: none;
+        border: 1px solid var(--gold);
+      }
+      a:focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; }
+    </style>
+  </head>
+  <body>
+    <div class="card">
+      <h1>உ · 404</h1>
+      <p>இந்தப் பக்கம் கிடைக்கவில்லை.<br />This page could not be found.</p>
+      <a href="/">திரும்பச் செல் / Go home</a>
+    </div>
+  </body>
+</html>
