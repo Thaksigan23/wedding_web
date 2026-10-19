@@ -139,10 +139,10 @@ function EventCard({ event, featured, t, lang }) {
 
   return (
     <article
-      className={`${base} border-gold/30 bg-ivory`}
+      className={`${base} border-maroon/18 bg-ivory`}
       style={{ boxShadow: 'var(--shadow-soft)' }}
     >
-      <p className="font-sans text-[0.65rem] font-medium tracking-[0.18em] text-gold-ink uppercase">
+      <p className="font-sans text-[0.65rem] font-medium tracking-[0.18em] text-maroon/65 uppercase">
         {t(event.date)}
         {event.time ? ` · ${t(event.time)}` : ''}
       </p>

@@ -75,7 +75,7 @@ export function Venue() {
 function VenueSplit({ venue, t, lang, onIcs, googleUrl }) {
   return (
     <div
-      className="grid items-stretch gap-0 overflow-hidden rounded-[20px] border border-gold/30 bg-ivory md:grid-cols-2"
+      className="grid items-stretch gap-0 overflow-hidden rounded-[20px] border border-maroon/18 bg-ivory md:grid-cols-2"
       style={{ boxShadow: 'var(--shadow-soft)' }}
     >
       <div className="flex flex-col justify-center px-6 py-8 md:px-10 md:py-12">

@@ -70,95 +70,34 @@ export function Footer() {
           ))}
         </ul>
 
-        {/* Made with love — Techloom credit */}
-        <div className="mt-12 border-t border-gold/20 pt-8">
-          <div className="mb-5 flex justify-center text-gold/55" aria-hidden="true">
-            <DiamondDivider className="h-4 w-40 md:w-48" />
-          </div>
-
+        {/* Made with love by + logo only */}
+        <div className="mt-12 border-t border-white/10 pt-7">
           <a
             href={creditUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="group inline-flex flex-col items-center gap-3 rounded-xl px-4 py-2 transition hover:opacity-95 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gold"
+            className="inline-flex items-center justify-center gap-2 transition hover:opacity-90 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gold"
             aria-label={`${t(wedding.footer.madeWithLove)} ${creditName}`}
           >
             <span
-              className={`text-[0.72rem] tracking-[0.06em] text-ivory/55 ${
+              className={`text-[0.8rem] text-ivory/50 ${
                 lang === 'ta' ? 'font-tamil' : 'font-sans'
               }`}
             >
               {t(wedding.footer.madeWithLove)}
             </span>
-
-            <span className="inline-flex items-center gap-2.5 rounded-full border border-gold/25 bg-maroon-deep/40 px-4 py-2 shadow-[inset_0_1px_0_rgba(201,162,74,0.12)] transition group-hover:border-gold/45">
-              <img
-                src={creditLogo}
-                alt=""
-                width={36}
-                height={36}
-                className="h-8 w-8 object-contain md:h-9 md:w-9"
-                loading="lazy"
-                decoding="async"
-              />
-              <span className="font-sans text-[0.85rem] font-semibold tracking-[0.02em] text-[#FCEE21]">
-                {creditName}
-              </span>
-            </span>
+            <img
+              src={creditLogo}
+              alt={creditName}
+              width={28}
+              height={28}
+              className="h-6 w-6 object-contain md:h-7 md:w-7"
+              loading="lazy"
+              decoding="async"
+            />
           </a>
         </div>
       </div>
     </footer>
-  )
-}
-
-/** Gold diamond / leaf divider matching invite footer style */
-function DiamondDivider({ className = '' }) {
-  return (
-    <svg
-      viewBox="0 0 200 24"
-      className={className}
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      <path
-        d="M8 12 C40 12 55 12 78 12"
-        stroke="currentColor"
-        strokeWidth="1"
-        strokeLinecap="round"
-        opacity="0.7"
-      />
-      <path
-        d="M122 12 C145 12 160 12 192 12"
-        stroke="currentColor"
-        strokeWidth="1"
-        strokeLinecap="round"
-        opacity="0.7"
-      />
-      <path
-        d="M28 12 L40 8 L52 12 L40 16 Z"
-        fill="currentColor"
-        opacity="0.35"
-      />
-      <path
-        d="M148 12 L160 8 L172 12 L160 16 Z"
-        fill="currentColor"
-        opacity="0.35"
-      />
-      <path
-        d="M100 2 L112 12 L100 22 L88 12 Z"
-        stroke="currentColor"
-        strokeWidth="1.2"
-        fill="none"
-      />
-      <path
-        d="M100 6 L108 12 L100 18 L92 12 Z"
-        stroke="currentColor"
-        strokeWidth="1"
-        fill="none"
-        opacity="0.85"
-      />
-      <circle cx="100" cy="12" r="2" fill="currentColor" />
-    </svg>
   )
 }

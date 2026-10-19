@@ -21,9 +21,9 @@ export function SectionHeader({
   return (
     <ScrollReveal className={`mb-10 text-center md:mb-14 ${className}`} blur>
       {eyebrow && (
-        <p className={`eyebrow mb-4 ${light ? '!text-gold' : ''}`}>
+        <p className={`eyebrow mb-4 ${light ? '!text-gold !opacity-100' : ''}`}>
           <span lang="en">{eyebrow.en}</span>
-          <span className={`mx-2 ${light ? 'text-gold/40' : 'text-gold/50'}`}>/</span>
+          <span className={`mx-2 ${light ? 'text-gold/40' : 'text-maroon/30'}`}>/</span>
           <span lang="ta" className="font-tamil normal-case tracking-normal">
             {eyebrow.ta}
           </span>

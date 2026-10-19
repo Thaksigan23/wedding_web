@@ -39,8 +39,11 @@ export function Hero({ audioUnlocked }) {
     >
       {/* Corner controls */}
       <div className="relative z-20 flex items-start justify-between gap-2 px-[var(--section-pad-x)] pt-5 md:pt-6">
-        <LanguageToggle />
-        <AudioToggle unlocked={audioUnlocked} />
+        <LanguageToggle className="!border-maroon/25 !bg-ivory/90 !text-maroon" />
+        <AudioToggle
+          unlocked={audioUnlocked}
+          className="!border-maroon/25 !bg-ivory/90 !text-maroon"
+        />
       </div>
 
       <div className="relative z-10 mx-auto flex w-full max-w-2xl flex-1 flex-col px-5 pb-8 pt-1 text-center sm:px-8">

@@ -2,50 +2,49 @@ import { motion } from 'framer-motion'
 import { usePrefersReducedMotion } from '../../hooks/usePrefersReducedMotion'
 
 /**
- * Realistic floral toran + lantern header photo.
+ * Floral toran + lanterns — soft-edged, no hard box or circular overlays.
+ * @param {'soft'|'plain'} variant - soft uses multiply+feather for light pages; plain for dark doors
  */
-export function FloralLanternHeader({ className = '' }) {
+export function FloralLanternHeader({ className = '', variant = 'soft' }) {
   const reduced = usePrefersReducedMotion()
+  const soft = variant === 'soft'
 
   return (
-    <div className={`pointer-events-none relative w-full ${className}`} aria-hidden="true">
+    <div
+      className={`pointer-events-none relative mx-auto w-full max-w-3xl overflow-hidden ${className}`}
+      aria-hidden="true"
+    >
       <motion.img
         src="/images/floral-lantern-header.jpg"
         alt=""
         width={1200}
         height={675}
-        className="mx-auto h-auto w-full max-w-3xl object-contain object-top"
-        style={{
-          maskImage: 'linear-gradient(180deg, #000 55%, transparent 100%)',
-          WebkitMaskImage: 'linear-gradient(180deg, #000 55%, transparent 100%)',
-        }}
+        className="mx-auto block h-auto w-[115%] max-w-none -translate-x-[7.5%] scale-[1.02] object-cover object-top sm:w-full sm:max-w-3xl sm:translate-x-0 sm:object-contain"
+        style={
+          soft
+            ? {
+                WebkitMaskImage: `
+                  linear-gradient(90deg, transparent 0%, #000 10%, #000 90%, transparent 100%),
+                  linear-gradient(180deg, transparent 0%, #000 12%, #000 58%, transparent 100%)
+                `,
+                maskImage: `
+                  linear-gradient(90deg, transparent 0%, #000 10%, #000 90%, transparent 100%),
+                  linear-gradient(180deg, transparent 0%, #000 12%, #000 58%, transparent 100%)
+                `,
+                WebkitMaskComposite: 'source-in',
+                maskComposite: 'intersect',
+                mixBlendMode: 'multiply',
+              }
+            : {
+                WebkitMaskImage:
+                  'linear-gradient(180deg, #000 0%, #000 55%, transparent 100%)',
+                maskImage: 'linear-gradient(180deg, #000 0%, #000 55%, transparent 100%)',
+              }
+        }
         draggable={false}
-        animate={reduced ? undefined : { y: [0, -3, 0] }}
+        animate={reduced ? undefined : { y: [0, -2, 0] }}
         transition={{ duration: 5.5, repeat: Infinity, ease: 'easeInOut' }}
       />
-
-      {/* Soft floating lantern accents */}
-      <div className="absolute inset-x-0 top-[42%] mx-auto flex max-w-2xl justify-between px-[10%] sm:px-[14%]">
-        {[0, 1, 2].map((i) => (
-          <motion.img
-            key={i}
-            src="/images/icon-lantern.jpg"
-            alt=""
-            width={40}
-            height={40}
-            className="h-8 w-8 rounded-full object-cover shadow-md ring-1 ring-gold/30 sm:h-10 sm:w-10"
-            style={{ marginTop: [0, 14, 6][i] }}
-            draggable={false}
-            animate={reduced ? undefined : { rotate: [-3, 3, -3], y: [0, 4, 0] }}
-            transition={{
-              duration: 3.6 + i * 0.4,
-              repeat: Infinity,
-              ease: 'easeInOut',
-              delay: i * 0.25,
-            }}
-          />
-        ))}
-      </div>
     </div>
   )
 }

@@ -69,7 +69,7 @@ function PersonCard({ person, role, delay, parallaxSign }) {
     <ScrollReveal delay={delay} className="h-full">
       <motion.article
         ref={ref}
-        className="group flex h-full min-h-[44px] flex-col items-center rounded-[20px] border border-gold/35 bg-ivory px-5 py-8 text-center transition duration-300 md:px-6 md:py-10"
+        className="group flex h-full min-h-[44px] flex-col items-center rounded-[20px] border border-maroon/20 bg-ivory px-5 py-8 text-center transition duration-300 md:px-6 md:py-10"
         style={{ boxShadow: 'var(--shadow-soft)' }}
         whileHover={
           reduced

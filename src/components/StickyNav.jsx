@@ -89,7 +89,7 @@ export function StickyNav({ audioUnlocked }) {
       style={{ transitionTimingFunction: 'cubic-bezier(0.16, 1, 0.3, 1)' }}
     >
       <div
-        className="border-b border-gold/20 bg-ivory/88 backdrop-blur-xl"
+        className="border-b border-maroon/15 bg-ivory/90 backdrop-blur-xl"
         style={{ boxShadow: visible ? 'var(--shadow-nav)' : 'none' }}
       >
         <div className="site-shell flex h-14 items-center justify-between gap-3 md:h-16">

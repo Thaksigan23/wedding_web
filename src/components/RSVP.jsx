@@ -106,7 +106,7 @@ export function RSVP() {
 
         <ScrollReveal delay={0.08}>
           <div
-            className="mx-auto max-w-lg rounded-[20px] border border-gold/30 bg-ivory px-5 py-8 md:px-8 md:py-10"
+            className="mx-auto max-w-lg rounded-[20px] border border-maroon/18 bg-ivory px-5 py-8 md:px-8 md:py-10"
             style={{ boxShadow: 'var(--shadow-soft)' }}
           >
             {!hasEndpoint ? (
