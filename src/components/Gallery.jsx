@@ -48,15 +48,15 @@ export function Gallery() {
   return (
     <section
       id="gallery"
-      className="section-pad relative bg-blush"
+      className="surface-maroon-soft section-pad relative"
       aria-labelledby="gallery-heading"
     >
       <div className="site-shell">
-        <SectionHeader eyebrowKey="gallery" titleKey="gallery" titleId="gallery-heading" />
+        <SectionHeader eyebrowKey="gallery" titleKey="gallery" titleId="gallery-heading" light />
 
         {visible.length === 0 ? (
           <p
-            className={`mx-auto max-w-md text-center text-sm text-maroon/50 ${
+            className={`mx-auto max-w-md text-center text-sm text-ivory/50 ${
               lang === 'ta' ? 'font-tamil leading-[1.7]' : 'font-sans'
             }`}
           >
@@ -77,7 +77,7 @@ export function Gallery() {
                     style={{ boxShadow: 'var(--shadow-soft)' }}
                     aria-label={t(item.alt)}
                   >
-                    <span className="absolute inset-0 bg-blush/40" aria-hidden="true" />
+                    <span className="absolute inset-0 bg-[#efe3e4]/50" aria-hidden="true" />
                     <img
                       src={item.src}
                       alt={t(item.alt)}

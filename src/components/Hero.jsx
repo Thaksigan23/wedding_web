@@ -35,32 +35,29 @@ export function Hero({ audioUnlocked }) {
   return (
     <section
       id="hero"
-      className="invite-wash relative flex min-h-[100svh] flex-col overflow-hidden text-maroon"
+      className="invite-wash relative flex min-h-[100svh] flex-col overflow-hidden text-ivory"
     >
-      {/* Corner controls */}
       <div className="relative z-20 flex items-start justify-between gap-2 px-[var(--section-pad-x)] pt-5 md:pt-6">
-        <LanguageToggle className="!border-maroon/25 !bg-ivory/90 !text-maroon" />
+        <LanguageToggle className="!border-gold/40 !bg-maroon-deep/50 !text-ivory" />
         <AudioToggle
           unlocked={audioUnlocked}
-          className="!border-maroon/25 !bg-ivory/90 !text-maroon"
+          className="!border-gold/40 !bg-maroon-deep/50 !text-ivory"
         />
       </div>
 
       <div className="relative z-10 mx-auto flex w-full max-w-2xl flex-1 flex-col px-5 pb-8 pt-1 text-center sm:px-8">
-        {/* Floral + lanterns */}
         <motion.div {...fade(0.05, 8)}>
-          <FloralLanternHeader className="mb-2 md:mb-4" />
+          <FloralLanternHeader className="mb-2 md:mb-4" variant="plain" />
         </motion.div>
 
-        {/* Script ceremony label */}
         <motion.div {...fade(0.15)}>
           {lang === 'ta' ? (
-            <h1 className="heading-tamil text-[clamp(1.65rem,1.3rem+1.5vw,2.4rem)] text-maroon">
+            <h1 className="heading-tamil text-[clamp(1.65rem,1.3rem+1.5vw,2.4rem)] text-ivory">
               {wedding.ceremonyLabel.ta}
             </h1>
           ) : (
             <h1
-              className="font-script text-maroon"
+              className="font-script text-ivory"
               style={{ fontSize: 'clamp(2.4rem, 1.6rem + 3vw, 3.75rem)' }}
             >
               {wedding.ceremonyLabel.en}
@@ -68,11 +65,10 @@ export function Hero({ audioUnlocked }) {
           )}
         </motion.div>
 
-        {/* Lead invite line */}
         <motion.p
           className={`mx-auto mt-4 max-w-md ${
             lang === 'ta'
-              ? 'font-tamil text-sm leading-[1.75] text-maroon/70'
+              ? 'font-tamil text-sm leading-[1.75] text-ivory/75'
               : 'invite-lead'
           }`}
           {...fade(0.25)}
@@ -80,17 +76,16 @@ export function Hero({ audioUnlocked }) {
           {t(wedding.inviteLead)}
         </motion.p>
 
-        {/* Names */}
         <motion.div className="mt-6 md:mt-8" {...fade(0.35)}>
           {lang === 'ta' ? (
-            <p className="font-tamil text-[clamp(1.45rem,1.15rem+1.4vw,2.15rem)] leading-[1.65] text-maroon">
+            <p className="font-tamil text-[clamp(1.45rem,1.15rem+1.4vw,2.15rem)] leading-[1.65] text-gold">
               {wedding.bride.name.ta}
-              <span className="mx-2 font-script text-[1.15em] text-maroon/80">&</span>
+              <span className="mx-2 font-script text-[1.15em] text-gold/85">&</span>
               {wedding.groom.name.ta}
             </p>
           ) : (
             <p
-              className="font-script leading-[1.1] text-maroon"
+              className="font-script leading-[1.1] text-gold"
               style={{ fontSize: 'clamp(2.8rem, 1.7rem + 4.5vw, 5rem)' }}
             >
               {brideEn}
@@ -98,9 +93,8 @@ export function Hero({ audioUnlocked }) {
               {groomEn}
             </p>
           )}
-          {/* Always show the other language softly */}
           <p
-            className={`mt-2 text-maroon/45 ${
+            className={`mt-2 text-ivory/45 ${
               lang === 'ta'
                 ? 'font-script text-[clamp(1.35rem,1.1rem+1vw,1.85rem)]'
                 : 'font-tamil text-sm leading-[1.7]'
@@ -112,14 +106,12 @@ export function Hero({ audioUnlocked }) {
           </p>
         </motion.div>
 
-        {/* Date block */}
         <motion.div className="mt-8 md:mt-10" {...fade(0.48)}>
-          <InviteDateBlock />
+          <InviteDateBlock light />
         </motion.div>
 
-        {/* Time */}
         <motion.p
-          className={`mt-5 font-sans text-[0.72rem] tracking-[0.2em] text-maroon/65 uppercase ${
+          className={`mt-5 font-sans text-[0.72rem] tracking-[0.2em] text-ivory/65 uppercase ${
             lang === 'ta' ? '!font-tamil !normal-case !tracking-normal !text-sm leading-[1.7]' : ''
           }`}
           {...fade(0.55)}
@@ -127,21 +119,20 @@ export function Hero({ audioUnlocked }) {
           {t(wedding.muhurtham.nallaNeram)}
         </motion.p>
 
-        {/* Venue */}
         {venue && (
           <motion.div className="mt-4" {...fade(0.62)}>
-            <p className="font-sans text-[0.58rem] tracking-[0.28em] text-maroon/55 uppercase">
+            <p className="font-sans text-[0.58rem] tracking-[0.28em] text-gold/80 uppercase">
               :: {lang === 'ta' ? 'நிகழ்விடம்' : 'Venue'} ::
             </p>
             <p
-              className={`mt-1.5 text-sm text-maroon/75 ${
+              className={`mt-1.5 text-sm text-ivory/80 ${
                 lang === 'ta' ? 'font-tamil leading-[1.7]' : 'font-display text-base tracking-wide'
               }`}
             >
               {t(venue.name)}
             </p>
             <p
-              className={`mt-0.5 text-xs text-maroon/50 ${
+              className={`mt-0.5 text-xs text-ivory/50 ${
                 lang === 'ta' ? 'font-tamil leading-[1.7]' : 'font-sans tracking-wide'
               }`}
             >
@@ -150,26 +141,21 @@ export function Hero({ audioUnlocked }) {
           </motion.div>
         )}
 
-        {/* Illustration */}
-        <motion.div
-          className="relative mt-auto pt-8 md:pt-10"
-          {...fade(0.7, 24)}
-        >
+        <motion.div className="relative mt-auto pt-8 md:pt-10" {...fade(0.7, 24)}>
           <MandapScene className="mx-auto h-auto w-full max-w-lg drop-shadow-sm" />
         </motion.div>
       </div>
 
-      {/* Scroll cue */}
       <motion.div
         className="absolute bottom-4 left-1/2 z-10 flex -translate-x-1/2 flex-col items-center gap-1.5"
         {...fade(0.9)}
         aria-hidden="true"
       >
-        <span className="font-sans text-[0.5rem] tracking-[0.28em] text-maroon/35 uppercase">
+        <span className="font-sans text-[0.5rem] tracking-[0.28em] text-ivory/40 uppercase">
           Scroll
         </span>
         <motion.span
-          className="block h-7 w-px origin-top bg-gradient-to-b from-maroon/40 to-transparent"
+          className="block h-7 w-px origin-top bg-gradient-to-b from-gold/50 to-transparent"
           animate={reduced ? undefined : { scaleY: [0.55, 1, 0.55], opacity: [0.35, 1, 0.35] }}
           transition={{ duration: 2.2, repeat: Infinity, ease: 'easeInOut' }}
         />

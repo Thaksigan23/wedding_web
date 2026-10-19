@@ -117,7 +117,7 @@ export function SecretKeysGame() {
   return (
     <section
       id="game"
-      className="relative overflow-hidden bg-ivory px-[var(--section-pad-x)] py-[var(--section-pad-y)]"
+      className="surface-maroon relative overflow-hidden px-[var(--section-pad-x)] py-[var(--section-pad-y)]"
       aria-labelledby="secret-keys-heading"
     >
       <FloralDust />

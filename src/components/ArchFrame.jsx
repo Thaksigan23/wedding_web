@@ -10,7 +10,7 @@ export function ArchFrame({ src, alt, label, className = '', parallaxY = 0 }) {
   return (
     <div className={`relative mx-auto w-36 md:w-44 ${className}`}>
       <div
-        className="arch-frame relative overflow-hidden bg-blush"
+        className="arch-frame relative overflow-hidden bg-[#efe3e4]"
         style={{
           aspectRatio: '3 / 4',
           border: '1px solid color-mix(in srgb, var(--color-gold) 55%, transparent)',
@@ -41,7 +41,7 @@ export function ArchFrame({ src, alt, label, className = '', parallaxY = 0 }) {
 function PlaceholderSilhouette({ label }) {
   return (
     <div
-      className="flex h-full w-full flex-col items-end justify-end bg-gradient-to-b from-ivory to-blush"
+      className="flex h-full w-full flex-col items-end justify-end bg-gradient-to-b from-[#f7f0ea] to-[#efe3e4]"
       role="img"
       aria-label={label || 'Photo placeholder'}
     >

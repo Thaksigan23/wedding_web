@@ -22,7 +22,7 @@ export function MandapScene({ className = '' }) {
         className="pointer-events-none absolute inset-0"
         style={{
           background:
-            'linear-gradient(180deg, rgba(255,251,245,0.35) 0%, transparent 22%, transparent 78%, rgba(247,228,220,0.55) 100%)',
+            'linear-gradient(180deg, rgba(94,18,28,0.45) 0%, transparent 22%, transparent 72%, rgba(31,5,9,0.75) 100%)',
         }}
         aria-hidden="true"
       />

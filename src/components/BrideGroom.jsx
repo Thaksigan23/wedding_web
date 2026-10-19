@@ -13,7 +13,7 @@ export function BrideGroom() {
   return (
     <section
       id="story"
-      className="section-pad relative bg-ivory"
+      className="surface-maroon section-pad relative"
       aria-labelledby="couple-heading"
     >
       <div className="site-shell">
@@ -21,6 +21,7 @@ export function BrideGroom() {
           eyebrowKey="couple"
           titleKey="couple"
           titleId="couple-heading"
+          light
           className="!mb-12 md:!mb-16"
         />
 
@@ -69,7 +70,7 @@ function PersonCard({ person, role, delay, parallaxSign }) {
     <ScrollReveal delay={delay} className="h-full">
       <motion.article
         ref={ref}
-        className="group flex h-full min-h-[44px] flex-col items-center rounded-[20px] border border-maroon/20 bg-ivory px-5 py-8 text-center transition duration-300 md:px-6 md:py-10"
+        className="panel-ivory group flex h-full min-h-[44px] flex-col items-center rounded-[20px] px-5 py-8 text-center shadow-[var(--shadow-soft)] transition duration-300 md:px-6 md:py-10"
         style={{ boxShadow: 'var(--shadow-soft)' }}
         whileHover={
           reduced
@@ -82,25 +83,25 @@ function PersonCard({ person, role, delay, parallaxSign }) {
           <ArchFrame src={person.photo} alt={t(person.name)} label={t(role)} />
         </motion.div>
 
-        <p className="mt-5 font-sans text-[0.65rem] tracking-[0.22em] text-maroon/60 uppercase">
+        <p className="mt-5 font-sans text-[0.65rem] tracking-[0.22em] text-[#5e121c]/60 uppercase">
           {t(role)}
         </p>
 
         <h3
-          className="mt-2 font-display font-light text-maroon"
+          className="mt-2 font-display font-light text-[#5e121c]"
           style={{ fontSize: 'clamp(1.5rem, 1.25rem + 1vw, 2.15rem)' }}
         >
           {person.name.en}
         </h3>
-        <p className="mt-1 font-tamil text-base leading-[1.7] text-maroon/70">
+        <p className="mt-1 font-tamil text-base leading-[1.7] text-[#5e121c]/70">
           {person.name.ta}
         </p>
 
-        <p className="mt-4 max-w-[16rem] font-sans text-sm leading-relaxed text-maroon/65">
+        <p className="mt-4 max-w-[16rem] font-sans text-sm leading-relaxed text-[#5e121c]/65">
           {t(person.parents)}
         </p>
 
-        <p className="mt-3 font-sans text-[0.65rem] tracking-[0.2em] text-maroon/55 uppercase">
+        <p className="mt-3 font-sans text-[0.65rem] tracking-[0.2em] text-[#5e121c]/55 uppercase">
           {t(person.hometown)}
         </p>
       </motion.article>

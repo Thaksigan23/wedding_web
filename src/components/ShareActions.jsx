@@ -60,7 +60,7 @@ export function ShareActions() {
 
   return (
     <section
-      className="section-pad relative hidden bg-blush py-10 md:block"
+      className="surface-maroon-soft section-pad relative hidden py-10 md:block"
       aria-label={t(wedding.share.shareWhatsApp)}
     >
       <div className="site-shell flex justify-center">
@@ -68,7 +68,7 @@ export function ShareActions() {
           href={whatsappUrl}
           target="_blank"
           rel="noopener noreferrer"
-          className="btn-pill inline-flex min-h-[44px] items-center gap-2 border border-[#25D366]/40 bg-[#25D366]/12 text-maroon hover:bg-[#25D366]/2"
+          className="btn-pill inline-flex min-h-[44px] items-center gap-2 border border-[#25D366]/45 bg-[#25D366]/15 text-ivory hover:bg-[#25D366]/25"
         >
           <WhatsAppIcon />
           {t(wedding.share.shareWhatsApp)}

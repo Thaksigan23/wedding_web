@@ -89,7 +89,7 @@ export function StickyNav({ audioUnlocked }) {
       style={{ transitionTimingFunction: 'cubic-bezier(0.16, 1, 0.3, 1)' }}
     >
       <div
-        className="border-b border-maroon/15 bg-ivory/90 backdrop-blur-xl"
+        className="border-b border-gold/20 bg-maroon-deep/92 backdrop-blur-xl"
         style={{ boxShadow: visible ? 'var(--shadow-nav)' : 'none' }}
       >
         <div className="site-shell flex h-14 items-center justify-between gap-3 md:h-16">
@@ -99,7 +99,7 @@ export function StickyNav({ audioUnlocked }) {
               e.preventDefault()
               go('hero')
             }}
-            className="font-display text-lg tracking-[0.08em] text-maroon md:text-xl"
+            className="font-display text-lg tracking-[0.08em] text-gold md:text-xl"
             aria-label={t(wedding.invitationTitle)}
           >
             {initials}
@@ -116,8 +116,8 @@ export function StickyNav({ audioUnlocked }) {
                 }}
                 className={`rounded-full px-3.5 py-1.5 font-sans text-[0.68rem] tracking-[0.18em] uppercase transition duration-300 ${
                   active === link.id
-                    ? 'bg-maroon text-ivory shadow-sm'
-                    : 'text-maroon/55 hover:bg-maroon/10 hover:text-maroon'
+                    ? 'bg-gold text-maroon-deep shadow-sm'
+                    : 'text-ivory/55 hover:bg-ivory/10 hover:text-ivory'
                 }`}
               >
                 {t(wedding.nav[link.key])}
@@ -130,7 +130,7 @@ export function StickyNav({ audioUnlocked }) {
             <AudioToggle unlocked={audioUnlocked} />
             <button
               type="button"
-              className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-gold/30 text-maroon md:hidden"
+              className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-gold/40 text-ivory md:hidden"
               aria-expanded={menuOpen}
               aria-controls="mobile-nav-menu"
               aria-label={menuOpen ? t(wedding.nav.close) : t(wedding.nav.menu)}
@@ -141,11 +141,10 @@ export function StickyNav({ audioUnlocked }) {
           </div>
         </div>
 
-        {/* Mobile menu */}
         <div
           id="mobile-nav-menu"
           hidden={!menuOpen}
-          className="border-t border-gold/10 md:hidden"
+          className="border-t border-gold/15 md:hidden"
         >
           <nav className="site-shell flex flex-col gap-1 py-3" aria-label="Mobile section">
             {LINKS.map((link) => (
@@ -160,8 +159,8 @@ export function StickyNav({ audioUnlocked }) {
                   lang === 'ta' ? 'font-tamil' : ''
                 } ${
                   active === link.id
-                    ? 'bg-maroon/10 text-maroon'
-                    : 'text-maroon/70 hover:bg-maroon/8'
+                    ? 'bg-gold/15 text-gold'
+                    : 'text-ivory/70 hover:bg-ivory/8'
                 }`}
               >
                 {t(wedding.nav[link.key])}

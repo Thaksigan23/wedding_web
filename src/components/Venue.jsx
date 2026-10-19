@@ -19,11 +19,11 @@ export function Venue() {
   return (
     <section
       id="venue"
-      className="section-pad relative bg-ivory"
+      className="surface-maroon section-pad relative"
       aria-labelledby="venue-heading"
     >
       <div className="site-shell">
-        <SectionHeader eyebrowKey="venue" titleKey="venue" titleId="venue-heading" />
+        <SectionHeader eyebrowKey="venue" titleKey="venue" titleId="venue-heading" light />
 
         {useTabs && (
           <div
@@ -42,8 +42,8 @@ export function Venue() {
                 onClick={() => setActiveId(v.id)}
                 className={`min-h-[44px] rounded-full px-5 font-sans text-[0.7rem] tracking-[0.16em] uppercase transition ${
                   active.id === v.id
-                    ? 'bg-maroon text-ivory'
-                    : 'border border-gold/35 text-maroon/70 hover:border-gold/60'
+                    ? 'bg-gold text-maroon-deep'
+                    : 'border border-gold/40 text-ivory/75 hover:border-gold/70 hover:text-ivory'
                 }`}
               >
                 {t(v.label)}
@@ -75,7 +75,7 @@ export function Venue() {
 function VenueSplit({ venue, t, lang, onIcs, googleUrl }) {
   return (
     <div
-      className="grid items-stretch gap-0 overflow-hidden rounded-[20px] border border-maroon/18 bg-ivory md:grid-cols-2"
+      className="panel-ivory grid items-stretch gap-0 overflow-hidden rounded-[20px] md:grid-cols-2"
       style={{ boxShadow: 'var(--shadow-soft)' }}
     >
       <div className="flex flex-col justify-center px-6 py-8 md:px-10 md:py-12">
@@ -134,7 +134,7 @@ function VenueSplit({ venue, t, lang, onIcs, googleUrl }) {
       </div>
 
       {venue.mapsEmbedUrl && (
-        <div className="min-h-[220px] overflow-hidden border-t border-gold/20 bg-blush md:min-h-full md:border-t-0 md:border-l">
+        <div className="min-h-[220px] overflow-hidden border-t border-gold/25 bg-[#efe3e4] md:min-h-full md:border-t-0 md:border-l">
           <iframe
             title={`${t(venue.name)} map`}
             src={venue.mapsEmbedUrl}

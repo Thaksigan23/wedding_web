@@ -1,22 +1,22 @@
 @import "tailwindcss";
 
-/* Full maroon wedding theme (deep maroon · soft maroon wash · gold) */
+/* Deep maroon wedding theme — maroon fields · ivory type · gold accents */
 @theme {
-  --color-ivory: #f8f3f0;
-  --color-blush: #efe3e4;
-  --color-blush-deep: #e2d0d2;
-  --color-rose: #a84d55;
+  --color-ivory: #f7f0ea;
+  --color-blush: #6e1a26;
+  --color-blush-deep: #52141d;
+  --color-rose: #d4a0a5;
   --color-maroon: #5e121c;
-  --color-maroon-deep: #2f080e;
-  --color-gold: #c9a24a;
-  --color-gold-ink: #7a4a28;
+  --color-maroon-deep: #1f0509;
+  --color-gold: #d4b05c;
+  --color-gold-ink: #e8d09a;
   --color-kumkum: #8b1520;
-  --color-sandal: #f8f3f0;
-  --color-temple-gold: #c9a24a;
-  --color-turmeric: #c9a24a;
+  --color-sandal: #f7f0ea;
+  --color-temple-gold: #d4b05c;
+  --color-turmeric: #d4b05c;
   --color-jasmine: #fffef9;
-  --color-leaf: #4a5c4a;
-  --color-muted: #6b4548;
+  --color-leaf: #8a9e7a;
+  --color-muted: #c9b0b3;
 
   --font-display: "Cormorant Garamond", "Palatino Linotype", Palatino, Georgia, serif;
   --font-script: "Great Vibes", "Segoe Script", "Apple Chancery", cursive;
@@ -29,9 +29,9 @@
   --radius-lg: 24px;
   --radius-pill: 999px;
 
-  --shadow-soft: 0 8px 32px rgba(94, 18, 28, 0.12);
-  --shadow-lift: 0 18px 48px rgba(94, 18, 28, 0.18);
-  --shadow-nav: 0 1px 0 rgba(201, 162, 74, 0.25), 0 10px 36px rgba(94, 18, 28, 0.12);
+  --shadow-soft: 0 8px 32px rgba(0, 0, 0, 0.28);
+  --shadow-lift: 0 18px 48px rgba(0, 0, 0, 0.38);
+  --shadow-nav: 0 1px 0 rgba(212, 176, 92, 0.28), 0 10px 36px rgba(0, 0, 0, 0.35);
 
   --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
   --content-max: 1100px;
@@ -41,25 +41,25 @@
 
 @layer base {
   :root {
-    --color-ivory: #f8f3f0;
-    --color-blush: #efe3e4;
-    --color-blush-deep: #e2d0d2;
-    --color-rose: #a84d55;
+    --color-ivory: #f7f0ea;
+    --color-blush: #6e1a26;
+    --color-blush-deep: #52141d;
+    --color-rose: #d4a0a5;
     --color-maroon: #5e121c;
-    --color-maroon-deep: #2f080e;
-    --color-gold: #c9a24a;
-    --color-gold-ink: #7a4a28;
+    --color-maroon-deep: #1f0509;
+    --color-gold: #d4b05c;
+    --color-gold-ink: #e8d09a;
     --color-kumkum: #8b1520;
-    --color-sandal: #f8f3f0;
-    --color-temple-gold: #c9a24a;
-    --color-turmeric: #c9a24a;
-    --color-muted: #6b4548;
+    --color-sandal: #f7f0ea;
+    --color-temple-gold: #d4b05c;
+    --color-turmeric: #d4b05c;
+    --color-muted: #c9b0b3;
 
     --radius-sm: 12px;
     --radius-md: 16px;
     --radius-lg: 24px;
-    --shadow-soft: 0 8px 32px rgba(94, 18, 28, 0.12);
-    --shadow-lift: 0 18px 48px rgba(94, 18, 28, 0.18);
+    --shadow-soft: 0 8px 32px rgba(0, 0, 0, 0.28);
+    --shadow-lift: 0 18px 48px rgba(0, 0, 0, 0.38);
     --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
     --content-max: 1100px;
     --section-pad-y: clamp(4rem, 9vw, 7.5rem);
@@ -95,8 +95,8 @@
     font-size: var(--text-body);
     line-height: 1.65;
     letter-spacing: 0.01em;
-    background-color: var(--color-ivory);
-    color: var(--color-maroon);
+    background-color: var(--color-maroon-deep);
+    color: var(--color-ivory);
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
   }
@@ -107,9 +107,9 @@
     position: fixed;
     inset: 0;
     z-index: 9999;
-    opacity: 0.035;
+    opacity: 0.045;
     background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-    mix-blend-mode: multiply;
+    mix-blend-mode: overlay;
   }
 
   :focus-visible {
@@ -122,7 +122,7 @@
   }
 
   ::selection {
-    background: color-mix(in srgb, var(--color-maroon) 32%, transparent);
+    background: color-mix(in srgb, var(--color-gold) 40%, transparent);
     color: var(--color-maroon-deep);
   }
 
@@ -158,8 +158,8 @@
     font-weight: 600;
     letter-spacing: 0.28em;
     text-transform: uppercase;
-    color: var(--color-maroon);
-    opacity: 0.7;
+    color: var(--color-gold);
+    opacity: 0.9;
   }
 
   .heading-display {
@@ -168,7 +168,7 @@
     font-weight: 300;
     letter-spacing: -0.025em;
     line-height: 1.08;
-    color: var(--color-maroon);
+    color: var(--color-ivory);
   }
 
   .heading-script {
@@ -177,7 +177,7 @@
     font-weight: 400;
     letter-spacing: 0.01em;
     line-height: 1.15;
-    color: var(--color-maroon);
+    color: var(--color-ivory);
   }
 
   .heading-section {
@@ -186,7 +186,7 @@
     font-weight: 350;
     letter-spacing: -0.02em;
     line-height: 1.12;
-    color: var(--color-maroon);
+    color: var(--color-ivory);
   }
 
   .heading-tamil {
@@ -202,7 +202,7 @@
   }
 
   .body-muted {
-    color: color-mix(in srgb, var(--color-maroon) 65%, transparent);
+    color: color-mix(in srgb, var(--color-ivory) 65%, transparent);
   }
 
   .invite-lead {
@@ -211,7 +211,7 @@
     font-weight: 500;
     letter-spacing: 0.22em;
     text-transform: uppercase;
-    color: color-mix(in srgb, var(--color-maroon) 78%, transparent);
+    color: color-mix(in srgb, var(--color-ivory) 72%, transparent);
   }
 
   .btn-pill {
@@ -243,40 +243,41 @@
   }
 
   .btn-pill-gold {
-    background: linear-gradient(160deg, #d4b05c 0%, var(--color-gold) 55%, #a88435 100%);
-    color: #fffef8;
-    border: 1px solid color-mix(in srgb, #fff 20%, transparent);
+    background: linear-gradient(160deg, #e0c06a 0%, var(--color-gold) 55%, #a88435 100%);
+    color: #2a0a10;
+    border: 1px solid color-mix(in srgb, #fff 25%, transparent);
   }
 
   .btn-pill-gold:hover {
-    background: linear-gradient(160deg, #c9a44a 0%, var(--color-gold-ink) 100%);
+    background: linear-gradient(160deg, #d4b05c 0%, #b8943a 100%);
   }
 
   .btn-pill-maroon {
-    background: var(--color-maroon);
+    background: color-mix(in srgb, var(--color-ivory) 12%, transparent);
     color: var(--color-ivory);
-    border: 1px solid color-mix(in srgb, var(--color-gold) 40%, transparent);
+    border: 1px solid color-mix(in srgb, var(--color-gold) 45%, transparent);
   }
 
   .btn-pill-maroon:hover {
-    background: var(--color-maroon-deep);
+    background: color-mix(in srgb, var(--color-ivory) 18%, transparent);
   }
 
   .btn-pill-outline {
     background: transparent;
-    border: 1px solid color-mix(in srgb, var(--color-maroon) 35%, transparent);
-    color: var(--color-maroon);
+    border: 1px solid color-mix(in srgb, var(--color-gold) 45%, transparent);
+    color: var(--color-ivory);
   }
 
   .btn-pill-outline:hover {
-    border-color: var(--color-maroon);
-    background: color-mix(in srgb, var(--color-maroon) 8%, transparent);
+    border-color: var(--color-gold);
+    background: color-mix(in srgb, var(--color-gold) 12%, transparent);
   }
 
   .hairline-card {
-    border: 1px solid color-mix(in srgb, var(--color-maroon) 18%, transparent);
+    border: 1px solid color-mix(in srgb, var(--color-gold) 28%, transparent);
     border-radius: var(--radius-lg);
     background: color-mix(in srgb, var(--color-ivory) 96%, white);
+    color: var(--color-maroon);
     box-shadow: var(--shadow-soft);
   }
 
@@ -292,27 +293,49 @@
     background-size: 100% 1px;
   }
 
-  /* Hero — maroon atmosphere */
+  /* Hero — full maroon field */
   .invite-wash {
     background:
-      radial-gradient(ellipse 90% 55% at 50% 0%, rgba(94, 18, 28, 0.18) 0%, transparent 58%),
-      radial-gradient(ellipse 55% 40% at 0% 100%, rgba(94, 18, 28, 0.1) 0%, transparent 50%),
-      radial-gradient(ellipse 55% 40% at 100% 90%, rgba(201, 162, 74, 0.12) 0%, transparent 50%),
-      linear-gradient(180deg, #f3e9e8 0%, #f8f3f0 38%, #efe3e4 100%);
+      radial-gradient(ellipse 85% 50% at 50% 0%, rgba(212, 176, 92, 0.22) 0%, transparent 55%),
+      radial-gradient(ellipse 60% 45% at 0% 100%, rgba(139, 21, 32, 0.55) 0%, transparent 55%),
+      radial-gradient(ellipse 60% 45% at 100% 85%, rgba(212, 176, 92, 0.1) 0%, transparent 50%),
+      linear-gradient(180deg, #4a1018 0%, #5e121c 35%, #2f080e 72%, #1f0509 100%);
+    color: var(--color-ivory);
   }
 
   .band-maroon {
     background:
-      radial-gradient(ellipse at 50% 0%, rgba(201, 162, 74, 0.2) 0%, transparent 48%),
-      linear-gradient(165deg, #721824 0%, #5e121c 38%, #2f080e 100%);
+      radial-gradient(ellipse at 50% 0%, rgba(212, 176, 92, 0.22) 0%, transparent 48%),
+      linear-gradient(165deg, #7a1c28 0%, #5e121c 40%, #2f080e 100%);
     color: var(--color-ivory);
   }
 
   .band-maroon-deep {
     background:
-      radial-gradient(ellipse at 50% 0%, rgba(201, 162, 74, 0.22) 0%, transparent 50%),
-      linear-gradient(180deg, #521018 0%, #2f080e 55%, #1a0508 100%);
+      radial-gradient(ellipse at 50% 0%, rgba(212, 176, 92, 0.2) 0%, transparent 50%),
+      linear-gradient(180deg, #3d0c14 0%, #1f0509 55%, #140308 100%);
     color: var(--color-ivory);
+  }
+
+  .surface-maroon {
+    background:
+      radial-gradient(ellipse at 50% 0%, rgba(212, 176, 92, 0.1) 0%, transparent 45%),
+      linear-gradient(180deg, #5e121c 0%, #4a1018 100%);
+    color: var(--color-ivory);
+  }
+
+  .surface-maroon-soft {
+    background:
+      radial-gradient(ellipse at 80% 20%, rgba(212, 176, 92, 0.08) 0%, transparent 40%),
+      linear-gradient(180deg, #6e1a26 0%, #52141d 100%);
+    color: var(--color-ivory);
+  }
+
+  /* Ivory content panels on maroon pages */
+  .panel-ivory {
+    background: var(--color-ivory);
+    color: #5e121c;
+    border: 1px solid color-mix(in srgb, var(--color-gold) 35%, transparent);
   }
 }
 
@@ -363,7 +386,7 @@
   }
 
   .om-glow {
-    text-shadow: 0 0 18px color-mix(in srgb, var(--color-gold) 35%, transparent);
+    text-shadow: 0 0 18px color-mix(in srgb, var(--color-gold) 45%, transparent);
   }
 
   @media (prefers-reduced-motion: no-preference) {
@@ -389,11 +412,11 @@
 @keyframes glow-pulse {
   0%,
   100% {
-    text-shadow: 0 0 10px color-mix(in srgb, var(--color-gold) 25%, transparent);
+    text-shadow: 0 0 10px color-mix(in srgb, var(--color-gold) 30%, transparent);
     opacity: 0.92;
   }
   50% {
-    text-shadow: 0 0 24px color-mix(in srgb, var(--color-gold) 50%, transparent);
+    text-shadow: 0 0 24px color-mix(in srgb, var(--color-gold) 55%, transparent);
     opacity: 1;
   }
 }
@@ -424,19 +447,6 @@
   }
   50% {
     transform: rotate(2.2deg);
-  }
-}
-
-@keyframes lamp-flicker {
-  0%,
-  100% {
-    opacity: 0.75;
-  }
-  40% {
-    opacity: 1;
-  }
-  60% {
-    opacity: 0.85;
   }
 }
 

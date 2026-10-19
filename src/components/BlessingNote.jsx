@@ -9,7 +9,7 @@ export function BlessingNote() {
   return (
     <section
       id="blessing"
-      className="section-pad relative bg-blush"
+      className="surface-maroon-soft section-pad relative"
       aria-labelledby="blessing-heading"
     >
       <div className="site-shell">
@@ -27,24 +27,24 @@ export function BlessingNote() {
           </h2>
 
           {lang === 'en' ? (
-            <p className="font-script text-[clamp(2rem,1.4rem+2vw,3rem)] leading-[1.25] text-maroon">
+            <p className="font-script text-[clamp(2rem,1.4rem+2vw,3rem)] leading-[1.25] text-ivory">
               {wedding.blessingNote.title.en}
             </p>
           ) : (
-            <p className="heading-tamil text-[clamp(1.35rem,1.1rem+1vw,1.85rem)] text-maroon">
+            <p className="heading-tamil text-[clamp(1.35rem,1.1rem+1vw,1.85rem)] text-ivory">
               {wedding.blessingNote.title.ta}
             </p>
           )}
 
           <blockquote
-            className="mx-auto mt-7 max-w-prose font-tamil text-[clamp(1.15rem,1rem+0.7vw,1.55rem)] leading-[1.8] text-maroon/85"
+            className="mx-auto mt-7 max-w-prose font-tamil text-[clamp(1.15rem,1rem+0.7vw,1.55rem)] leading-[1.8] text-ivory/85"
             lang="ta"
           >
             “{wedding.blessingNote.body.ta}”
           </blockquote>
 
           <p
-            className="mx-auto mt-5 max-w-lg font-display text-[clamp(1.05rem,0.95rem+0.4vw,1.3rem)] font-light leading-[1.7] text-maroon/50"
+            className="mx-auto mt-5 max-w-lg font-display text-[clamp(1.05rem,0.95rem+0.4vw,1.3rem)] font-light leading-[1.7] text-ivory/55"
             lang="en"
           >
             {wedding.blessingNote.body.en}

@@ -35,7 +35,7 @@ export function SectionHeader({
           lang === 'ta'
             ? 'heading-tamil text-[clamp(1.65rem,1.3rem+1.4vw,2.5rem)]'
             : 'font-script text-[clamp(2.35rem,1.6rem+2.8vw,3.65rem)] leading-[1.2]'
-        } ${light ? '!text-ivory' : 'text-maroon'}`}
+        } ${light ? '!text-ivory' : 'text-ivory'}`}
       >
         {t(title)}
       </h2>

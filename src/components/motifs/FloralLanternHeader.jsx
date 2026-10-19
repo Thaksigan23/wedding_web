@@ -36,9 +36,17 @@ export function FloralLanternHeader({ className = '', variant = 'soft' }) {
                 mixBlendMode: 'multiply',
               }
             : {
-                WebkitMaskImage:
-                  'linear-gradient(180deg, #000 0%, #000 55%, transparent 100%)',
-                maskImage: 'linear-gradient(180deg, #000 0%, #000 55%, transparent 100%)',
+                WebkitMaskImage: `
+                  linear-gradient(90deg, transparent 0%, #000 8%, #000 92%, transparent 100%),
+                  linear-gradient(180deg, transparent 0%, #000 10%, #000 55%, transparent 100%)
+                `,
+                maskImage: `
+                  linear-gradient(90deg, transparent 0%, #000 8%, #000 92%, transparent 100%),
+                  linear-gradient(180deg, transparent 0%, #000 10%, #000 55%, transparent 100%)
+                `,
+                WebkitMaskComposite: 'source-in',
+                maskComposite: 'intersect',
+                mixBlendMode: 'screen',
               }
         }
         draggable={false}

@@ -13,7 +13,7 @@ export function Timeline() {
   return (
     <section
       id="events"
-      className="section-pad relative bg-blush"
+      className="surface-maroon-soft section-pad relative"
       aria-labelledby="timeline-heading"
     >
       <div className="site-shell">
@@ -21,6 +21,7 @@ export function Timeline() {
           eyebrowKey="timeline"
           titleKey="timeline"
           titleId="timeline-heading"
+          light
           className="!mb-12 md:!mb-16"
         />
 
@@ -48,7 +49,7 @@ export function Timeline() {
                   {/* Center node — photorealistic ceremonial icon */}
                   <div
                     className={`absolute left-5 top-3 z-10 overflow-hidden rounded-full border-2 border-gold/70 shadow-md md:left-1/2 ${
-                      featured ? 'ring-4 ring-maroon/15' : 'ring-2 ring-ivory'
+                      featured ? 'ring-4 ring-gold/30' : 'ring-2 ring-maroon-deep/40'
                     }`}
                     style={{ width: 52, height: 52, transform: 'translateX(-50%)' }}
                     aria-hidden="true"
@@ -139,15 +140,15 @@ function EventCard({ event, featured, t, lang }) {
 
   return (
     <article
-      className={`${base} border-maroon/18 bg-ivory`}
+      className={`${base} panel-ivory`}
       style={{ boxShadow: 'var(--shadow-soft)' }}
     >
-      <p className="font-sans text-[0.65rem] font-medium tracking-[0.18em] text-maroon/65 uppercase">
+      <p className="font-sans text-[0.65rem] font-medium tracking-[0.18em] text-[#5e121c]/65 uppercase">
         {t(event.date)}
         {event.time ? ` · ${t(event.time)}` : ''}
       </p>
       <h3
-        className={`mt-2 text-maroon ${
+        className={`mt-2 text-[#5e121c] ${
           lang === 'ta'
             ? 'font-tamil text-base leading-[1.7] md:text-lg'
             : 'font-display text-lg md:text-xl'
@@ -157,7 +158,7 @@ function EventCard({ event, featured, t, lang }) {
       </h3>
       {event.subtitle && (
         <p
-          className={`mt-1 text-sm text-maroon/60 ${
+          className={`mt-1 text-sm text-[#5e121c]/60 ${
             lang === 'ta' ? 'font-tamil leading-[1.7]' : 'font-sans'
           }`}
         >
@@ -166,7 +167,7 @@ function EventCard({ event, featured, t, lang }) {
       )}
       {event.venue && (
         <p
-          className={`mt-2 text-sm text-maroon/50 ${
+          className={`mt-2 text-sm text-[#5e121c]/50 ${
             lang === 'ta' ? 'font-tamil leading-[1.7]' : 'font-sans'
           }`}
         >

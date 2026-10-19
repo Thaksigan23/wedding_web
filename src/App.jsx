@@ -35,7 +35,7 @@ const FloatingWhatsApp = lazy(() =>
 function SectionFallback() {
   return (
     <div
-      className="mx-auto max-w-lg px-4 py-16 text-center font-sans text-sm text-maroon/30"
+      className="mx-auto max-w-lg px-4 py-16 text-center font-sans text-sm text-ivory/30"
       aria-hidden="true"
     >
       …
@@ -54,7 +54,7 @@ export default function App() {
 
   return (
     <LanguageProvider>
-      <div className="min-h-dvh bg-ivory text-maroon antialiased">
+      <div className="min-h-dvh bg-maroon-deep text-ivory antialiased">
         <OpeningDoor open={doorOpen} onOpen={handleOpen} />
         {doorOpen && (
           <>

@@ -82,7 +82,7 @@ export function RSVP() {
   return (
     <section
       id="rsvp"
-      className="section-pad relative bg-ivory"
+      className="surface-maroon section-pad relative"
       aria-labelledby="rsvp-heading"
     >
       <div className="site-shell">
@@ -90,12 +90,13 @@ export function RSVP() {
           eyebrowKey="rsvp"
           titleKey="rsvp"
           titleId="rsvp-heading"
+          light
           className="!mb-8 md:!mb-10"
         />
         {wedding.rsvp.deadline && (
           <ScrollReveal className="-mt-6 mb-8 text-center md:-mt-8 md:mb-10">
             <p
-              className={`text-sm text-maroon/55 ${
+              className={`text-sm text-ivory/55 ${
                 lang === 'ta' ? 'font-tamil leading-[1.7]' : 'font-sans'
               }`}
             >
@@ -106,7 +107,7 @@ export function RSVP() {
 
         <ScrollReveal delay={0.08}>
           <div
-            className="mx-auto max-w-lg rounded-[20px] border border-maroon/18 bg-ivory px-5 py-8 md:px-8 md:py-10"
+            className="panel-ivory mx-auto max-w-lg rounded-[20px] px-5 py-8 md:px-8 md:py-10"
             style={{ boxShadow: 'var(--shadow-soft)' }}
           >
             {!hasEndpoint ? (
