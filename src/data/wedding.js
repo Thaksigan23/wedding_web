@@ -595,13 +595,15 @@ export const wedding = {
 
   // Audio (muted by default) — toggle hides itself if the file is missing
   audio: {
-    src: '/audio/nadaswaram-thavil.mp3',
-    mutedByDefault: true,
-    targetVolume: 0.32,
+    // Royalty-free Pixabay instrumental (replace with your own track anytime)
+    src: '/audio/wedding-bgm.mp3',
+    mutedByDefault: false,
+    autoplayOnOpen: true,
+    targetVolume: 0.28,
     labels: {
       muted: { ta: 'இசை', en: 'Music' },
       playing: { ta: 'இயங்குகிறது', en: 'Playing' },
-      unmute: { ta: 'நாதஸ்வரம் இயக்கு', en: 'Play nadaswaram' },
+      unmute: { ta: 'இசையை இயக்கு', en: 'Play music' },
       mute: { ta: 'இசையை நிறுத்து', en: 'Mute music' },
     },
   },

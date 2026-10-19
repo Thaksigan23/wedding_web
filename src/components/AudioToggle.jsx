@@ -2,22 +2,24 @@ import { useCallback, useEffect, useRef, useState } from 'react'
 import { wedding } from '../data/wedding'
 import { useLanguage } from '../context/LanguageContext'
 
-const FADE_MS = 600
+const FADE_MS = 700
 const TICK_MS = 40
 
 /**
- * Soft nadaswaram + thavil — muted by default.
- * Loads src only after unlock (door tap) or first unmute; hides if file missing.
+ * Soft looped invitation music — unlocks after door tap (user gesture).
+ * Auto-plays gently when configured; mute/unmute from the control.
  */
 export function AudioToggle({ className = '', unlocked = false }) {
   const { t } = useLanguage()
   const audioRef = useRef(null)
   const fadeRef = useRef(null)
+  const startedRef = useRef(false)
   const [muted, setMuted] = useState(wedding.audio.mutedByDefault !== false)
-  const [available, setAvailable] = useState(null) // null = unknown, false = missing
+  const [available, setAvailable] = useState(null)
   const [srcLoaded, setSrcLoaded] = useState(false)
 
-  const targetVolume = wedding.audio.targetVolume ?? 0.32
+  const targetVolume = wedding.audio.targetVolume ?? 0.28
+  const autoplayOnOpen = wedding.audio.autoplayOnOpen !== false
 
   const clearFade = () => {
     if (fadeRef.current) {
@@ -26,52 +28,72 @@ export function AudioToggle({ className = '', unlocked = false }) {
     }
   }
 
-  const fadeTo = useCallback(
-    (to, { pauseAtEnd = false } = {}) => {
-      const el = audioRef.current
-      if (!el) return
-      clearFade()
-      const from = el.volume
-      const steps = Math.max(1, Math.round(FADE_MS / TICK_MS))
-      let step = 0
-      fadeRef.current = setInterval(() => {
-        step += 1
-        const next = from + ((to - from) * step) / steps
-        el.volume = Math.min(1, Math.max(0, next))
-        if (step >= steps) {
-          clearFade()
-          el.volume = to
-          if (pauseAtEnd) {
-            el.pause()
-          }
-        }
-      }, TICK_MS)
-    },
-    [],
-  )
+  const fadeTo = useCallback((to, { pauseAtEnd = false } = {}) => {
+    const el = audioRef.current
+    if (!el) return
+    clearFade()
+    const from = el.volume
+    const steps = Math.max(1, Math.round(FADE_MS / TICK_MS))
+    let step = 0
+    fadeRef.current = setInterval(() => {
+      step += 1
+      const next = from + ((to - from) * step) / steps
+      el.volume = Math.min(1, Math.max(0, next))
+      if (step >= steps) {
+        clearFade()
+        el.volume = to
+        if (pauseAtEnd) el.pause()
+      }
+    }, TICK_MS)
+  }, [])
 
   const ensureSrc = useCallback(() => {
     const el = audioRef.current
     if (!el || srcLoaded) return el
     el.src = wedding.audio.src
+    el.loop = true
     el.load()
     setSrcLoaded(true)
     return el
   }, [srcLoaded])
 
-  // Probe file once unlocked (after door open) without forcing play unmuted
+  const startPlayback = useCallback(async () => {
+    const el = ensureSrc()
+    if (!el) return false
+    el.muted = false
+    el.volume = 0
+    try {
+      await el.play()
+      setMuted(false)
+      setAvailable(true)
+      fadeTo(targetVolume)
+      return true
+    } catch {
+      setMuted(true)
+      return false
+    }
+  }, [ensureSrc, fadeTo, targetVolume])
+
+  // Probe + autoplay once the door unlocks (counts as a user gesture)
   useEffect(() => {
-    if (!unlocked || available === false) return undefined
+    if (!unlocked || available === false || startedRef.current) return undefined
 
     let cancelled = false
     const probe = new Audio()
     probe.preload = 'metadata'
-    const onOk = () => {
-      if (!cancelled) setAvailable(true)
+
+    const onOk = async () => {
+      if (cancelled) return
+      setAvailable(true)
+      if (autoplayOnOpen && wedding.audio.mutedByDefault === false) {
+        startedRef.current = true
+        await startPlayback()
+      }
     }
     const onFail = () => {
       if (!cancelled) setAvailable(false)
     }
+
     probe.addEventListener('loadedmetadata', onOk)
     probe.addEventListener('error', onFail)
     probe.src = wedding.audio.src
@@ -82,9 +104,8 @@ export function AudioToggle({ className = '', unlocked = false }) {
       probe.removeEventListener('error', onFail)
       probe.src = ''
     }
-  }, [unlocked, available])
+  }, [unlocked, available, autoplayOnOpen, startPlayback])
 
-  // Pause / resume when tab visibility changes
   useEffect(() => {
     const onVis = () => {
       const el = audioRef.current
@@ -108,16 +129,9 @@ export function AudioToggle({ className = '', unlocked = false }) {
     if (!el) return
 
     if (muted) {
-      el.muted = false
-      el.volume = 0
-      try {
-        await el.play()
-        setMuted(false)
-        fadeTo(targetVolume)
-      } catch {
-        // Autoplay blocked or missing file — leave muted
-        setAvailable((prev) => (prev === false ? false : prev))
-      }
+      startedRef.current = true
+      const ok = await startPlayback()
+      if (!ok) setAvailable((prev) => (prev === false ? false : prev))
     } else {
       setMuted(true)
       fadeTo(0, { pauseAtEnd: true })
@@ -126,12 +140,11 @@ export function AudioToggle({ className = '', unlocked = false }) {
   }
 
   if (available === false) return null
-  // Don't show until we've unlocked (door open) — still allow probe
   if (!unlocked) return null
 
   return (
     <>
-      <audio ref={audioRef} loop preload="none" muted={muted} playsInline />
+      <audio ref={audioRef} loop preload="auto" playsInline />
       <button
         type="button"
         onClick={toggle}
