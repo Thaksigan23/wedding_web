@@ -65,7 +65,7 @@ export function OpeningDoor({ open, onOpen }) {
     <AnimatePresence>
       {!open && (
         <motion.div
-          className="fixed inset-0 z-50 flex cursor-pointer flex-col items-center justify-center overflow-hidden"
+          className="fixed inset-0 z-50 flex min-h-dvh cursor-pointer flex-col items-center justify-center overflow-x-hidden overflow-y-auto max-[760px]:justify-start max-[760px]:py-8"
           style={{
             background:
               'radial-gradient(ellipse 68% 82% at 50% 44%, #4d090c 0%, #390508 54%, #210306 100%)',
@@ -203,12 +203,9 @@ export function OpeningDoor({ open, onOpen }) {
 function CornerDecor() {
   return (
     <div className="pointer-events-none absolute inset-0 z-[3] overflow-hidden" aria-hidden="true">
-      <FloralCorner className="absolute -left-3 -top-3 h-44 w-44 sm:h-64 sm:w-64" />
-      <FloralCorner className="absolute -right-3 -top-3 h-44 w-44 sm:h-64 sm:w-64 scale-x-[-1]" />
-      <FloralCorner className="absolute -bottom-6 -left-3 h-48 w-48 sm:h-72 sm:w-72 scale-y-[-1]" />
-      <FloralCorner className="absolute -bottom-6 -right-3 h-48 w-48 sm:h-72 sm:w-72 scale-[-1]" />
-      <HangingLamp className="absolute left-[4%] top-[14%] hidden h-44 w-20 sm:block md:h-56" />
-      <HangingLamp className="absolute right-[4%] top-[14%] hidden h-44 w-20 scale-x-[-1] sm:block md:h-56" />
+      <FloralCorner className="absolute inset-0" />
+      <img src="/images/hanging-lamp.png" alt="" className="absolute left-[2%] top-0 hidden h-[250px] w-auto drop-shadow-[0_8px_18px_rgba(0,0,0,0.45)] sm:block md:h-[300px]" draggable={false} />
+      <img src="/images/hanging-lamp.png" alt="" className="absolute right-[2%] top-0 hidden h-[250px] w-auto scale-x-[-1] drop-shadow-[0_8px_18px_rgba(0,0,0,0.45)] sm:block md:h-[300px]" draggable={false} />
     </div>
   )
 }
@@ -220,17 +217,15 @@ function FrameCorners() {
 }
 
 function FloralCorner({ className = '' }) {
-  return <svg viewBox="0 0 260 260" className={`pointer-events-none ${className}`} fill="none" aria-hidden="true">
-    <defs><radialGradient id="flowerGold"><stop stopColor="#fff1bb"/><stop offset=".55" stopColor="#d7a449"/><stop offset="1" stopColor="#781a20"/></radialGradient></defs>
-    <path d="M0 8C55 16 56 54 89 75s49 22 63 63 39 62 100 75" stroke="#9d652e" strokeWidth="3" opacity=".55"/>
-    <path d="M10 0c14 44 40 44 51 70M0 42c26 2 38 17 43 40M34 0c4 21 13 30 30 37" stroke="#d09c50" strokeWidth="2" opacity=".65"/>
-    {[[40,35,18],[72,72,15],[107,104,19],[149,143,17],[203,190,23],[35,93,12],[91,35,12],[184,226,15]].map(([x,y,r],i)=><g key={i} transform={`translate(${x} ${y})`}><circle r={r} fill="url(#flowerGold)" opacity=".82"/>{Array.from({length:8},(_,j)=><ellipse key={j} cx="0" cy={-r*.65} rx={r*.22} ry={r*.48} fill="#f1d28a" opacity=".78" transform={`rotate(${j*45})`}/>)}<circle r={r*.19} fill="#fff0b1"/></g>)}
-    {[ [57,52],[91,88],[129,124],[171,164],[222,208] ].map(([x,y],i)=><g key={`l${i}`} fill="#789151" opacity=".8" transform={`translate(${x} ${y}) rotate(${i%2?55:-40})`}><ellipse cx="-9" rx="10" ry="4"/><ellipse cx="9" cy="-8" rx="11" ry="4"/></g>)}
-  </svg>
-}
-
-function HangingLamp({ className = '' }) {
-  return <svg viewBox="0 0 80 220" className={`pointer-events-none ${className}`} fill="none" aria-hidden="true"><path d="M40 0v84" stroke="#d6a94f" strokeWidth="2"/><circle cx="40" cy="85" r="4" fill="#f4d579"/><path d="M40 88v23m-5-4q5 8 10 0M24 118h32l-4 8H28zM20 126q20 27 40 0l-6 18H26zM32 144h16v8H32zM36 152h8v12h-8zM30 164h20l-5 7h-10z" fill="#b77b2b" stroke="#f1cf77" strokeWidth="1.5"/><path d="M29 119c-7-12 1-17 3-8m5 8c-3-17 4-20 5-8m4 8c1-15 8-16 7-5m-30 19q17 7 34 0" stroke="#ffdc83" strokeWidth="2"/><path d="M38 116q2-7 4 0" stroke="#fff5c1" strokeWidth="3"/></svg>
+  return <div className={`pointer-events-none ${className}`} aria-hidden="true" style={{
+    backgroundImage: 'linear-gradient(rgba(35, 2, 7, .34), rgba(35, 2, 7, .34)), url(/images/invite-mandap.jpg)',
+    backgroundSize: 'cover',
+    backgroundPosition: 'center',
+    filter: 'saturate(.9) brightness(.74) sepia(.18)',
+    opacity: .62,
+    maskImage: 'radial-gradient(ellipse 44% 39% at 50% 48%, transparent 55%, black 100%)',
+    WebkitMaskImage: 'radial-gradient(ellipse 44% 39% at 50% 48%, transparent 55%, black 100%)',
+  }} />
 }
 
 function OrnamentDivider({ small = false }) {
