@@ -2,13 +2,13 @@ import { useCallback, useMemo, useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { usePrefersReducedMotion } from '../hooks/usePrefersReducedMotion'
 import { useLanguage } from '../context/LanguageContext'
-import { FloralLanternHeader } from './motifs/FloralLanternHeader'
+import { Kolam } from './motifs/Kolam'
 
 const DOOR_MS = 1.45
 const EASE_DOOR = [0.22, 1, 0.36, 1]
 const EASE_OUT = [0.16, 1, 0.3, 1]
 
-const PETAL_COLORS = ['#a84d55', '#5e121c', '#8b1520', '#c9a24a', '#c47a7a', '#7a1c28']
+const PETAL_COLORS = ['#a84d55', '#8b1520', '#c9a24a', '#d4b05c', '#c47a7a', '#7a1c28']
 
 function makePetals(count) {
   return Array.from({ length: count }, (_, i) => ({
@@ -35,7 +35,6 @@ export function OpeningDoor({ open, onOpen }) {
   const handleOpen = useCallback(() => {
     if (opening) return
     setOpening(true)
-    // Let door + petal motion start, then unmount via parent
     window.setTimeout(
       () => onOpen(),
       reduced ? 80 : Math.round(DOOR_MS * 1000 * 0.55),
@@ -67,16 +66,14 @@ export function OpeningDoor({ open, onOpen }) {
               : { opacity: 0, transition: { delay: DOOR_MS * 0.55, duration: 0.45 } }
           }
         >
-          {/* Warm glow behind the seam */}
           <div
-            className="pointer-events-none absolute inset-0 opacity-70"
+            className="pointer-events-none absolute inset-0"
             style={{
               background:
-                'radial-gradient(ellipse at 50% 45%, rgba(201,162,74,0.28) 0%, transparent 52%)',
+                'radial-gradient(ellipse at 50% 42%, rgba(212,176,92,0.22) 0%, transparent 48%)',
             }}
           />
 
-          {/* Light spill when doors open */}
           <AnimatePresence>
             {opening && !reduced && (
               <motion.div
@@ -87,13 +84,12 @@ export function OpeningDoor({ open, onOpen }) {
                 transition={{ duration: 0.8 }}
                 style={{
                   background:
-                    'radial-gradient(ellipse at 50% 50%, rgba(250,246,242,0.55) 0%, rgba(201,162,74,0.2) 35%, transparent 70%)',
+                    'radial-gradient(ellipse at 50% 50%, rgba(247,240,234,0.4) 0%, rgba(212,176,92,0.18) 35%, transparent 70%)',
                 }}
               />
             )}
           </AnimatePresence>
 
-          {/* Twin doors — 3D swing */}
           <div
             className="absolute inset-0 z-[2] flex"
             style={{ perspective: '1400px', perspectiveOrigin: '50% 50%' }}
@@ -103,7 +99,7 @@ export function OpeningDoor({ open, onOpen }) {
               style={{
                 transformStyle: 'preserve-3d',
                 boxShadow:
-                  'inset -2px 0 0 color-mix(in srgb, var(--color-gold) 50%, transparent), inset -40px 0 60px rgba(0,0,0,0.2)',
+                  'inset -1px 0 0 color-mix(in srgb, var(--color-gold) 40%, transparent), inset -36px 0 50px rgba(0,0,0,0.22)',
               }}
               initial={false}
               animate={
@@ -122,7 +118,7 @@ export function OpeningDoor({ open, onOpen }) {
               style={{
                 transformStyle: 'preserve-3d',
                 boxShadow:
-                  'inset 2px 0 0 color-mix(in srgb, var(--color-gold) 50%, transparent), inset 40px 0 60px rgba(0,0,0,0.2)',
+                  'inset 1px 0 0 color-mix(in srgb, var(--color-gold) 40%, transparent), inset 36px 0 50px rgba(0,0,0,0.22)',
               }}
               initial={false}
               animate={
@@ -137,7 +133,6 @@ export function OpeningDoor({ open, onOpen }) {
             </motion.div>
           </div>
 
-          {/* Flowing petals */}
           {!reduced && (
             <div className="pointer-events-none absolute inset-0 z-[5] overflow-hidden" aria-hidden="true">
               {petals.map((p) => (
@@ -148,7 +143,7 @@ export function OpeningDoor({ open, onOpen }) {
                     left: p.left,
                     width: p.size,
                     height: p.size * 1.25,
-                    background: `radial-gradient(ellipse at 30% 30%, #f8f3f0, ${p.color})`,
+                    background: `radial-gradient(ellipse at 30% 30%, #f7f0ea, ${p.color})`,
                     boxShadow: '0 2px 6px rgba(94,18,28,0.2)',
                   }}
                   initial={{ y: 0, x: 0, opacity: 0, rotate: 0, scale: 0.6 }}
@@ -164,18 +159,14 @@ export function OpeningDoor({ open, onOpen }) {
                       : {
                           y: [0, 12, 0],
                           x: [0, p.drift * 0.15, 0],
-                          opacity: [0.15, 0.45, 0.15],
+                          opacity: [0.12, 0.4, 0.12],
                           rotate: [0, p.rotate * 0.2, 0],
                           scale: 0.85,
                         }
                   }
                   transition={
                     opening
-                      ? {
-                          duration: p.duration,
-                          delay: p.delay,
-                          ease: 'easeIn',
-                        }
+                      ? { duration: p.duration, delay: p.delay, ease: 'easeIn' }
                       : {
                           duration: 4 + (p.id % 4),
                           delay: p.delay * 2,
@@ -188,9 +179,8 @@ export function OpeningDoor({ open, onOpen }) {
             </div>
           )}
 
-          {/* Center content */}
           <motion.div
-            className="relative z-10 flex w-full max-w-md flex-col items-center px-6 text-center"
+            className="relative z-10 flex w-full max-w-sm flex-col items-center px-6 text-center"
             initial={reduced ? false : { opacity: 0, y: 12 }}
             animate={
               opening
@@ -199,46 +189,76 @@ export function OpeningDoor({ open, onOpen }) {
             }
             transition={{ duration: opening ? 0.55 : 0.7, delay: opening ? 0 : 0.1, ease: EASE_OUT }}
           >
-            <FloralLanternHeader className="mb-4 w-full" variant="plain" />
+            <div className="mb-8 text-gold/80" aria-hidden="true">
+              <Kolam className="mx-auto h-8 w-44 md:h-9 md:w-52" animate={!reduced && !opening} />
+            </div>
 
-            <motion.img
-              src="/images/icon-lantern.jpg"
-              alt=""
-              width={72}
-              height={72}
-              className="mb-5 h-16 w-16 rounded-full object-cover shadow-lg ring-2 ring-gold/50"
-              draggable={false}
+            <motion.div
+              className="relative mb-7"
               animate={
                 reduced || opening
                   ? undefined
-                  : { scale: [1, 1.05, 1], rotate: [0, -2, 2, 0] }
+                  : { y: [0, -4, 0] }
               }
-              transition={{ duration: 3.2, repeat: Infinity, ease: 'easeInOut' }}
-            />
+              transition={{ duration: 3.4, repeat: Infinity, ease: 'easeInOut' }}
+            >
+              <span
+                className="pointer-events-none absolute inset-[-18%] rounded-full"
+                style={{
+                  background:
+                    'radial-gradient(circle, rgba(212,176,92,0.35) 0%, transparent 68%)',
+                }}
+                aria-hidden="true"
+              />
+              <img
+                src="/images/icon-lantern.jpg"
+                alt=""
+                width={80}
+                height={80}
+                className="relative h-20 w-20 rounded-full object-cover shadow-[0_8px_28px_rgba(0,0,0,0.35)] ring-1 ring-gold/55"
+                draggable={false}
+              />
+            </motion.div>
 
-            <p className="font-script text-[clamp(2rem,1.5rem+2vw,2.85rem)] text-gold">
+            <p
+              className={`${
+                lang === 'ta'
+                  ? 'font-tamil text-[clamp(1.75rem,1.4rem+1.4vw,2.35rem)] leading-[1.65]'
+                  : 'font-script text-[clamp(2.4rem,1.7rem+2.4vw,3.25rem)] leading-[1.15]'
+              } text-gold`}
+            >
               {lang === 'ta' ? 'வரவேற்கிறோம்' : 'Welcome'}
             </p>
 
+            <p className="mt-2 font-sans text-[0.65rem] tracking-[0.28em] text-ivory/45 uppercase">
+              {lang === 'ta' ? 'அழைப்பிதழ்' : 'Invitation'}
+            </p>
+
             <motion.div
-              className="mt-6 inline-flex min-h-[48px] items-center justify-center rounded-full border border-gold/55 bg-maroon/40 px-7 py-2.5 backdrop-blur-sm"
+              className="mt-8 inline-flex min-h-[48px] items-center justify-center rounded-full border border-gold/50 bg-maroon-deep/40 px-8 py-2.5"
               animate={
                 reduced || opening
                   ? undefined
-                  : { scale: [1, 1.03, 1], boxShadow: ['0 0 0 rgba(201,162,74,0)', '0 0 24px rgba(201,162,74,0.35)', '0 0 0 rgba(201,162,74,0)'] }
+                  : {
+                      boxShadow: [
+                        '0 0 0 rgba(212,176,92,0)',
+                        '0 0 22px rgba(212,176,92,0.32)',
+                        '0 0 0 rgba(212,176,92,0)',
+                      ],
+                    }
               }
-              transition={{ duration: 2.4, repeat: Infinity, ease: 'easeInOut' }}
+              transition={{ duration: 2.6, repeat: Infinity, ease: 'easeInOut' }}
             >
-              <span className="font-sans text-[0.7rem] tracking-[0.26em] text-ivory uppercase">
+              <span
+                className={`text-ivory ${
+                  lang === 'ta'
+                    ? 'font-tamil text-sm tracking-normal'
+                    : 'font-sans text-[0.7rem] tracking-[0.26em] uppercase'
+                }`}
+              >
                 {lang === 'ta' ? 'திறக்க தொடவும்' : 'Tap to open'}
               </span>
             </motion.div>
-
-            {lang !== 'ta' && (
-              <p className="mt-3 font-tamil text-[0.95rem] leading-[1.7] text-gold/85">
-                திறக்க தொடவும்
-              </p>
-            )}
           </motion.div>
         </motion.div>
       )}
@@ -246,20 +266,17 @@ export function OpeningDoor({ open, onOpen }) {
   )
 }
 
+/** Quiet panel lines only — no mid-door circles that clash with center content */
 function DoorPanelDecor({ side }) {
   return (
-    <div className="pointer-events-none absolute inset-y-[10%] opacity-80" aria-hidden="true">
+    <div className="pointer-events-none absolute inset-y-[12%] opacity-70" aria-hidden="true">
       <div
-        className="absolute inset-y-0 w-px bg-gold/35"
-        style={{ [side === 'left' ? 'right' : 'left']: '22%' }}
-      />
-      <div
-        className="absolute inset-y-[6%] w-px bg-gold/18"
-        style={{ [side === 'left' ? 'right' : 'left']: '34%' }}
-      />
-      <div
-        className="absolute top-1/2 h-16 w-16 -translate-y-1/2 rounded-full border border-gold/25"
+        className="absolute inset-y-0 w-px bg-gradient-to-b from-transparent via-gold/30 to-transparent"
         style={{ [side === 'left' ? 'right' : 'left']: '18%' }}
+      />
+      <div
+        className="absolute inset-y-[10%] w-px bg-gradient-to-b from-transparent via-gold/14 to-transparent"
+        style={{ [side === 'left' ? 'right' : 'left']: '30%' }}
       />
     </div>
   )
