@@ -13,8 +13,8 @@ export const wedding = {
   // Couple
   bride: {
     name: {
-      ta: '[மணமகள் பெயர்]',
-      en: '[Bride Name]',
+      ta: 'பிரியாதர்ஷினி',
+      en: 'Priyadharshini',
     },
     parents: {
       ta: 'திரு. ராஜரத்தினம் & திருமதி. சீதாலட்சுமி அவர்களின் மகள்',
@@ -153,8 +153,8 @@ export const wedding = {
       en: '10:00 AM onwards',
     },
     calendarTitle: {
-      ta: 'திருமணப் பதிவு - [மணமகள்] & விக்னேஸ்வரன்',
-      en: 'Wedding Registration - [Bride] & Vickneshwaran',
+      ta: 'திருமணப் பதிவு - பிரியாதர்ஷினி & விக்னேஸ்வரன்',
+      en: 'Wedding Registration - Priyadharshini & Vickneshwaran',
     },
     calendarDescription: {
       ta: 'திருமணப் பதிவு விழா · Glen Rest, அத்திதியா, தெஹிவளை. உங்கள் வருகையும் ஆசீர்வாதமும் வரவேற்கப்படுகிறது.',
@@ -229,8 +229,8 @@ export const wedding = {
   // Share & calendar actions
   share: {
     whatsappMessage: {
-      ta: 'திருமண அழைப்பிதழ் - [மணமகள்] & விக்னேஸ்வரன் · நவம்பர் 15, 2026 · Glen Rest, அத்திதியா. விவரங்களுக்கு இங்கே பாருங்கள்:',
-      en: 'Wedding invitation - [Bride] & Vickneshwaran · Nov 15, 2026 · Glen Rest, Attidiya. See details here:',
+      ta: 'திருமண அழைப்பிதழ் - பிரியாதர்ஷினி & விக்னேஸ்வரன் · நவம்பர் 15, 2026 · Glen Rest, அத்திதியா. விவரங்களுக்கு இங்கே பாருங்கள்:',
+      en: 'Wedding invitation - Priyadharshini & Vickneshwaran · Nov 15, 2026 · Glen Rest, Attidiya. See details here:',
     },
     addToCalendar: {
       ta: 'நாட்காட்டியில் சேர்',
@@ -582,8 +582,8 @@ export const wedding = {
   // ogImage path is relative; absolute URL is built as meta.siteUrl + ogImage
   meta: {
     title: {
-      ta: 'திருமண அழைப்பிதழ் - [மணமகள்] & விக்னேஸ்வரன்',
-      en: 'Wedding Invitation - [Bride] & Vickneshwaran',
+      ta: 'திருமண அழைப்பிதழ் - பிரியாதர்ஷினி & விக்னேஸ்வரன்',
+      en: 'Wedding Invitation - Priyadharshini & Vickneshwaran',
     },
     description: {
       ta: 'நவம்பர் 15, 2026 · Glen Rest, அத்திதியா, தெஹிவளை - திருமணப் பதிவுக்கு அன்புடன் அழைக்கிறோம்.',
