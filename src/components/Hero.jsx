@@ -4,9 +4,9 @@ import { useLanguage } from '../context/LanguageContext'
 import { usePrefersReducedMotion } from '../hooks/usePrefersReducedMotion'
 import { LanguageToggle } from './LanguageToggle'
 import { AudioToggle } from './AudioToggle'
-import { FloralLanternHeader } from './motifs/FloralLanternHeader'
 import { MandapScene } from './motifs/MandapScene'
 import { InviteDateBlock } from './InviteDateBlock'
+import { Kolam } from './motifs/Kolam'
 
 const EASE = [0.16, 1, 0.3, 1]
 
