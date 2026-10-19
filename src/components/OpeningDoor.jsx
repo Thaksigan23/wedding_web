@@ -4,23 +4,18 @@ import { wedding } from '../data/wedding'
 import { usePrefersReducedMotion } from '../hooks/usePrefersReducedMotion'
 import { useLanguage } from '../context/LanguageContext'
 
-const DOOR_MS = 1.35
-const EASE_DOOR = [0.22, 1, 0.36, 1]
+const DOOR_MS = 1.2
 const EASE_OUT = [0.16, 1, 0.3, 1]
 
-const PETAL_COLORS = ['#a84d55', '#8b1520', '#c47a7a', '#6e1a26', '#d4a0a5']
-
-function makePetals(count) {
+function makeBokeh(count) {
   return Array.from({ length: count }, (_, i) => ({
     id: i,
-    left: `${6 + ((i * 13) % 88)}%`,
-    top: `${8 + ((i * 19) % 78)}%`,
-    delay: (i % 10) * 0.08,
-    duration: 5 + (i % 6) * 0.7,
-    size: 8 + (i % 5) * 4,
-    color: PETAL_COLORS[i % PETAL_COLORS.length],
-    rotate: (i % 2 === 0 ? 1 : -1) * (20 + (i % 8) * 15),
-    drift: (i % 2 === 0 ? 1 : -1) * (12 + (i % 5) * 8),
+    left: `${4 + ((i * 17) % 92)}%`,
+    top: `${5 + ((i * 23) % 88)}%`,
+    size: 4 + (i % 7) * 3,
+    delay: (i % 9) * 0.35,
+    duration: 6 + (i % 5) * 1.2,
+    opacity: 0.12 + (i % 5) * 0.05,
   }))
 }
 
@@ -44,14 +39,13 @@ function formatInviteDate(iso) {
 }
 
 /**
- * Formal maroon starting page — Om medallion, florals, open CTA.
+ * Starting cover — matched to the gold-on-maroon Om invitation reference.
  */
 export function OpeningDoor({ open, onOpen }) {
   const reduced = usePrefersReducedMotion()
   const { lang } = useLanguage()
   const [opening, setOpening] = useState(false)
-  const petals = useMemo(() => makePetals(reduced ? 0 : 18), [reduced])
-  const cascade = useMemo(() => makePetals(reduced ? 0 : 22), [reduced])
+  const bokeh = useMemo(() => makeBokeh(reduced ? 0 : 26), [reduced])
   const initials = useMemo(() => coupleInitials(), [])
   const dateLabel = useMemo(
     () => formatInviteDate(wedding.muhurtham.datetime),
@@ -63,19 +57,19 @@ export function OpeningDoor({ open, onOpen }) {
     setOpening(true)
     window.setTimeout(
       () => onOpen(),
-      reduced ? 80 : Math.round(DOOR_MS * 1000 * 0.55),
+      reduced ? 60 : Math.round(DOOR_MS * 1000 * 0.5),
     )
   }, [opening, onOpen, reduced])
-
-  const doorTransition = reduced
-    ? { duration: 0.01 }
-    : { duration: DOOR_MS, ease: EASE_DOOR }
 
   return (
     <AnimatePresence>
       {!open && (
         <motion.div
-          className="fixed inset-0 z-50 flex cursor-pointer flex-col items-center justify-center overflow-hidden bg-[#4a0e14]"
+          className="fixed inset-0 z-50 flex cursor-pointer flex-col items-center justify-center overflow-hidden"
+          style={{
+            background:
+              'radial-gradient(ellipse 80% 70% at 50% 42%, #6b1520 0%, #4a0e14 45%, #2a070c 100%)',
+          }}
           onClick={handleOpen}
           onKeyDown={(e) => {
             if (e.key === 'Enter' || e.key === ' ') {
@@ -86,50 +80,43 @@ export function OpeningDoor({ open, onOpen }) {
           role="button"
           tabIndex={0}
           aria-label={lang === 'ta' ? 'அழைப்பிதழைத் திறக்க தட்டவும்' : 'Open invitation'}
-          exit={
-            reduced
-              ? { opacity: 0, transition: { duration: 0.3 } }
-              : { opacity: 0, transition: { delay: DOOR_MS * 0.5, duration: 0.4 } }
-          }
+          exit={{ opacity: 0, transition: { duration: 0.45 } }}
         >
-          {/* Soft vignette */}
+          {/* Edge vignette */}
           <div
             className="pointer-events-none absolute inset-0"
             style={{
               background:
-                'radial-gradient(ellipse at 50% 45%, rgba(110,26,38,0.5) 0%, transparent 55%), radial-gradient(ellipse at 50% 50%, transparent 40%, rgba(20,3,6,0.55) 100%)',
+                'radial-gradient(ellipse at center, transparent 35%, rgba(15,2,4,0.55) 100%)',
             }}
           />
 
-          {/* Gold frame */}
+          {/* Thin gold frame */}
           <div
-            className="pointer-events-none absolute inset-4 border border-gold/45 sm:inset-6 md:inset-8"
-            aria-hidden="true"
-          />
-          <div
-            className="pointer-events-none absolute inset-[18px] border border-gold/20 sm:inset-[26px] md:inset-[34px]"
+            className="pointer-events-none absolute inset-5 border border-[#d4b05c]/50 sm:inset-7 md:inset-9"
             aria-hidden="true"
           />
 
-          {/* Floating ambient petals */}
+          {/* Soft floating petal / bokeh orbs */}
           {!reduced && (
             <div className="pointer-events-none absolute inset-0 z-[1] overflow-hidden" aria-hidden="true">
-              {petals.map((p) => (
+              {bokeh.map((p) => (
                 <motion.span
-                  key={`a-${p.id}`}
-                  className="absolute rounded-[45%_55%_50%_50%] opacity-40 blur-[0.5px]"
+                  key={p.id}
+                  className="absolute rounded-full"
                   style={{
                     left: p.left,
                     top: p.top,
                     width: p.size,
-                    height: p.size * 1.3,
-                    background: `radial-gradient(ellipse at 30% 30%, #f0cfc4, ${p.color})`,
+                    height: p.size,
+                    background:
+                      'radial-gradient(circle, rgba(255,230,235,0.85) 0%, rgba(255,200,210,0.15) 55%, transparent 70%)',
+                    opacity: p.opacity,
                   }}
                   animate={{
-                    y: [0, p.drift, 0],
-                    x: [0, p.drift * 0.4, 0],
-                    rotate: [0, p.rotate * 0.3, 0],
-                    opacity: [0.15, 0.4, 0.15],
+                    y: [0, -14, 0],
+                    x: [0, (p.id % 2 === 0 ? 8 : -8), 0],
+                    opacity: [p.opacity * 0.5, p.opacity, p.opacity * 0.5],
                   }}
                   transition={{
                     duration: p.duration,
@@ -142,136 +129,71 @@ export function OpeningDoor({ open, onOpen }) {
             </div>
           )}
 
-          {/* Corner florals + hanging lamps */}
           <CornerDecor />
 
-          {/* Door panels for open swing */}
-          <div
-            className="absolute inset-0 z-[2] flex"
-            style={{ perspective: '1400px', perspectiveOrigin: '50% 50%' }}
-          >
-            <motion.div
-              className="h-full w-1/2 origin-left bg-[#4a0e14]/95"
-              style={{ transformStyle: 'preserve-3d' }}
-              initial={false}
-              animate={
-                opening && !reduced
-                  ? { rotateY: -105, opacity: 0.85 }
-                  : { rotateY: 0, opacity: 0 }
-              }
-              transition={doorTransition}
-            />
-            <motion.div
-              className="h-full w-1/2 origin-right bg-[#4a0e14]/95"
-              style={{ transformStyle: 'preserve-3d' }}
-              initial={false}
-              animate={
-                opening && !reduced
-                  ? { rotateY: 105, opacity: 0.85 }
-                  : { rotateY: 0, opacity: 0 }
-              }
-              transition={doorTransition}
-            />
-          </div>
-
-          {/* Cascade petals on open */}
-          {opening && !reduced && (
-            <div className="pointer-events-none absolute inset-0 z-[5] overflow-hidden" aria-hidden="true">
-              {cascade.map((p) => (
-                <motion.span
-                  key={`c-${p.id}`}
-                  className="absolute top-[-6%] rounded-[40%_60%_55%_45%]"
-                  style={{
-                    left: p.left,
-                    width: p.size,
-                    height: p.size * 1.25,
-                    background: `radial-gradient(ellipse at 30% 30%, #f7f0ea, ${p.color})`,
-                  }}
-                  initial={{ y: 0, opacity: 0 }}
-                  animate={{
-                    y: '115vh',
-                    x: [0, p.drift],
-                    opacity: [0, 1, 0],
-                    rotate: p.rotate,
-                  }}
-                  transition={{ duration: 1.4 + (p.id % 4) * 0.15, delay: p.delay * 0.4, ease: 'easeIn' }}
-                />
-              ))}
-            </div>
-          )}
-
-          {/* Center content */}
+          {/* Center stack */}
           <motion.div
-            className="relative z-10 flex w-full max-w-lg flex-col items-center px-6 text-center sm:px-10"
-            initial={reduced ? false : { opacity: 0, y: 16 }}
+            className="relative z-10 flex w-full max-w-md flex-col items-center px-8 text-center"
+            initial={reduced ? false : { opacity: 0, y: 12 }}
             animate={
               opening
-                ? { opacity: 0, y: -18, scale: 0.97 }
-                : { opacity: 1, y: 0, scale: 1 }
+                ? { opacity: 0, scale: 0.97, y: -12 }
+                : { opacity: 1, scale: 1, y: 0 }
             }
-            transition={{ duration: opening ? 0.45 : 0.8, delay: opening ? 0 : 0.1, ease: EASE_OUT }}
+            transition={{ duration: opening ? 0.4 : 0.75, ease: EASE_OUT }}
           >
-            <GoldDiamond className="mb-5 h-5 w-5 text-gold sm:mb-6" />
-
-            <div className="space-y-1.5 text-gold">
-              <p className="font-tamil text-[clamp(0.95rem,0.85rem+0.4vw,1.15rem)] leading-[1.7]">
+            <div className="space-y-1 text-[#e4c86a]">
+              <p className="font-tamil text-[clamp(1.05rem,0.95rem+0.45vw,1.25rem)] leading-[1.75] tracking-wide">
                 || ஸ்ரீ கணபதயே நம: ||
               </p>
-              <p className="font-tamil text-[0.8rem] leading-[1.7] text-gold/85 sm:text-[0.9rem]">
-                {wedding.invocation.pillaiyar.ta}
+              <p className="font-tamil text-[0.88rem] leading-[1.75] text-[#e4c86a]/90 sm:text-[0.95rem]">
+                பிள்ளையார் துணை
               </p>
-              <p className="font-tamil text-[0.8rem] leading-[1.7] text-gold/75 sm:text-[0.88rem]">
-                {wedding.invocation.murugan.ta}
+              <p className="font-tamil text-[0.88rem] leading-[1.75] text-[#e4c86a]/85 sm:text-[0.95rem]">
+                முருகன் துணை
               </p>
-              <p className="font-tamil text-[0.78rem] leading-[1.7] text-gold/65 sm:text-[0.85rem]">
+              <p className="font-tamil text-[0.82rem] leading-[1.75] text-[#e4c86a]/75 sm:text-[0.9rem]">
                 குடும்பத்தினருடன் இணைந்து
               </p>
             </div>
 
-            <div className="relative my-7 sm:my-8">
+            <div className="my-8 sm:my-9">
               <OmMedallion pulse={!reduced && !opening} />
             </div>
 
-            <p className="font-display text-[clamp(2.2rem,1.6rem+2.2vw,3.25rem)] font-light leading-none tracking-[0.08em] text-gold">
-              <span>{initials.bride}</span>
-              <span className="mx-3 inline-block text-[0.4em] align-middle" aria-hidden="true">
-                ✥
+            <p
+              className="font-display font-light leading-none tracking-[0.12em] text-[#e8cf7a]"
+              style={{ fontSize: 'clamp(2.4rem, 1.7rem + 2.6vw, 3.4rem)' }}
+            >
+              {initials.bride}
+              <span className="mx-3 inline-block text-[0.38em] align-middle opacity-90" aria-hidden="true">
+                ❖
               </span>
-              <span>{initials.groom}</span>
+              {initials.groom}
             </p>
 
-            <p className="mt-4 font-sans text-[0.9rem] tracking-[0.32em] text-gold tabular-nums sm:text-base">
+            <p className="mt-4 font-display text-[1rem] tracking-[0.36em] text-[#e4c86a] tabular-nums sm:text-[1.1rem]">
               {dateLabel}
             </p>
 
             <motion.div
-              className="mt-8 inline-flex min-h-[48px] items-center justify-center gap-2.5 rounded-full border border-gold/70 bg-transparent px-7 py-2.5 sm:mt-9 sm:px-9"
+              className="mt-9 inline-flex min-h-[50px] items-center justify-center gap-2.5 rounded-full border border-[#d4b05c]/75 bg-transparent px-8 py-2.5"
               animate={
                 reduced || opening
                   ? undefined
                   : {
-                      borderColor: [
-                        'rgba(212,176,92,0.55)',
-                        'rgba(212,176,92,0.95)',
-                        'rgba(212,176,92,0.55)',
+                      boxShadow: [
+                        '0 0 0 rgba(212,176,92,0)',
+                        '0 0 18px rgba(212,176,92,0.28)',
+                        '0 0 0 rgba(212,176,92,0)',
                       ],
                     }
               }
               transition={{ duration: 2.8, repeat: Infinity, ease: 'easeInOut' }}
             >
-              <LotusIcon className="h-4 w-4 text-gold" />
-              <span className="font-tamil text-[0.95rem] text-gold sm:text-base">
-                அழைப்பிதழை திற
-              </span>
+              <SparkleIcon className="h-3.5 w-3.5 shrink-0 text-[#e4c86a]" />
+              <span className="font-tamil text-[1rem] text-[#e4c86a]">அழைப்பிதழை திற</span>
             </motion.div>
-
-            {lang !== 'ta' && (
-              <p className="mt-2.5 font-sans text-[0.62rem] tracking-[0.28em] text-gold/50 uppercase">
-                Open Invitation
-              </p>
-            )}
-
-            <LotusIcon className="mt-7 h-5 w-5 text-gold/70 sm:mt-8" />
           </motion.div>
         </motion.div>
       )}
@@ -281,64 +203,66 @@ export function OpeningDoor({ open, onOpen }) {
 
 function CornerDecor() {
   return (
-    <div className="pointer-events-none absolute inset-0 z-[3]" aria-hidden="true">
-      {/* Top lamps */}
-      <img
-        src="/images/icon-lantern.jpg"
-        alt=""
-        className="absolute top-8 left-6 h-14 w-14 rounded-full object-cover opacity-90 shadow-lg ring-1 ring-gold/35 sm:top-10 sm:left-10 sm:h-16 sm:w-16 md:left-14"
-        style={{ mixBlendMode: 'screen' }}
-        draggable={false}
+    <div className="pointer-events-none absolute inset-0 z-[3] overflow-hidden" aria-hidden="true">
+      {/* Top-left lotus + lamp */}
+      <CornerLotus
+        className="absolute -top-2 -left-2 h-36 w-36 sm:h-44 sm:w-44 md:h-52 md:w-52"
+        lamp
       />
-      <img
-        src="/images/icon-lantern.jpg"
-        alt=""
-        className="absolute top-8 right-6 h-14 w-14 rounded-full object-cover opacity-90 shadow-lg ring-1 ring-gold/35 sm:top-10 sm:right-10 sm:h-16 sm:w-16 md:right-14"
-        style={{ mixBlendMode: 'screen' }}
-        draggable={false}
+      {/* Top-right */}
+      <CornerLotus
+        className="absolute -top-2 -right-2 h-36 w-36 sm:h-44 sm:w-44 md:h-52 md:w-52"
+        lamp
+        mirror
       />
+      {/* Bottom-left */}
+      <CornerLotus
+        className="absolute -bottom-4 -left-4 h-40 w-40 sm:h-52 sm:w-52 md:h-60 md:w-60"
+      />
+      {/* Bottom-right */}
+      <CornerLotus
+        className="absolute -bottom-4 -right-4 h-40 w-40 sm:h-52 sm:w-52 md:h-60 md:w-60"
+        mirror
+        accent
+      />
+    </div>
+  )
+}
 
-      {/* Top floral hints */}
+function CornerLotus({ className = '', lamp = false, mirror = false, accent = false }) {
+  return (
+    <div className={`relative ${className}`}>
       <img
         src="/images/icon-lotus.jpg"
         alt=""
-        className="absolute top-16 left-2 h-20 w-20 -rotate-12 object-contain opacity-35 blur-[0.5px] sm:left-4 sm:h-28 sm:w-28"
+        className={`h-full w-full rounded-full object-cover shadow-[0_8px_32px_rgba(0,0,0,0.35)] ${
+          mirror ? 'scale-x-[-1]' : ''
+        }`}
+        style={{
+          maskImage:
+            'radial-gradient(circle at 50% 50%, #000 42%, transparent 72%)',
+          WebkitMaskImage:
+            'radial-gradient(circle at 50% 50%, #000 42%, transparent 72%)',
+          opacity: 0.92,
+        }}
         draggable={false}
       />
-      <img
-        src="/images/icon-lotus.jpg"
-        alt=""
-        className="absolute top-16 right-2 h-20 w-20 rotate-12 object-contain opacity-35 blur-[0.5px] sm:right-4 sm:h-28 sm:w-28"
-        draggable={false}
-      />
-
-      {/* Bottom florals */}
-      <img
-        src="/images/icon-lotus.jpg"
-        alt=""
-        className="absolute bottom-4 left-0 h-28 w-28 -rotate-6 object-contain opacity-45 sm:bottom-6 sm:h-36 sm:w-36 md:h-44 md:w-44"
-        draggable={false}
-      />
-      <img
-        src="/images/icon-lotus.jpg"
-        alt=""
-        className="absolute bottom-4 right-0 h-28 w-28 rotate-6 object-contain opacity-45 sm:bottom-6 sm:h-36 sm:w-36 md:h-44 md:w-44"
-        draggable={false}
-      />
-      <img
-        src="/images/icon-rings.jpg"
-        alt=""
-        className="absolute bottom-8 left-16 h-16 w-16 rounded-full object-cover opacity-40 sm:left-24 sm:h-20 sm:w-20"
-        style={{ mixBlendMode: 'luminosity' }}
-        draggable={false}
-      />
-      <img
-        src="/images/icon-rings.jpg"
-        alt=""
-        className="absolute bottom-8 right-16 h-16 w-16 rounded-full object-cover opacity-40 sm:right-24 sm:h-20 sm:w-20"
-        style={{ mixBlendMode: 'luminosity' }}
-        draggable={false}
-      />
+      {lamp && (
+        <img
+          src="/images/icon-lantern.jpg"
+          alt=""
+          className="absolute top-[12%] left-1/2 h-[38%] w-[38%] -translate-x-1/2 rounded-full object-cover shadow-md ring-1 ring-[#d4b05c]/50"
+          draggable={false}
+        />
+      )}
+      {accent && (
+        <img
+          src="/images/icon-lotus.jpg"
+          alt=""
+          className="absolute right-[18%] bottom-[22%] h-[28%] w-[28%] rounded-full object-cover opacity-80 ring-1 ring-white/30"
+          draggable={false}
+        />
+      )}
     </div>
   )
 }
@@ -346,58 +270,74 @@ function CornerDecor() {
 function OmMedallion({ pulse = false }) {
   return (
     <motion.div
-      className="relative flex h-[150px] w-[150px] items-center justify-center sm:h-[180px] sm:w-[180px]"
-      animate={pulse ? { scale: [1, 1.03, 1] } : undefined}
-      transition={{ duration: 3.6, repeat: Infinity, ease: 'easeInOut' }}
+      className="relative flex h-[168px] w-[168px] items-center justify-center sm:h-[200px] sm:w-[200px]"
+      animate={pulse ? { scale: [1, 1.025, 1] } : undefined}
+      transition={{ duration: 3.8, repeat: Infinity, ease: 'easeInOut' }}
+      style={{
+        filter: 'drop-shadow(0 6px 20px rgba(0,0,0,0.35))',
+      }}
     >
-      <svg viewBox="0 0 200 200" className="absolute inset-0 h-full w-full text-gold" aria-hidden="true">
+      <svg viewBox="0 0 220 220" className="absolute inset-0 h-full w-full" aria-hidden="true">
         <defs>
-          <radialGradient id="omGlow" cx="40%" cy="35%" r="65%">
-            <stop offset="0%" stopColor="#f0d98a" />
-            <stop offset="45%" stopColor="#d4b05c" />
+          <linearGradient id="goldRay" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stopColor="#f5e09a" />
+            <stop offset="50%" stopColor="#d4b05c" />
+            <stop offset="100%" stopColor="#a88435" />
+          </linearGradient>
+          <radialGradient id="goldDisk" cx="38%" cy="32%" r="68%">
+            <stop offset="0%" stopColor="#f8e9b0" />
+            <stop offset="55%" stopColor="#d4b05c" />
             <stop offset="100%" stopColor="#8a6a28" />
           </radialGradient>
         </defs>
-        {/* Outer petals */}
-        {Array.from({ length: 16 }, (_, i) => {
-          const a = (i / 16) * Math.PI * 2
-          const x = 100 + Math.cos(a) * 78
-          const y = 100 + Math.sin(a) * 78
+
+        {/* Outer sunburst petals */}
+        {Array.from({ length: 24 }, (_, i) => {
+          const a = (i / 24) * Math.PI * 2 - Math.PI / 2
+          const x = 110 + Math.cos(a) * 88
+          const y = 110 + Math.sin(a) * 88
           const rot = (a * 180) / Math.PI + 90
           return (
             <ellipse
               key={i}
               cx={x}
               cy={y}
-              rx="7"
-              ry="16"
-              fill="url(#omGlow)"
-              opacity="0.85"
+              rx="5.5"
+              ry="18"
+              fill="url(#goldRay)"
+              opacity={0.9}
               transform={`rotate(${rot} ${x} ${y})`}
             />
           )
         })}
-        <circle cx="100" cy="100" r="62" fill="none" stroke="url(#omGlow)" strokeWidth="2.5" />
-        <circle cx="100" cy="100" r="54" fill="none" stroke="#d4b05c" strokeWidth="1" opacity="0.7" />
-        <circle cx="100" cy="100" r="48" fill="#3d0a12" stroke="url(#omGlow)" strokeWidth="3" />
-        {/* Inner ring dots */}
-        {Array.from({ length: 20 }, (_, i) => {
-          const a = (i / 20) * Math.PI * 2
+
+        <circle cx="110" cy="110" r="72" fill="none" stroke="url(#goldRay)" strokeWidth="3" />
+        <circle cx="110" cy="110" r="64" fill="none" stroke="#e4c86a" strokeWidth="1.2" opacity="0.75" />
+
+        {/* Dot ring */}
+        {Array.from({ length: 28 }, (_, i) => {
+          const a = (i / 28) * Math.PI * 2
           return (
             <circle
-              key={`d-${i}`}
-              cx={100 + Math.cos(a) * 42}
-              cy={100 + Math.sin(a) * 42}
-              r="1.6"
-              fill="#d4b05c"
-              opacity="0.8"
+              key={`dot-${i}`}
+              cx={110 + Math.cos(a) * 56}
+              cy={110 + Math.sin(a) * 56}
+              r="2"
+              fill="#e4c86a"
             />
           )
         })}
+
+        <circle cx="110" cy="110" r="48" fill="url(#goldDisk)" stroke="#f5e09a" strokeWidth="2" />
       </svg>
+
       <span
-        className="relative z-[1] select-none font-display text-[3.25rem] leading-none text-gold sm:text-[3.85rem]"
-        style={{ textShadow: '0 2px 12px rgba(0,0,0,0.35)' }}
+        className="relative z-[1] select-none leading-none text-[#4a0e14]"
+        style={{
+          fontFamily: 'Georgia, "Noto Serif", serif',
+          fontSize: 'clamp(3.2rem, 2.4rem + 2.5vw, 4.25rem)',
+          fontWeight: 600,
+        }}
         aria-hidden="true"
       >
         ॐ
@@ -406,22 +346,11 @@ function OmMedallion({ pulse = false }) {
   )
 }
 
-function GoldDiamond({ className = '' }) {
+function SparkleIcon({ className = '' }) {
   return (
     <svg viewBox="0 0 24 24" className={className} fill="currentColor" aria-hidden="true">
-      <path d="M12 2 L14.5 9.5 L22 12 L14.5 14.5 L12 22 L9.5 14.5 L2 12 L9.5 9.5 Z" opacity="0.9" />
-      <circle cx="12" cy="12" r="2.2" />
-    </svg>
-  )
-}
-
-function LotusIcon({ className = '' }) {
-  return (
-    <svg viewBox="0 0 24 24" className={className} fill="currentColor" aria-hidden="true">
-      <path d="M12 20c-1.5-2.5-4-4-4-7 0-2 1.5-3.5 4-4.5 2.5 1 4 2.5 4 4.5 0 3-2.5 4.5-4 7z" opacity="0.95" />
-      <path d="M12 8.5C10 6 7 5 5.5 5.5c.5 2.5 2.5 4.5 6.5 6 4-1.5 6-3.5 6.5-6C17 5 14 6 12 8.5z" opacity="0.75" />
-      <path d="M7 14c-2.5.5-4 2-4.5 4 2.2.3 4.5-.5 6.5-2.5C7.5 14.5 7 14 7 14z" opacity="0.7" />
-      <path d="M17 14c2.5.5 4 2 4.5 4-2.2.3-4.5-.5-6.5-2.5 1.5-1 2-1.5 2-1.5z" opacity="0.7" />
+      <path d="M12 2l1.2 6.3L19.5 12l-6.3 1.2L12 22l-1.2-8.8L4.5 12l6.3-3.7L12 2z" />
+      <path d="M19 4l.5 2.2L21.5 7l-2 0.5L19 9.5l-.5-2L16.5 7l2-.5L19 4z" opacity="0.85" />
     </svg>
   )
 }
