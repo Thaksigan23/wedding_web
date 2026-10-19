@@ -6,7 +6,6 @@ import { AudioToggle } from './AudioToggle'
 
 const LINKS = [
   { id: 'story', key: 'story' },
-  { id: 'events', key: 'events' },
   { id: 'venue', key: 'venue' },
   { id: 'gallery', key: 'gallery' },
   { id: 'rsvp', key: 'rsvp' },

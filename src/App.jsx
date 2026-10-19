@@ -10,9 +10,6 @@ const BlessingNote = lazy(() =>
 const BrideGroom = lazy(() =>
   import('./components/BrideGroom').then((m) => ({ default: m.BrideGroom })),
 )
-const Timeline = lazy(() =>
-  import('./components/Timeline').then((m) => ({ default: m.Timeline })),
-)
 const Countdown = lazy(() =>
   import('./components/Countdown').then((m) => ({ default: m.Countdown })),
 )
@@ -64,7 +61,6 @@ export default function App() {
               <Suspense fallback={<SectionFallback />}>
                 <BlessingNote />
                 <BrideGroom />
-                <Timeline />
                 <Countdown />
                 <Venue />
                 <Gallery />
