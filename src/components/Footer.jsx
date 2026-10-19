@@ -70,18 +70,18 @@ export function Footer() {
           ))}
         </ul>
 
-        {/* Made with love by + logo only */}
+        {/* Made with love by + logo only — matched reference sizing */}
         <div className="mt-12 border-t border-white/10 pt-7">
           <a
             href={creditUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center justify-center gap-2 transition hover:opacity-90 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gold"
+            className="inline-flex items-center justify-center gap-1.5 transition hover:opacity-90 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gold"
             aria-label={`${t(wedding.footer.madeWithLove)} ${creditName}`}
           >
             <span
-              className={`text-[0.8rem] text-ivory/50 ${
-                lang === 'ta' ? 'font-tamil' : 'font-sans'
+              className={`text-[15px] leading-none tracking-normal text-[#9db0b5] ${
+                lang === 'ta' ? 'font-tamil' : 'font-sans font-normal'
               }`}
             >
               {t(wedding.footer.madeWithLove)}
@@ -89,9 +89,9 @@ export function Footer() {
             <img
               src={creditLogo}
               alt={creditName}
-              width={28}
-              height={28}
-              className="h-6 w-6 object-contain md:h-7 md:w-7"
+              width={26}
+              height={26}
+              className="h-[26px] w-[26px] shrink-0 object-contain"
               loading="lazy"
               decoding="async"
             />

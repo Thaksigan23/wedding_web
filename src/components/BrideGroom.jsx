@@ -82,7 +82,7 @@ function PersonCard({ person, role, delay, parallaxSign }) {
           <ArchFrame src={person.photo} alt={t(person.name)} label={t(role)} />
         </motion.div>
 
-        <p className="mt-5 font-sans text-[0.65rem] tracking-[0.22em] text-gold-ink uppercase">
+        <p className="mt-5 font-sans text-[0.65rem] tracking-[0.22em] text-maroon/60 uppercase">
           {t(role)}
         </p>
 
@@ -100,7 +100,7 @@ function PersonCard({ person, role, delay, parallaxSign }) {
           {t(person.parents)}
         </p>
 
-        <p className="mt-3 font-sans text-[0.65rem] tracking-[0.2em] text-gold-ink uppercase">
+        <p className="mt-3 font-sans text-[0.65rem] tracking-[0.2em] text-maroon/55 uppercase">
           {t(person.hometown)}
         </p>
       </motion.article>

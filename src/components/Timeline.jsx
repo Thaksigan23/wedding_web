@@ -48,7 +48,7 @@ export function Timeline() {
                   {/* Center node — photorealistic ceremonial icon */}
                   <div
                     className={`absolute left-5 top-3 z-10 overflow-hidden rounded-full border-2 border-gold/70 shadow-md md:left-1/2 ${
-                      featured ? 'ring-4 ring-blush' : 'ring-2 ring-ivory'
+                      featured ? 'ring-4 ring-maroon/15' : 'ring-2 ring-ivory'
                     }`}
                     style={{ width: 52, height: 52, transform: 'translateX(-50%)' }}
                     aria-hidden="true"

@@ -80,7 +80,7 @@ function VenueSplit({ venue, t, lang, onIcs, googleUrl }) {
     >
       <div className="flex flex-col justify-center px-6 py-8 md:px-10 md:py-12">
         {venue.label && (
-          <p className="font-sans text-[0.65rem] tracking-[0.2em] text-gold-ink uppercase">
+          <p className="font-sans text-[0.65rem] tracking-[0.2em] text-maroon/60 uppercase">
             {t(venue.label)}
           </p>
         )}

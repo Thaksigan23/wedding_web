@@ -75,7 +75,7 @@ export function InviteDateBlock({ className = '' }) {
         >
           {day}
         </span>
-        <span className="mt-0.5 font-sans text-[0.58rem] tracking-[0.28em] text-gold-ink">
+        <span className="mt-0.5 font-sans text-[0.58rem] tracking-[0.28em] text-maroon/55">
           {year}
         </span>
       </div>

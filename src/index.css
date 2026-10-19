@@ -1,22 +1,22 @@
 @import "tailwindcss";
 
-/* Maroon wedding theme (maroon · ivory · gold) */
+/* Full maroon wedding theme (deep maroon · soft maroon wash · gold) */
 @theme {
-  --color-ivory: #faf6f2;
-  --color-blush: #f0e4e2;
-  --color-blush-deep: #e5d0ce;
-  --color-rose: #c47a7a;
-  --color-maroon: #6b1520;
-  --color-maroon-deep: #3d0a12;
+  --color-ivory: #f8f3f0;
+  --color-blush: #efe3e4;
+  --color-blush-deep: #e2d0d2;
+  --color-rose: #a84d55;
+  --color-maroon: #5e121c;
+  --color-maroon-deep: #2f080e;
   --color-gold: #c9a24a;
-  --color-gold-ink: #8a6a28;
-  --color-kumkum: #9e1b24;
-  --color-sandal: #faf6f2;
+  --color-gold-ink: #7a4a28;
+  --color-kumkum: #8b1520;
+  --color-sandal: #f8f3f0;
   --color-temple-gold: #c9a24a;
   --color-turmeric: #c9a24a;
   --color-jasmine: #fffef9;
-  --color-leaf: #5a7358;
-  --color-muted: #7a5558;
+  --color-leaf: #4a5c4a;
+  --color-muted: #6b4548;
 
   --font-display: "Cormorant Garamond", "Palatino Linotype", Palatino, Georgia, serif;
   --font-script: "Great Vibes", "Segoe Script", "Apple Chancery", cursive;
@@ -29,9 +29,9 @@
   --radius-lg: 24px;
   --radius-pill: 999px;
 
-  --shadow-soft: 0 8px 32px rgba(107, 21, 32, 0.1);
-  --shadow-lift: 0 18px 48px rgba(107, 21, 32, 0.16);
-  --shadow-nav: 0 1px 0 rgba(201, 162, 74, 0.22), 0 10px 36px rgba(107, 21, 32, 0.1);
+  --shadow-soft: 0 8px 32px rgba(94, 18, 28, 0.12);
+  --shadow-lift: 0 18px 48px rgba(94, 18, 28, 0.18);
+  --shadow-nav: 0 1px 0 rgba(201, 162, 74, 0.25), 0 10px 36px rgba(94, 18, 28, 0.12);
 
   --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
   --content-max: 1100px;
@@ -41,25 +41,25 @@
 
 @layer base {
   :root {
-    --color-ivory: #faf6f2;
-    --color-blush: #f0e4e2;
-    --color-blush-deep: #e5d0ce;
-    --color-rose: #c47a7a;
-    --color-maroon: #6b1520;
-    --color-maroon-deep: #3d0a12;
+    --color-ivory: #f8f3f0;
+    --color-blush: #efe3e4;
+    --color-blush-deep: #e2d0d2;
+    --color-rose: #a84d55;
+    --color-maroon: #5e121c;
+    --color-maroon-deep: #2f080e;
     --color-gold: #c9a24a;
-    --color-gold-ink: #8a6a28;
-    --color-kumkum: #9e1b24;
-    --color-sandal: #faf6f2;
+    --color-gold-ink: #7a4a28;
+    --color-kumkum: #8b1520;
+    --color-sandal: #f8f3f0;
     --color-temple-gold: #c9a24a;
     --color-turmeric: #c9a24a;
-    --color-muted: #7a5558;
+    --color-muted: #6b4548;
 
     --radius-sm: 12px;
     --radius-md: 16px;
     --radius-lg: 24px;
-    --shadow-soft: 0 8px 32px rgba(107, 21, 32, 0.1);
-    --shadow-lift: 0 18px 48px rgba(107, 21, 32, 0.16);
+    --shadow-soft: 0 8px 32px rgba(94, 18, 28, 0.12);
+    --shadow-lift: 0 18px 48px rgba(94, 18, 28, 0.18);
     --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
     --content-max: 1100px;
     --section-pad-y: clamp(4rem, 9vw, 7.5rem);
@@ -107,7 +107,7 @@
     position: fixed;
     inset: 0;
     z-index: 9999;
-    opacity: 0.03;
+    opacity: 0.035;
     background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
     mix-blend-mode: multiply;
   }
@@ -122,7 +122,7 @@
   }
 
   ::selection {
-    background: color-mix(in srgb, var(--color-maroon) 28%, transparent);
+    background: color-mix(in srgb, var(--color-maroon) 32%, transparent);
     color: var(--color-maroon-deep);
   }
 
@@ -155,11 +155,11 @@
   .eyebrow {
     font-family: var(--font-sans);
     font-size: var(--text-eyebrow);
-    font-weight: 500;
+    font-weight: 600;
     letter-spacing: 0.28em;
     text-transform: uppercase;
     color: var(--color-maroon);
-    opacity: 0.72;
+    opacity: 0.7;
   }
 
   .heading-display {
@@ -202,7 +202,7 @@
   }
 
   .body-muted {
-    color: color-mix(in srgb, var(--color-maroon) 62%, transparent);
+    color: color-mix(in srgb, var(--color-maroon) 65%, transparent);
   }
 
   .invite-lead {
@@ -292,26 +292,26 @@
     background-size: 100% 1px;
   }
 
-  /* Hero wash — soft maroon atmosphere */
+  /* Hero — maroon atmosphere */
   .invite-wash {
     background:
-      radial-gradient(ellipse 85% 50% at 50% 0%, rgba(107, 21, 32, 0.14) 0%, transparent 58%),
-      radial-gradient(ellipse 60% 40% at 8% 85%, rgba(107, 21, 32, 0.08) 0%, transparent 50%),
-      radial-gradient(ellipse 60% 40% at 92% 80%, rgba(201, 162, 74, 0.1) 0%, transparent 50%),
-      linear-gradient(180deg, #f7efec 0%, #faf6f2 40%, #f0e4e2 100%);
+      radial-gradient(ellipse 90% 55% at 50% 0%, rgba(94, 18, 28, 0.18) 0%, transparent 58%),
+      radial-gradient(ellipse 55% 40% at 0% 100%, rgba(94, 18, 28, 0.1) 0%, transparent 50%),
+      radial-gradient(ellipse 55% 40% at 100% 90%, rgba(201, 162, 74, 0.12) 0%, transparent 50%),
+      linear-gradient(180deg, #f3e9e8 0%, #f8f3f0 38%, #efe3e4 100%);
   }
 
   .band-maroon {
     background:
-      radial-gradient(ellipse at 50% 0%, rgba(201, 162, 74, 0.18) 0%, transparent 48%),
-      linear-gradient(165deg, #7a1c28 0%, #6b1520 40%, #3d0a12 100%);
+      radial-gradient(ellipse at 50% 0%, rgba(201, 162, 74, 0.2) 0%, transparent 48%),
+      linear-gradient(165deg, #721824 0%, #5e121c 38%, #2f080e 100%);
     color: var(--color-ivory);
   }
 
   .band-maroon-deep {
     background:
-      radial-gradient(ellipse at 50% 0%, rgba(201, 162, 74, 0.2) 0%, transparent 50%),
-      linear-gradient(180deg, #5c121c 0%, #3d0a12 55%, #2a070d 100%);
+      radial-gradient(ellipse at 50% 0%, rgba(201, 162, 74, 0.22) 0%, transparent 50%),
+      linear-gradient(180deg, #521018 0%, #2f080e 55%, #1a0508 100%);
     color: var(--color-ivory);
   }
 }

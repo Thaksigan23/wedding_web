@@ -277,7 +277,7 @@ function MemoryCard({ card, faceUp, matched, reduced, lang, disabled, onFlip }) 
             background: 'linear-gradient(160deg, #e0b84a 0%, #c9a24a 45%, #a88435 100%)',
           }}
         >
-          <LockIcon className="h-6 w-6 text-[#8a3a12]/75 opacity-80 transition group-hover:opacity-100 sm:h-7 sm:w-7" />
+          <LockIcon className="h-6 w-6 text-[#5e121c]/7 opacity-80 transition group-hover:opacity-100 sm:h-7 sm:w-7" />
         </div>
 
         {/* Front */}

@@ -130,7 +130,7 @@ export function Hero({ audioUnlocked }) {
         {/* Venue */}
         {venue && (
           <motion.div className="mt-4" {...fade(0.62)}>
-            <p className="font-sans text-[0.58rem] tracking-[0.28em] text-gold-ink uppercase">
+            <p className="font-sans text-[0.58rem] tracking-[0.28em] text-maroon/55 uppercase">
               :: {lang === 'ta' ? 'நிகழ்விடம்' : 'Venue'} ::
             </p>
             <p

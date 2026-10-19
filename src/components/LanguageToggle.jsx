@@ -12,11 +12,11 @@ export function LanguageToggle({ className = '', compact = false }) {
       } ${className}`}
       aria-label={lang === 'ta' ? 'Switch to English' : 'தமிழுக்கு மாற்று'}
     >
-      <span className={lang === 'ta' ? 'font-tamil text-gold-ink' : 'opacity-45'}>தமிழ்</span>
-      <span className="text-gold/40" aria-hidden="true">
+      <span className={lang === 'ta' ? 'font-tamil text-maroon' : 'opacity-40'}>தமிழ்</span>
+      <span className="text-maroon/30" aria-hidden="true">
         /
       </span>
-      <span className={lang === 'en' ? 'text-gold-ink' : 'opacity-45'}>EN</span>
+      <span className={lang === 'en' ? 'text-maroon' : 'opacity-40'}>EN</span>
     </button>
   )
 }

@@ -191,7 +191,7 @@ export function RSVP() {
                     {t(wedding.rsvp.labels.attending)}
                   </legend>
                   <div
-                    className="inline-flex rounded-full border border-gold/35 bg-blush/40 p-1"
+                    className="inline-flex rounded-full border border-maroon/20 bg-maroon/5 p-1"
                     role="group"
                   >
                     {['yes', 'no'].map((value) => (
@@ -277,7 +277,7 @@ function FloatingField({ id, label, error, children }) {
       {children}
       <label
         htmlFor={id}
-        className="pointer-events-none absolute top-2.5 left-3.5 origin-left font-sans text-[0.7rem] tracking-wide text-gold-ink transition-all peer-placeholder-shown:top-3.5 peer-placeholder-shown:text-sm peer-placeholder-shown:text-maroon/40 peer-focus:top-2.5 peer-focus:text-[0.7rem] peer-focus:text-gold-ink"
+        className="pointer-events-none absolute top-2.5 left-3.5 origin-left font-sans text-[0.7rem] tracking-wide text-maroon/55 transition-all peer-placeholder-shown:top-3.5 peer-placeholder-shown:text-sm peer-placeholder-shown:text-maroon/35 peer-focus:top-2.5 peer-focus:text-[0.7rem] peer-focus:text-maroon"
       >
         {label}
       </label>

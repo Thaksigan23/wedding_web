@@ -117,7 +117,7 @@ export function StickyNav({ audioUnlocked }) {
                 className={`rounded-full px-3.5 py-1.5 font-sans text-[0.68rem] tracking-[0.18em] uppercase transition duration-300 ${
                   active === link.id
                     ? 'bg-maroon text-ivory shadow-sm'
-                    : 'text-maroon/50 hover:bg-blush/70 hover:text-maroon'
+                    : 'text-maroon/55 hover:bg-maroon/10 hover:text-maroon'
                 }`}
               >
                 {t(wedding.nav[link.key])}
@@ -160,8 +160,8 @@ export function StickyNav({ audioUnlocked }) {
                   lang === 'ta' ? 'font-tamil' : ''
                 } ${
                   active === link.id
-                    ? 'bg-blush text-maroon'
-                    : 'text-maroon/70 hover:bg-blush/60'
+                    ? 'bg-maroon/10 text-maroon'
+                    : 'text-maroon/70 hover:bg-maroon/8'
                 }`}
               >
                 {t(wedding.nav[link.key])}

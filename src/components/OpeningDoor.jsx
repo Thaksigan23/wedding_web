@@ -8,7 +8,7 @@ const DOOR_MS = 1.45
 const EASE_DOOR = [0.22, 1, 0.36, 1]
 const EASE_OUT = [0.16, 1, 0.3, 1]
 
-const PETAL_COLORS = ['#e8a8a0', '#c47a7a', '#f0cfc4', '#d4a5a5', '#c9a24a', '#f5d0c8']
+const PETAL_COLORS = ['#a84d55', '#5e121c', '#8b1520', '#c9a24a', '#c47a7a', '#7a1c28']
 
 function makePetals(count) {
   return Array.from({ length: count }, (_, i) => ({
@@ -148,8 +148,8 @@ export function OpeningDoor({ open, onOpen }) {
                     left: p.left,
                     width: p.size,
                     height: p.size * 1.25,
-                    background: `radial-gradient(ellipse at 30% 30%, #fff8f5, ${p.color})`,
-                    boxShadow: '0 2px 6px rgba(107,21,32,0.15)',
+                    background: `radial-gradient(ellipse at 30% 30%, #f8f3f0, ${p.color})`,
+                    boxShadow: '0 2px 6px rgba(94,18,28,0.2)',
                   }}
                   initial={{ y: 0, x: 0, opacity: 0, rotate: 0, scale: 0.6 }}
                   animate={
