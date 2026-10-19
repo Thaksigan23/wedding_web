@@ -46,8 +46,8 @@ export function Hero({ audioUnlocked }) {
       </div>
 
       <div className="relative z-10 mx-auto flex w-full max-w-2xl flex-1 flex-col px-5 pb-8 pt-1 text-center sm:px-8">
-        <motion.div {...fade(0.05, 8)}>
-          <FloralLanternHeader className="mb-2 md:mb-4" variant="plain" />
+        <motion.div className="mb-5 flex justify-center text-gold/75 md:mb-7" {...fade(0.05, 8)}>
+          <Kolam className="h-8 w-44 md:h-9 md:w-52" />
         </motion.div>
 
         <motion.div {...fade(0.15)}>
