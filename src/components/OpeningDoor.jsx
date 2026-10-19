@@ -204,8 +204,6 @@ function CornerDecor() {
   return (
     <div className="pointer-events-none absolute inset-0 z-[3] overflow-hidden" aria-hidden="true">
       <FloralCorner className="absolute inset-0" />
-      <img src="/images/hanging-lamp.png" alt="" className="absolute left-[2%] top-0 hidden h-[250px] w-auto drop-shadow-[0_8px_18px_rgba(0,0,0,0.45)] sm:block md:h-[300px]" draggable={false} />
-      <img src="/images/hanging-lamp.png" alt="" className="absolute right-[2%] top-0 hidden h-[250px] w-auto scale-x-[-1] drop-shadow-[0_8px_18px_rgba(0,0,0,0.45)] sm:block md:h-[300px]" draggable={false} />
     </div>
   )
 }
