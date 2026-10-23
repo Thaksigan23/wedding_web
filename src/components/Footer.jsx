@@ -1,9 +1,25 @@
 import { wedding } from '../data/wedding'
 import { useLanguage } from '../context/LanguageContext'
-import { Kolam } from './motifs/Kolam'
+import { FloralCorners, GoldDivider, InviteFrame } from './GoldDivider'
 
 function telHref(phone) {
   return `tel:${String(phone).replace(/[^\d+]/g, '')}`
+}
+
+function coupleInitials() {
+  const letter = (name) => {
+    const cleaned = String(name || '')
+      .replace(/[[\]]/g, '')
+      .trim()
+    return cleaned.charAt(0).toUpperCase() || '·'
+  }
+  return `${letter(wedding.bride.name.en)}  ·  ${letter(wedding.groom.name.en)}`
+}
+
+function formatInviteDate(iso) {
+  const m = String(iso).match(/^(\d{4})-(\d{2})-(\d{2})/)
+  if (!m) return ''
+  return `${Number(m[3])} · ${m[2]} · ${m[1]}`
 }
 
 export function Footer() {
@@ -13,25 +29,21 @@ export function Footer() {
   const creditLogo = wedding.footer.creditLogo || '/images/techloom-mark.svg'
 
   return (
-    <footer className="band-maroon-deep relative overflow-hidden px-[var(--section-pad-x)] pb-28 pt-14 md:pb-16 md:pt-16">
-      <div className="relative z-10 mx-auto max-w-lg text-center">
-        <div className="mb-6 flex justify-center text-gold/70" aria-hidden="true">
-          <Kolam className="h-7 w-40 md:h-8 md:w-48" animate={false} />
-        </div>
+    <footer className="band-maroon-deep relative overflow-hidden border-t border-gold/25 px-[var(--section-pad-x)] pb-24 pt-14 md:pb-16 md:pt-16">
+      <FloralCorners variant="footer" />
+      <div className="relative z-10 mx-auto max-w-2xl">
+        <InviteFrame className="text-center">
+        <GoldDivider className="mb-6" />
 
-        <div className="mb-5 flex justify-center float-soft" aria-hidden="true">
-          <img
-            src="/images/icon-lantern.jpg"
-            alt=""
-            width={56}
-            height={56}
-            className="h-14 w-14 rounded-full object-cover shadow-lg ring-2 ring-gold/45"
-            draggable={false}
-          />
-        </div>
+        <p className="font-display text-xl tracking-[0.28em] text-gold-ink">
+          {coupleInitials()}
+        </p>
+        <p className="mt-2 font-display text-sm tracking-[0.32em] text-gold/80">
+          {formatInviteDate(wedding.muhurtham.datetime)}
+        </p>
 
         <p
-          className={`text-gold ${
+          className={`mt-8 text-gold ${
             lang === 'ta'
               ? 'font-tamil text-xl leading-[1.7] md:text-2xl'
               : 'font-display text-2xl font-light tracking-wide md:text-3xl'
@@ -53,7 +65,7 @@ export function Footer() {
             <li key={c.phone}>
               <a
                 href={telHref(c.phone)}
-                className="inline-flex min-h-[44px] flex-col items-center justify-center rounded-full border border-gold/30 px-5 py-2 transition hover:border-gold/60 hover:bg-maroon/35 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gold"
+                className="inline-flex min-h-[44px] flex-col items-center justify-center rounded-full border border-gold/35 px-5 py-2 transition hover:border-gold/70 hover:bg-gold/10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gold"
               >
                 <span className="font-sans text-[0.6rem] tracking-[0.18em] text-gold/80 uppercase">
                   {t(c.label)}
@@ -70,17 +82,16 @@ export function Footer() {
           ))}
         </ul>
 
-        {/* Made with love by + logo only — matched reference sizing */}
-        <div className="mt-12 border-t border-white/10 pt-7">
+        <div className="mt-12 border-t border-gold/15 pt-7">
           <a
             href={creditUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center justify-center gap-1.5 transition hover:opacity-90 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gold"
+            className="inline-flex items-center justify-center gap-1.5 text-ivory/45 transition hover:text-gold/80 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gold"
             aria-label={`${t(wedding.footer.madeWithLove)} ${creditName}`}
           >
             <span
-              className={`text-[15px] leading-none tracking-normal text-[#9db0b5] ${
+              className={`text-[13px] leading-none tracking-normal ${
                 lang === 'ta' ? 'font-tamil' : 'font-sans font-normal'
               }`}
             >
@@ -89,14 +100,15 @@ export function Footer() {
             <img
               src={creditLogo}
               alt={creditName}
-              width={26}
-              height={26}
-              className="h-[26px] w-[26px] shrink-0 object-contain"
+              width={22}
+              height={22}
+              className="h-[22px] w-[22px] shrink-0 object-contain opacity-80"
               loading="lazy"
               decoding="async"
             />
           </a>
         </div>
+        </InviteFrame>
       </div>
     </footer>
   )

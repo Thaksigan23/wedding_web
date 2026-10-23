@@ -4,6 +4,7 @@ import { useLanguage } from '../context/LanguageContext'
 import { ScrollReveal } from './ScrollReveal'
 import { SectionHeader } from './SectionHeader'
 import { useShareLinks } from './ShareActions'
+import { FloralCorners, InviteFrame } from './GoldDivider'
 
 export function Venue() {
   const { t, lang } = useLanguage()
@@ -19,10 +20,11 @@ export function Venue() {
   return (
     <section
       id="venue"
-      className="surface-maroon section-pad relative"
+      className="surface-maroon section-pad relative overflow-hidden"
       aria-labelledby="venue-heading"
     >
-      <div className="site-shell">
+      <FloralCorners variant="venue" />
+      <div className="site-shell relative z-10">
         <SectionHeader eyebrowKey="venue" titleKey="venue" titleId="venue-heading" light />
 
         {useTabs && (
@@ -74,18 +76,16 @@ export function Venue() {
 
 function VenueSplit({ venue, t, lang, onIcs, googleUrl }) {
   return (
-    <div
-      className="panel-ivory grid items-stretch gap-0 overflow-hidden rounded-[20px] md:grid-cols-2"
-      style={{ boxShadow: 'var(--shadow-soft)' }}
-    >
-      <div className="flex flex-col justify-center px-6 py-8 md:px-10 md:py-12">
+    <InviteFrame padded={false} className="overflow-hidden p-2 sm:p-3">
+    <div className="grid items-stretch gap-0 md:grid-cols-2">
+      <div className="flex flex-col justify-center px-4 py-8 sm:px-6 md:px-10 md:py-12">
         {venue.label && (
-          <p className="font-sans text-[0.65rem] tracking-[0.2em] text-maroon/60 uppercase">
+          <p className="font-sans text-[0.65rem] tracking-[0.2em] text-gold/80 uppercase">
             {t(venue.label)}
           </p>
         )}
         <h3
-          className={`mt-2 text-maroon ${
+          className={`mt-2 text-gold-ink ${
             lang === 'ta'
               ? 'font-tamil text-xl leading-[1.7] md:text-2xl'
               : 'font-display text-2xl md:text-3xl'
@@ -94,7 +94,7 @@ function VenueSplit({ venue, t, lang, onIcs, googleUrl }) {
           {t(venue.name)}
         </h3>
         <p
-          className={`mt-3 text-sm leading-relaxed text-maroon/70 md:text-base ${
+          className={`mt-3 text-sm leading-relaxed text-ivory/75 md:text-base ${
             lang === 'ta' ? 'font-tamil leading-[1.7]' : 'font-sans'
           }`}
         >
@@ -102,7 +102,7 @@ function VenueSplit({ venue, t, lang, onIcs, googleUrl }) {
         </p>
         {venue.travelNotes && (
           <p
-            className={`mt-3 text-sm text-maroon/55 ${
+            className={`mt-3 text-sm text-ivory/55 ${
               lang === 'ta' ? 'font-tamil leading-[1.7]' : 'font-sans'
             }`}
           >
@@ -110,23 +110,27 @@ function VenueSplit({ venue, t, lang, onIcs, googleUrl }) {
           </p>
         )}
 
-        <div className="mt-6 flex flex-wrap gap-2">
+        <div className="mt-6 flex flex-col gap-2 sm:flex-row sm:flex-wrap">
           <a
             href={venue.mapsLink}
             target="_blank"
             rel="noopener noreferrer"
-            className="btn-pill btn-pill-gold min-h-[44px]"
+            className="btn-pill btn-pill-gold min-h-[44px] w-full sm:w-auto"
           >
             {t(wedding.share.getDirections)}
           </a>
-          <button type="button" onClick={onIcs} className="btn-pill btn-pill-outline min-h-[44px]">
+          <button
+            type="button"
+            onClick={onIcs}
+            className="btn-pill btn-pill-outline min-h-[44px] w-full sm:w-auto"
+          >
             {t(wedding.share.downloadIcs)}
           </button>
           <a
             href={googleUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="btn-pill btn-pill-outline min-h-[44px]"
+            className="btn-pill btn-pill-outline min-h-[44px] w-full sm:w-auto"
           >
             {t(wedding.share.googleCalendar)}
           </a>
@@ -134,7 +138,7 @@ function VenueSplit({ venue, t, lang, onIcs, googleUrl }) {
       </div>
 
       {venue.mapsEmbedUrl && (
-        <div className="min-h-[220px] overflow-hidden border-t border-gold/25 bg-[#efe3e4] md:min-h-full md:border-t-0 md:border-l">
+        <div className="min-h-[220px] overflow-hidden border-t border-gold/25 bg-maroon-deep md:min-h-full md:border-t-0 md:border-l">
           <iframe
             title={`${t(venue.name)} map`}
             src={venue.mapsEmbedUrl}
@@ -146,5 +150,6 @@ function VenueSplit({ venue, t, lang, onIcs, googleUrl }) {
         </div>
       )}
     </div>
+    </InviteFrame>
   )
 }

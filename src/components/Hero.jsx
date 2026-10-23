@@ -4,9 +4,14 @@ import { useLanguage } from '../context/LanguageContext'
 import { usePrefersReducedMotion } from '../hooks/usePrefersReducedMotion'
 import { LanguageToggle } from './LanguageToggle'
 import { AudioToggle } from './AudioToggle'
-import { MandapScene } from './motifs/MandapScene'
 import { InviteDateBlock } from './InviteDateBlock'
-import { Kolam } from './motifs/Kolam'
+import {
+  FloralCorners,
+  JewelGlyph,
+  LetterEmblem,
+  LotusGlyph,
+  OrnamentRule,
+} from './GoldDivider'
 
 const EASE = [0.16, 1, 0.3, 1]
 
@@ -20,146 +25,154 @@ export function Hero({ audioUnlocked }) {
 
   const venue = (wedding.venues || []).find((v) => v.enabled !== false)
 
-  const fade = (delay = 0, y = 16) =>
+  const fade = (delay = 0, y = 14) =>
     reduced
       ? {}
       : {
           initial: { opacity: 0, y },
           animate: { opacity: 1, y: 0 },
-          transition: { duration: 0.8, delay, ease: EASE },
+          transition: { duration: 0.85, delay, ease: EASE },
         }
 
   const brideEn = displayEn(wedding.bride.name.en)
   const groomEn = displayEn(wedding.groom.name.en)
 
   return (
-    <section
-      id="hero"
-      className="invite-wash relative flex min-h-[100svh] flex-col overflow-hidden text-ivory"
-    >
-      <div className="relative z-20 flex items-start justify-between gap-2 px-[var(--section-pad-x)] pt-5 md:pt-6">
-        <LanguageToggle className="!border-gold/40 !bg-maroon-deep/50 !text-ivory" />
-        <AudioToggle
-          unlocked={audioUnlocked}
-          className="!border-gold/40 !bg-maroon-deep/50 !text-ivory"
-        />
+    <section id="hero" className="invite-letter">
+      <FloralCorners variant="hero" />
+
+      <div className="invite-letter-bar">
+        <AudioToggle className="invite-control" unlocked={audioUnlocked} />
+        <LanguageToggle compact className="invite-control" />
       </div>
 
-      <div className="relative z-10 mx-auto flex w-full max-w-2xl flex-1 flex-col px-5 pb-8 pt-1 text-center sm:px-8">
-        <motion.div className="mb-5 flex justify-center text-gold/75 md:mb-7" {...fade(0.05, 8)}>
-          <Kolam className="h-8 w-44 md:h-9 md:w-52" />
-        </motion.div>
+      <div className="invite-letter-shell">
+        <article className="invite-letter-card">
+          <LetterEmblem />
 
-        <motion.div {...fade(0.15)}>
-          {lang === 'ta' ? (
-            <h1 className="heading-tamil text-[clamp(1.65rem,1.3rem+1.5vw,2.4rem)] text-ivory">
-              {wedding.ceremonyLabel.ta}
-            </h1>
-          ) : (
-            <h1
-              className="font-script text-ivory"
-              style={{ fontSize: 'clamp(2.4rem, 1.6rem + 3vw, 3.75rem)' }}
+          <div className="invite-letter-body">
+            <motion.div className="invite-letter-invocation" {...fade(0.06)}>
+              <JewelGlyph className="invite-letter-jewel" />
+              <p className={`invite-letter-mantra ${lang === 'en' ? 'is-en' : ''}`}>
+                {lang === 'ta' ? '|| ஸ்ரீ கணபதயே நம: ||' : '|| Sri Ganapataye Namah ||'}
+              </p>
+              <JewelGlyph className="invite-letter-jewel" />
+            </motion.div>
+
+            <motion.p
+              className={`invite-letter-blessing ${lang === 'en' ? 'is-en' : ''}`}
+              {...fade(0.12)}
             >
-              {wedding.ceremonyLabel.en}
-            </h1>
-          )}
-        </motion.div>
+              {t(wedding.invocation.pillaiyar)}
+            </motion.p>
 
-        <motion.p
-          className={`mx-auto mt-4 max-w-md ${
-            lang === 'ta'
-              ? 'font-tamil text-sm leading-[1.75] text-ivory/75'
-              : 'invite-lead'
-          }`}
-          {...fade(0.25)}
-        >
-          {t(wedding.inviteLead)}
-        </motion.p>
+            <motion.div className="invite-letter-rule-wrap" {...fade(0.18)}>
+              <OrnamentRule />
+            </motion.div>
 
-        <motion.div className="mt-6 md:mt-8" {...fade(0.35)}>
-          {lang === 'ta' ? (
-            <p className="font-tamil text-[clamp(1.45rem,1.15rem+1.4vw,2.15rem)] leading-[1.65] text-gold">
-              {wedding.bride.name.ta}
-              <span className="mx-2 font-script text-[1.15em] text-gold/85">&</span>
-              {wedding.groom.name.ta}
-            </p>
-          ) : (
-            <p
-              className="font-script leading-[1.1] text-gold"
-              style={{ fontSize: 'clamp(2.8rem, 1.7rem + 4.5vw, 5rem)' }}
+            <motion.div {...fade(0.24, 18)}>
+              {lang === 'ta' ? (
+                <h1 className="invite-letter-title">{wedding.ceremonyLabel.ta}</h1>
+              ) : (
+                <h1 className="invite-letter-title-en">{wedding.ceremonyLabel.en}</h1>
+              )}
+            </motion.div>
+
+            <motion.p
+              className={`invite-letter-lead ${lang === 'ta' ? 'is-ta' : 'is-en'}`}
+              {...fade(0.32)}
             >
-              {brideEn}
-              <span className="mx-2 inline-block text-[0.85em]">&</span>
-              {groomEn}
-            </p>
-          )}
-          <p
-            className={`mt-2 text-ivory/45 ${
-              lang === 'ta'
-                ? 'font-script text-[clamp(1.35rem,1.1rem+1vw,1.85rem)]'
-                : 'font-tamil text-sm leading-[1.7]'
-            }`}
-          >
-            {lang === 'ta'
-              ? `${brideEn} & ${groomEn}`
-              : `${wedding.bride.name.ta} · ${wedding.groom.name.ta}`}
-          </p>
-        </motion.div>
+              {t(wedding.inviteLead)}
+            </motion.p>
 
-        <motion.div className="mt-8 md:mt-10" {...fade(0.48)}>
-          <InviteDateBlock light />
-        </motion.div>
+            <motion.div className="invite-letter-names" {...fade(0.4, 16)}>
+              {lang === 'ta' ? (
+                <>
+                  <p className="invite-letter-name-ta">{wedding.bride.name.ta}</p>
+                  <p className="invite-letter-amp" aria-hidden="true">
+                    &
+                  </p>
+                  <p className="invite-letter-name-ta">{wedding.groom.name.ta}</p>
+                </>
+              ) : (
+                <p className="invite-letter-name-script">
+                  <span>{brideEn}</span>
+                  <span className="invite-letter-amp is-inline">&</span>
+                  <span>{groomEn}</span>
+                </p>
+              )}
+            </motion.div>
 
-        <motion.p
-          className={`mt-5 font-sans text-[0.72rem] tracking-[0.2em] text-ivory/65 uppercase ${
-            lang === 'ta' ? '!font-tamil !normal-case !tracking-normal !text-sm leading-[1.7]' : ''
-          }`}
-          {...fade(0.55)}
-        >
-          {t(wedding.muhurtham.nallaNeram)}
-        </motion.p>
-
-        {venue && (
-          <motion.div className="mt-4" {...fade(0.62)}>
-            <p className="font-sans text-[0.58rem] tracking-[0.28em] text-gold/80 uppercase">
-              :: {lang === 'ta' ? 'நிகழ்விடம்' : 'Venue'} ::
-            </p>
-            <p
-              className={`mt-1.5 text-sm text-ivory/80 ${
-                lang === 'ta' ? 'font-tamil leading-[1.7]' : 'font-display text-base tracking-wide'
-              }`}
+            <motion.p
+              className={`invite-letter-together ${lang === 'en' ? 'is-en' : ''}`}
+              {...fade(0.46)}
             >
-              {t(venue.name)}
-            </p>
-            <p
-              className={`mt-0.5 text-xs text-ivory/50 ${
-                lang === 'ta' ? 'font-tamil leading-[1.7]' : 'font-sans tracking-wide'
-              }`}
-            >
-              {t(venue.address)}
-            </p>
-          </motion.div>
-        )}
+              {t(wedding.togetherWith)}
+            </motion.p>
 
-        <motion.div className="relative mt-auto pt-8 md:pt-10" {...fade(0.7, 24)}>
-          <MandapScene className="mx-auto h-auto w-full max-w-lg drop-shadow-sm" />
-        </motion.div>
+            <motion.div className="invite-letter-split" {...fade(0.52)}>
+              <FamilyLine
+                lang={lang}
+                label={lang === 'ta' ? 'மணமகள்' : 'Bride'}
+                name={lang === 'ta' ? wedding.bride.name.ta : brideEn}
+                parents={t(wedding.bride.parents)}
+              />
+              <div className="invite-letter-split-rule" aria-hidden="true">
+                <span />
+                <LotusGlyph className="h-3 w-3" />
+                <span />
+              </div>
+              <FamilyLine
+                lang={lang}
+                label={lang === 'ta' ? 'மணமகன்' : 'Groom'}
+                name={lang === 'ta' ? wedding.groom.name.ta : groomEn}
+                parents={t(wedding.groom.parents)}
+              />
+            </motion.div>
+
+            <motion.div className="invite-letter-rule-wrap is-later" {...fade(0.58)}>
+              <OrnamentRule />
+            </motion.div>
+
+            <motion.div {...fade(0.64)}>
+              <InviteDateBlock light />
+            </motion.div>
+
+            <motion.p
+              className={`invite-letter-time ${lang === 'ta' ? 'is-ta' : 'is-en'}`}
+              {...fade(0.7)}
+            >
+              {t(wedding.muhurtham.nallaNeram)}
+            </motion.p>
+
+            {venue && (
+              <motion.div className="invite-letter-venue" {...fade(0.76)}>
+                <p className={`invite-letter-venue-label ${lang === 'ta' ? 'is-ta' : ''}`}>
+                  :: {lang === 'ta' ? 'நிகழ்விடம்' : 'Venue'} ::
+                </p>
+                <p className={`invite-letter-venue-name ${lang === 'ta' ? 'is-ta' : 'is-en'}`}>
+                  {t(venue.name)}
+                </p>
+                <p className={`invite-letter-venue-addr ${lang === 'ta' ? 'is-ta' : 'is-en'}`}>
+                  {t(venue.address)}
+                </p>
+              </motion.div>
+            )}
+          </div>
+        </article>
       </div>
-
-      <motion.div
-        className="absolute bottom-4 left-1/2 z-10 flex -translate-x-1/2 flex-col items-center gap-1.5"
-        {...fade(0.9)}
-        aria-hidden="true"
-      >
-        <span className="font-sans text-[0.5rem] tracking-[0.28em] text-ivory/40 uppercase">
-          Scroll
-        </span>
-        <motion.span
-          className="block h-7 w-px origin-top bg-gradient-to-b from-gold/50 to-transparent"
-          animate={reduced ? undefined : { scaleY: [0.55, 1, 0.55], opacity: [0.35, 1, 0.35] }}
-          transition={{ duration: 2.2, repeat: Infinity, ease: 'easeInOut' }}
-        />
-      </motion.div>
     </section>
+  )
+}
+
+function FamilyLine({ lang, label, name, parents }) {
+  return (
+    <div className="invite-letter-family">
+      <p className={`invite-letter-family-label ${lang === 'ta' ? 'is-ta' : ''}`}>{label}</p>
+      <p className={`invite-letter-family-name ${lang === 'ta' ? 'is-ta' : 'is-en'}`}>{name}</p>
+      <p className={`invite-letter-family-parents ${lang === 'ta' ? 'is-ta' : 'is-en'}`}>
+        {parents}
+      </p>
+    </div>
   )
 }

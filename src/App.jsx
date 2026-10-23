@@ -3,6 +3,7 @@ import { LanguageProvider } from './context/LanguageContext'
 import { OpeningDoor } from './components/OpeningDoor'
 import { Hero } from './components/Hero'
 import { StickyNav } from './components/StickyNav'
+import { SiteFloralHeader } from './components/GoldDivider'
 
 const BlessingNote = lazy(() =>
   import('./components/BlessingNote').then((m) => ({ default: m.BlessingNote })),
@@ -55,6 +56,7 @@ export default function App() {
         <OpeningDoor open={doorOpen} onOpen={handleOpen} />
         {doorOpen && (
           <>
+            <SiteFloralHeader />
             <StickyNav audioUnlocked={audioUnlocked} />
             <main>
               <Hero audioUnlocked={audioUnlocked} />

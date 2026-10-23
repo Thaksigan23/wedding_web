@@ -14,11 +14,11 @@ const LINKS = [
 function coupleInitials() {
   const letter = (name) => {
     const cleaned = String(name || '')
-      .replace(/[\[\]]/g, '')
+      .replace(/[[\]]/g, '')
       .trim()
     return cleaned.charAt(0).toUpperCase() || '·'
   }
-  return `${letter(wedding.bride.name.en)}&${letter(wedding.groom.name.en)}`
+  return `${letter(wedding.bride.name.en)} · ${letter(wedding.groom.name.en)}`
 }
 
 /**
@@ -91,14 +91,14 @@ export function StickyNav({ audioUnlocked }) {
         className="border-b border-gold/20 bg-maroon-deep/92 backdrop-blur-xl"
         style={{ boxShadow: visible ? 'var(--shadow-nav)' : 'none' }}
       >
-        <div className="site-shell flex h-14 items-center justify-between gap-3 md:h-16">
+        <div className="site-shell flex h-14 items-center justify-between gap-2 md:h-16 md:gap-3">
           <a
             href="#hero"
             onClick={(e) => {
               e.preventDefault()
               go('hero')
             }}
-            className="font-display text-lg tracking-[0.08em] text-gold md:text-xl"
+            className="shrink-0 font-display text-lg tracking-[0.08em] text-gold md:text-xl"
             aria-label={t(wedding.invitationTitle)}
           >
             {initials}
@@ -115,8 +115,8 @@ export function StickyNav({ audioUnlocked }) {
                 }}
                 className={`rounded-full px-3.5 py-1.5 font-sans text-[0.68rem] tracking-[0.18em] uppercase transition duration-300 ${
                   active === link.id
-                    ? 'bg-gold text-maroon-deep shadow-sm'
-                    : 'text-ivory/55 hover:bg-ivory/10 hover:text-ivory'
+                    ? 'text-gold shadow-[inset_0_-1px_0_0_currentColor]'
+                    : 'text-ivory/55 hover:text-gold-ink'
                 }`}
               >
                 {t(wedding.nav[link.key])}
@@ -124,8 +124,7 @@ export function StickyNav({ audioUnlocked }) {
             ))}
           </nav>
 
-          <div className="flex items-center gap-2">
-            <LanguageToggle compact />
+          <div className="flex shrink-0 items-center gap-1.5 sm:gap-2">
             <AudioToggle unlocked={audioUnlocked} />
             <button
               type="button"
@@ -137,6 +136,7 @@ export function StickyNav({ audioUnlocked }) {
             >
               <MenuIcon open={menuOpen} />
             </button>
+            <LanguageToggle compact />
           </div>
         </div>
 

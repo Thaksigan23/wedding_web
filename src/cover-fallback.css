@@ -1,0 +1,114 @@
+/* Survives if the Tailwind Vite pipeline injects empty index.css during HMR. */
+.invite-cover {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  overflow: hidden;
+  background-color: #240309;
+  color: #e8cd83;
+}
+
+.invite-cover-florals {
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+
+.invite-cover-floral {
+  position: absolute;
+  display: block;
+  width: min(38vw, 520px);
+  height: min(38vw, 520px);
+  object-fit: contain;
+}
+
+.invite-cover-floral-top-left {
+  top: -1%;
+  left: -1.5%;
+  object-position: left bottom;
+  transform: scaleY(-1);
+}
+
+.invite-cover-floral-top-right {
+  top: -1%;
+  right: -1.5%;
+  object-position: left bottom;
+  transform: scale(-1);
+}
+
+@media (max-width: 700px) {
+  .invite-cover-floral,
+  .invite-cover-floral-top-left,
+  .invite-cover-floral-top-right {
+    width: clamp(16.5rem, 68vw, 19rem);
+    height: clamp(16.5rem, 68vw, 19rem);
+  }
+
+  .invite-cover-floral-top-left {
+    top: -1%;
+    left: -8%;
+  }
+
+  .invite-cover-floral-top-right {
+    top: -1%;
+    right: -8%;
+  }
+}
+
+.invite-cover-rings-flow {
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  z-index: 9;
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(
+    90deg,
+    #000 0%,
+    #000 16%,
+    transparent 26%,
+    transparent 74%,
+    #000 84%,
+    #000 100%
+  );
+  mask-image: linear-gradient(
+    90deg,
+    #000 0%,
+    #000 16%,
+    transparent 26%,
+    transparent 74%,
+    #000 84%,
+    #000 100%
+  );
+}
+
+.invite-cover-flow-ring {
+  position: absolute;
+  display: block;
+  height: auto;
+  animation: invite-ring-flow linear infinite;
+}
+
+.invite-cover-flow-ring svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.invite-cover-flow-ring.is-static {
+  animation: none;
+}
+
+.invite-cover-names .invite-cover-amp {
+  font-family: "Great Vibes", "Segoe Script", cursive;
+  color: #c9a04b;
+}
+
+@keyframes invite-ring-flow {
+  0% {
+    transform: translate3d(0, -8vh, 0) rotate(0deg);
+  }
+  100% {
+    transform: translate3d(var(--ring-drift, 16px), 112vh, 0) rotate(var(--ring-rotate, 24deg));
+  }
+}

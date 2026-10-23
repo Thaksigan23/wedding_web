@@ -5,12 +5,13 @@ import { useLanguage } from '../context/LanguageContext'
 import { usePrefersReducedMotion } from '../hooks/usePrefersReducedMotion'
 import { ScrollReveal } from './ScrollReveal'
 import { SectionHeader } from './SectionHeader'
+import { FloralCorners } from './GoldDivider'
 
-const BENTO = [
-  'col-span-2 row-span-2 aspect-[4/5] sm:col-span-2 sm:row-span-2 sm:aspect-auto sm:min-h-[280px]',
-  'col-span-1 aspect-square',
-  'col-span-1 aspect-square',
-  'col-span-2 aspect-[16/10] sm:col-span-1 sm:aspect-[3/4]',
+const FRAMES = [
+  'col-span-2 aspect-[4/5] sm:col-span-1 sm:aspect-[3/4]',
+  'col-span-1 aspect-[3/4]',
+  'col-span-1 aspect-[3/4]',
+  'col-span-2 aspect-[4/5] sm:col-span-1 sm:aspect-[3/4]',
   'col-span-1 aspect-[3/4]',
   'col-span-1 aspect-[3/4]',
 ]
@@ -48,10 +49,11 @@ export function Gallery() {
   return (
     <section
       id="gallery"
-      className="surface-maroon-soft section-pad relative"
+      className="surface-maroon-soft section-pad relative overflow-hidden"
       aria-labelledby="gallery-heading"
     >
-      <div className="site-shell">
+      <FloralCorners variant="gallery" />
+      <div className="site-shell relative z-10">
         <SectionHeader eyebrowKey="gallery" titleKey="gallery" titleId="gallery-heading" light />
 
         {visible.length === 0 ? (
@@ -63,21 +65,19 @@ export function Gallery() {
             {lang === 'ta' ? 'படங்கள் விரைவில் சேர்க்கப்படும்' : 'Photos will be added soon'}
           </p>
         ) : (
-          <ul className="mx-auto grid list-none grid-cols-2 gap-3 p-0 sm:grid-cols-3 md:gap-4 lg:grid-cols-4">
+          <ul className="mx-auto grid list-none grid-cols-2 gap-3 p-0 sm:grid-cols-3 md:gap-5">
             {visible.map((item, visibleIndex) => (
               <li
                 key={`${item.src}-${item.originalIndex}`}
-                className={BENTO[visibleIndex % BENTO.length]}
+                className={FRAMES[visibleIndex % FRAMES.length]}
               >
                 <ScrollReveal delay={Math.min(visibleIndex * 0.05, 0.3)} y={16} className="h-full">
                   <button
                     type="button"
                     onClick={() => openAt(visibleIndex)}
-                    className="group relative block h-full min-h-[44px] w-full overflow-hidden rounded-2xl border border-gold/25 bg-ivory focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gold"
-                    style={{ boxShadow: 'var(--shadow-soft)' }}
+                    className="album-frame group relative block h-full min-h-[44px] w-full overflow-hidden p-1.5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gold"
                     aria-label={t(item.alt)}
                   >
-                    <span className="absolute inset-0 bg-[#efe3e4]/50" aria-hidden="true" />
                     <img
                       src={item.src}
                       alt={t(item.alt)}
@@ -85,8 +85,8 @@ export function Gallery() {
                       height={1000}
                       loading="lazy"
                       decoding="async"
-                      className={`relative z-[1] h-full w-full object-cover ${
-                        reduced ? '' : 'transition duration-500 group-hover:scale-[1.04]'
+                      className={`h-full w-full object-cover ${
+                        reduced ? '' : 'transition duration-500 group-hover:scale-[1.03]'
                       }`}
                       onError={() => markBroken(item.originalIndex)}
                     />
@@ -232,7 +232,7 @@ function Lightbox({ items, index, onClose, onPrev, onNext, t, reduced }) {
             <img
               src={items[index].src}
               alt={t(items[index].alt)}
-              className="max-h-[85dvh] w-auto max-w-full rounded-2xl object-contain"
+              className="album-frame max-h-[85dvh] w-auto max-w-full object-contain p-1.5"
             />
             <figcaption className="mt-3 text-center font-sans text-sm text-ivory/70">
               {index + 1} / {items.length}

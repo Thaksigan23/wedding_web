@@ -4,6 +4,7 @@ import { wedding } from '../data/wedding'
 import { useLanguage } from '../context/LanguageContext'
 import { usePrefersReducedMotion } from '../hooks/usePrefersReducedMotion'
 import { ScrollReveal } from './ScrollReveal'
+import { GoldDivider, InviteFrame } from './GoldDivider'
 
 function shuffle(list) {
   const next = [...list]
@@ -120,19 +121,9 @@ export function SecretKeysGame() {
       className="surface-maroon relative overflow-hidden px-[var(--section-pad-x)] py-[var(--section-pad-y)]"
       aria-labelledby="secret-keys-heading"
     >
-      <FloralDust />
-
       <div className="site-shell relative z-10">
         <ScrollReveal className="mx-auto max-w-3xl">
-          <div className="band-maroon relative overflow-hidden rounded-[1.5rem] px-4 py-10 shadow-[var(--shadow-lift)] sm:px-8 sm:py-12 md:px-10">
-            <div
-              className="pointer-events-none absolute inset-0 opacity-[0.07]"
-              style={{
-                backgroundImage:
-                  "url(\"data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E\")",
-              }}
-              aria-hidden="true"
-            />
+          <InviteFrame className="relative overflow-hidden">
 
             <div className="relative z-10 text-center">
               <p className="font-sans text-[0.62rem] tracking-[0.3em] text-gold uppercase">
@@ -140,7 +131,7 @@ export function SecretKeysGame() {
               </p>
               <h2
                 id="secret-keys-heading"
-                className={`mt-3 text-gold ${
+                className={`mt-3 text-gold-ink ${
                   lang === 'ta'
                     ? 'font-tamil text-[clamp(1.35rem,1.1rem+1.1vw,2rem)] leading-[1.65]'
                     : 'font-display text-[clamp(1.55rem,1.2rem+1.5vw,2.35rem)] font-light tracking-[0.12em] uppercase'
@@ -148,6 +139,7 @@ export function SecretKeysGame() {
               >
                 {t(cfg.title)}
               </h2>
+              <GoldDivider small className="mt-4" />
               <p
                 className={`mx-auto mt-4 max-w-xl text-sm leading-relaxed text-ivory/75 ${
                   lang === 'ta' ? 'font-tamil leading-[1.75]' : 'font-display text-base'
@@ -157,7 +149,7 @@ export function SecretKeysGame() {
               </p>
 
               {/* Stats */}
-              <div className="mt-8 flex flex-wrap items-center justify-center gap-x-8 gap-y-3 font-display text-gold">
+              <div className="mt-8 flex flex-wrap items-center justify-center gap-x-5 gap-y-3 font-display text-gold sm:gap-x-8">
                 <Stat label={t(cfg.moves)} value={String(moves)} />
                 <Stat label={t(cfg.time)} value={formatTime(seconds)} />
                 <Stat label={t(cfg.matched)} value={`${matched.size}/${pairCount}`} />
@@ -227,7 +219,7 @@ export function SecretKeysGame() {
                 {t(cfg.restart)}
               </motion.button>
             </div>
-          </div>
+          </InviteFrame>
         </ScrollReveal>
       </div>
     </section>
@@ -236,8 +228,8 @@ export function SecretKeysGame() {
 
 function Stat({ label, value }) {
   return (
-    <div className="min-w-[4.5rem] text-center">
-      <p className="font-sans text-[0.55rem] tracking-[0.22em] text-gold/70 uppercase">{label}</p>
+    <div className="min-w-[3.5rem] text-center sm:min-w-[4.5rem]">
+      <p className="font-sans text-[0.55rem] tracking-[0.12em] text-gold/70 uppercase sm:tracking-[0.22em]">{label}</p>
       <p className="mt-1 text-xl font-light tabular-nums tracking-wide md:text-2xl">{value}</p>
     </div>
   )
@@ -277,12 +269,12 @@ function MemoryCard({ card, faceUp, matched, reduced, lang, disabled, onFlip }) 
             background: 'linear-gradient(160deg, #e0b84a 0%, #c9a24a 45%, #a88435 100%)',
           }}
         >
-          <LockIcon className="h-6 w-6 text-[#5e121c]/7 opacity-80 transition group-hover:opacity-100 sm:h-7 sm:w-7" />
+          <LockIcon className="h-6 w-6 text-maroon-deep/80 opacity-80 transition group-hover:opacity-100 sm:h-7 sm:w-7" />
         </div>
 
         {/* Front */}
         <div
-          className={`absolute inset-0 overflow-hidden rounded-[12px] border bg-ivory shadow-md [backface-visibility:hidden] [transform:rotateY(180deg)] ${
+          className={`absolute inset-0 overflow-hidden rounded-[12px] border bg-maroon-deep shadow-md [backface-visibility:hidden] [transform:rotateY(180deg)] ${
             matched ? 'border-gold ring-2 ring-gold/50' : 'border-gold/30'
           }`}
         >
@@ -328,25 +320,3 @@ function RestartIcon() {
   )
 }
 
-function FloralDust() {
-  const accents = [
-    { src: '/images/icon-lotus.jpg', className: 'top-[10%] left-[5%] h-8 w-8 opacity-70' },
-    { src: '/images/icon-bell.jpg', className: 'top-[30%] right-[6%] h-7 w-7 opacity-55' },
-    { src: '/images/icon-lotus.jpg', className: 'bottom-[16%] left-[8%] h-9 w-9 opacity-60' },
-    { src: '/images/icon-lantern.jpg', className: 'right-[9%] bottom-[24%] h-8 w-8 opacity-50' },
-  ]
-
-  return (
-    <div className="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden="true">
-      {accents.map((a, i) => (
-        <img
-          key={i}
-          src={a.src}
-          alt=""
-          className={`absolute rounded-full object-cover ring-1 ring-gold/20 ${a.className}`}
-          draggable={false}
-        />
-      ))}
-    </div>
-  )
-}

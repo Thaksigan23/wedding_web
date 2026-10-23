@@ -60,7 +60,7 @@ export function ShareActions() {
 
   return (
     <section
-      className="surface-maroon-soft section-pad relative hidden py-10 md:block"
+      className="band-maroon-deep relative hidden py-8 md:block"
       aria-label={t(wedding.share.shareWhatsApp)}
     >
       <div className="site-shell flex justify-center">
@@ -68,7 +68,7 @@ export function ShareActions() {
           href={whatsappUrl}
           target="_blank"
           rel="noopener noreferrer"
-          className="btn-pill inline-flex min-h-[44px] items-center gap-2 border border-[#25D366]/45 bg-[#25D366]/15 text-ivory hover:bg-[#25D366]/25"
+          className="btn-pill btn-pill-outline inline-flex min-h-[44px] items-center gap-2"
         >
           <WhatsAppIcon />
           {t(wedding.share.shareWhatsApp)}
@@ -78,21 +78,52 @@ export function ShareActions() {
   )
 }
 
-/** Floating WhatsApp — hidden while RSVP is in view so it never covers the form */
+/** Floating WhatsApp — icon-only so it does not cover Tamil copy; hides over RSVP and the game */
 export function FloatingWhatsApp() {
   const { t } = useLanguage()
   const { whatsappUrl } = useShareLinks()
   const [hidden, setHidden] = useState(false)
 
   useEffect(() => {
-    const section = document.getElementById('rsvp')
-    if (!section) return undefined
-    const io = new IntersectionObserver(
-      ([entry]) => setHidden(entry.isIntersecting),
-      { threshold: 0.15, rootMargin: '0px 0px -10% 0px' },
-    )
-    io.observe(section)
-    return () => io.disconnect()
+    const ids = ['rsvp', 'game']
+    const visible = new Set()
+    let io
+    let cancelled = false
+
+    const attach = () => {
+      const nodes = ids.map((id) => document.getElementById(id)).filter(Boolean)
+      if (!nodes.length) return false
+      io?.disconnect()
+      io = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) visible.add(entry.target.id)
+            else visible.delete(entry.target.id)
+          })
+          setHidden(visible.size > 0)
+        },
+        { threshold: 0.12, rootMargin: '0px 0px -12% 0px' },
+      )
+      nodes.forEach((node) => io.observe(node))
+      return nodes.length === ids.length
+    }
+
+    if (attach()) {
+      return () => {
+        cancelled = true
+        io?.disconnect()
+      }
+    }
+
+    const mo = new MutationObserver(() => {
+      if (!cancelled && attach()) mo.disconnect()
+    })
+    mo.observe(document.body, { childList: true, subtree: true })
+    return () => {
+      cancelled = true
+      mo.disconnect()
+      io?.disconnect()
+    }
   }, [])
 
   return (
@@ -100,18 +131,22 @@ export function FloatingWhatsApp() {
       href={whatsappUrl}
       target="_blank"
       rel="noopener noreferrer"
-      className={`fixed right-4 bottom-5 z-40 inline-flex min-h-[44px] items-center gap-2 rounded-full border border-[#25D366]/40 bg-[#128C7E] px-4 py-2.5 text-sm text-white transition-all duration-300 md:hidden ${
+      className={`fixed z-40 inline-flex h-12 w-12 items-center justify-center rounded-full border border-gold/45 bg-maroon-deep/92 text-gold-ink backdrop-blur-md transition-all duration-300 md:hidden ${
         hidden
           ? 'pointer-events-none translate-y-4 opacity-0'
           : 'translate-y-0 opacity-100'
       }`}
-      style={{ boxShadow: '0 4px 20px rgba(18,140,126,0.35)' }}
+      style={{
+        right: 'max(1rem, env(safe-area-inset-right))',
+        bottom: 'max(1.15rem, env(safe-area-inset-bottom))',
+        boxShadow: '0 8px 24px rgba(0,0,0,0.35)',
+      }}
       aria-label={t(wedding.share.shareWhatsApp)}
       aria-hidden={hidden}
       tabIndex={hidden ? -1 : 0}
     >
-      <WhatsAppIcon className="text-white" />
-      <span className="font-sans text-xs tracking-wide">{t(wedding.share.shareWhatsApp)}</span>
+      <WhatsAppIcon className="text-gold" />
+      <span className="sr-only">{t(wedding.share.shareWhatsApp)}</span>
     </a>
   )
 }

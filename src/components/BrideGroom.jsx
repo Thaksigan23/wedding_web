@@ -6,26 +6,26 @@ import { usePrefersReducedMotion } from '../hooks/usePrefersReducedMotion'
 import { ScrollReveal } from './ScrollReveal'
 import { SectionHeader } from './SectionHeader'
 import { ArchFrame } from './ArchFrame'
+import { FloralCorners, GoldDivider, LotusGlyph } from './GoldDivider'
 
 export function BrideGroom() {
-  const { t } = useLanguage()
-
   return (
     <section
       id="story"
-      className="surface-maroon section-pad relative"
+      className="surface-maroon section-pad relative overflow-hidden"
       aria-labelledby="couple-heading"
     >
-      <div className="site-shell">
+      <FloralCorners variant="couple" />
+      <div className="site-shell relative z-10">
         <SectionHeader
           eyebrowKey="couple"
           titleKey="couple"
           titleId="couple-heading"
           light
-          className="!mb-12 md:!mb-16"
+          className="!mb-10 md:!mb-14"
         />
 
-        <div className="mx-auto flex max-w-4xl flex-col items-stretch gap-4 md:grid md:grid-cols-[1fr_auto_1fr] md:items-center md:gap-6 lg:gap-10">
+        <div className="mx-auto flex max-w-4xl flex-col items-stretch gap-8 md:grid md:grid-cols-[1fr_auto_1fr] md:items-start md:gap-8 lg:gap-12">
           <PersonCard
             person={wedding.bride}
             role={{ ta: 'மணமகள்', en: 'Bride' }}
@@ -33,8 +33,8 @@ export function BrideGroom() {
             parallaxSign={-1}
           />
 
-          <div className="flex items-center justify-center py-1 md:py-0" aria-hidden="true">
-            <span className="font-display text-2xl text-gold md:hidden">&</span>
+          <div className="flex items-center justify-center py-1 md:pt-28" aria-hidden="true">
+            <span className="font-display text-3xl text-gold md:hidden">&</span>
             <span className="hidden md:block">
               <KolamKnot />
             </span>
@@ -53,7 +53,7 @@ export function BrideGroom() {
 }
 
 function PersonCard({ person, role, delay, parallaxSign }) {
-  const { t } = useLanguage()
+  const { t, lang } = useLanguage()
   const reduced = usePrefersReducedMotion()
   const ref = useRef(null)
   const { scrollYProgress } = useScroll({
@@ -70,38 +70,42 @@ function PersonCard({ person, role, delay, parallaxSign }) {
     <ScrollReveal delay={delay} className="h-full">
       <motion.article
         ref={ref}
-        className="panel-ivory group flex h-full min-h-[44px] flex-col items-center rounded-[20px] px-5 py-8 text-center shadow-[var(--shadow-soft)] transition duration-300 md:px-6 md:py-10"
-        style={{ boxShadow: 'var(--shadow-soft)' }}
-        whileHover={
-          reduced
-            ? undefined
-            : { y: -5, boxShadow: 'var(--shadow-lift)', borderColor: 'rgba(196,160,74,0.55)' }
-        }
-        transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+        className="flex h-full min-h-[44px] flex-col items-center px-2 py-2 text-center md:px-3"
       >
         <motion.div style={{ y }}>
           <ArchFrame src={person.photo} alt={t(person.name)} label={t(role)} />
         </motion.div>
 
-        <p className="mt-5 font-sans text-[0.65rem] tracking-[0.22em] text-[#5e121c]/60 uppercase">
+        <p className="mt-6 font-sans text-[0.62rem] tracking-[0.24em] text-gold/85 uppercase">
           {t(role)}
         </p>
 
         <h3
-          className="mt-2 font-display font-light text-[#5e121c]"
-          style={{ fontSize: 'clamp(1.5rem, 1.25rem + 1vw, 2.15rem)' }}
+          className={`mt-2 font-light text-gold-ink ${
+            lang === 'ta' ? 'font-tamil leading-[1.5]' : 'font-display'
+          }`}
+          style={{
+            fontSize:
+              lang === 'ta'
+                ? 'clamp(1.5rem, 1.2rem + 1vw, 2.1rem)'
+                : 'clamp(1.65rem, 1.3rem + 1.1vw, 2.35rem)',
+          }}
         >
-          {person.name.en}
+          {t(person.name)}
         </h3>
-        <p className="mt-1 font-tamil text-base leading-[1.7] text-[#5e121c]/70">
-          {person.name.ta}
-        </p>
 
-        <p className="mt-4 max-w-[16rem] font-sans text-sm leading-relaxed text-[#5e121c]/65">
+        <GoldDivider small className="mt-4 mb-4 !w-40" />
+
+        <p
+          className={`max-w-[18rem] text-[0.92rem] leading-relaxed text-ivory/72 ${
+            lang === 'ta' ? 'font-tamil leading-[1.75]' : 'font-sans'
+          }`}
+        >
           {t(person.parents)}
         </p>
 
-        <p className="mt-3 font-sans text-[0.65rem] tracking-[0.2em] text-[#5e121c]/55 uppercase">
+        <p className="mt-3 inline-flex items-center gap-2 font-sans text-[0.62rem] tracking-[0.2em] text-gold/75 uppercase">
+          <LotusGlyph className="h-3 w-3" />
           {t(person.hometown)}
         </p>
       </motion.article>
@@ -112,26 +116,27 @@ function PersonCard({ person, role, delay, parallaxSign }) {
 function KolamKnot() {
   return (
     <svg
-      width="40"
-      height="64"
-      viewBox="0 0 40 64"
+      width="36"
+      height="88"
+      viewBox="0 0 36 88"
       fill="none"
       aria-hidden="true"
       className="text-gold"
     >
+      <path d="M18 4v80" stroke="currentColor" strokeWidth="0.8" opacity="0.55" />
       <path
-        d="M20 6 L28 18 L20 28 L12 18 Z M20 12 L24 18 L20 22 L16 18 Z"
+        d="M18 28 L26 40 L18 50 L10 40 Z"
         stroke="currentColor"
         strokeWidth="1"
       />
-      <circle cx="20" cy="18" r="1.8" fill="currentColor" />
+      <circle cx="18" cy="40" r="1.6" fill="currentColor" />
       <text
-        x="20"
-        y="52"
+        x="18"
+        y="72"
         textAnchor="middle"
         fill="currentColor"
         fontFamily="Cormorant Garamond, serif"
-        fontSize="20"
+        fontSize="18"
       >
         &
       </text>

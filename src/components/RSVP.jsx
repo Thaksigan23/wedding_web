@@ -5,6 +5,7 @@ import { useLanguage } from '../context/LanguageContext'
 import { usePrefersReducedMotion } from '../hooks/usePrefersReducedMotion'
 import { ScrollReveal } from './ScrollReveal'
 import { SectionHeader } from './SectionHeader'
+import { FloralCorners, InviteFrame } from './GoldDivider'
 
 const emptyForm = {
   name: '',
@@ -82,10 +83,11 @@ export function RSVP() {
   return (
     <section
       id="rsvp"
-      className="surface-maroon section-pad relative"
+      className="surface-maroon section-pad relative overflow-hidden"
       aria-labelledby="rsvp-heading"
     >
-      <div className="site-shell">
+      <FloralCorners variant="rsvp" />
+      <div className="site-shell relative z-10">
         <SectionHeader
           eyebrowKey="rsvp"
           titleKey="rsvp"
@@ -106,10 +108,7 @@ export function RSVP() {
         )}
 
         <ScrollReveal delay={0.08}>
-          <div
-            className="panel-ivory mx-auto max-w-lg rounded-[20px] px-5 py-8 md:px-8 md:py-10"
-            style={{ boxShadow: 'var(--shadow-soft)' }}
-          >
+          <InviteFrame className="mx-auto max-w-lg">
             {!hasEndpoint ? (
               <FallbackContacts t={t} lang={lang} />
             ) : status === 'success' ? (
@@ -185,14 +184,14 @@ export function RSVP() {
 
                 <fieldset>
                   <legend
-                    className={`mb-3 text-sm text-maroon/70 ${
+                    className={`mb-3 text-sm text-ivory/75 ${
                       lang === 'ta' ? 'font-tamil' : 'font-sans'
                     }`}
                   >
                     {t(wedding.rsvp.labels.attending)}
                   </legend>
                   <div
-                    className="inline-flex rounded-full border border-maroon/20 bg-maroon/5 p-1"
+                    className="inline-flex rounded-full border border-gold/30 bg-maroon-deep/40 p-1"
                     role="group"
                   >
                     {['yes', 'no'].map((value) => (
@@ -203,8 +202,8 @@ export function RSVP() {
                         aria-pressed={form.attending === value}
                         className={`min-h-[44px] min-w-[88px] rounded-full px-5 font-sans text-sm transition ${
                           form.attending === value
-                            ? 'bg-maroon text-ivory shadow-sm'
-                            : 'text-maroon/60 hover:text-maroon'
+                            ? 'bg-gold text-maroon-deep shadow-sm'
+                            : 'text-ivory/65 hover:text-gold-ink'
                         }`}
                       >
                         {t(
@@ -262,7 +261,7 @@ export function RSVP() {
                 </button>
               </form>
             )}
-          </div>
+          </InviteFrame>
         </ScrollReveal>
       </div>
     </section>
@@ -270,7 +269,7 @@ export function RSVP() {
 }
 
 const inputClass =
-  'peer w-full rounded-[14px] border border-gold/30 bg-ivory px-3.5 pb-2.5 pt-5 font-sans text-maroon outline-none transition focus:border-gold focus:ring-2 focus:ring-gold/20'
+  'invite-input peer px-3.5 pb-2.5 pt-5 font-sans'
 
 function FloatingField({ id, label, error, children }) {
   return (
@@ -278,7 +277,7 @@ function FloatingField({ id, label, error, children }) {
       {children}
       <label
         htmlFor={id}
-        className="pointer-events-none absolute top-2.5 left-3.5 origin-left font-sans text-[0.7rem] tracking-wide text-maroon/55 transition-all peer-placeholder-shown:top-3.5 peer-placeholder-shown:text-sm peer-placeholder-shown:text-maroon/35 peer-focus:top-2.5 peer-focus:text-[0.7rem] peer-focus:text-maroon"
+        className="pointer-events-none absolute top-2.5 left-3.5 origin-left font-sans text-[0.7rem] tracking-wide text-gold/70 transition-all peer-placeholder-shown:top-3.5 peer-placeholder-shown:text-sm peer-placeholder-shown:text-ivory/40 peer-focus:top-2.5 peer-focus:text-[0.7rem] peer-focus:text-gold"
       >
         {label}
       </label>
@@ -302,7 +301,7 @@ function SuccessState({ t, lang, reduced }) {
         <KuthuvilakkuMini />
       </motion.div>
       <p
-        className={`text-lg text-maroon ${
+        className={`text-lg text-gold-ink ${
           lang === 'ta' ? 'font-tamil leading-[1.7]' : 'font-display'
         }`}
       >
@@ -326,7 +325,7 @@ function FallbackContacts({ t, lang }) {
 
   return (
     <div className="text-center">
-      <p className={`mb-5 text-maroon/75 ${textFont}`}>{t(wedding.rsvp.fallbackTitle)}</p>
+      <p className={`mb-5 text-ivory/80 ${textFont}`}>{t(wedding.rsvp.fallbackTitle)}</p>
       <div className="flex flex-col gap-3 sm:flex-row sm:justify-center">
         {email && (
           <a href={`mailto:${email}?subject=${subject}`} className="btn-pill btn-pill-gold min-h-[44px]">
