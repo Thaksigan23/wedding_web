@@ -40,7 +40,7 @@ export const wedding = {
       ta: 'தெஹிவளை',
       en: 'Dehiwala',
     },
-    photo: '/images/Maroon%20and%20Gold%20Wedding%20Portrait.png',
+    photo: '/images/Maroon%20and%20Gold%20Groom%20Portrait.jpg',
   },
 
   // Families line under names
