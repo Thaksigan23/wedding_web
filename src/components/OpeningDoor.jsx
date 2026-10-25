@@ -8,6 +8,7 @@ import { CoverCountdown } from './Countdown'
 import { wedding } from '../data/wedding'
 
 const OPEN_DELAY = 1100
+const AUTO_OPEN_DELAY = 5000
 const envelopeDate = wedding.muhurtham.datetime.slice(0, 10).split('-').reverse().join(' · ')
 
 function EnvelopeFold({ side, points, colors }) {
@@ -33,6 +34,7 @@ export function OpeningDoor({ open, onOpen }) {
   const letterRef = useRef(null)
   const openingRef = useRef(false)
   const openTimer = useRef(null)
+  const autoOpenTimer = useRef(null)
 
   useEffect(() => {
     if (open) return undefined
@@ -48,10 +50,14 @@ export function OpeningDoor({ open, onOpen }) {
     }
   }, [open])
 
-  useEffect(() => () => window.clearTimeout(openTimer.current), [])
+  useEffect(() => () => {
+    window.clearTimeout(openTimer.current)
+    window.clearTimeout(autoOpenTimer.current)
+  }, [])
 
   const handleOpen = useCallback(() => {
     if (openingRef.current) return
+    window.clearTimeout(autoOpenTimer.current)
     startPlayback()
     openingRef.current = true
     setOpening(true)
@@ -67,6 +73,15 @@ export function OpeningDoor({ open, onOpen }) {
       } : null)
     }, reduced ? 0 : OPEN_DELAY)
   }, [onOpen, reduced, startPlayback])
+
+  
+  useEffect(() => {
+    if (open) return undefined
+    autoOpenTimer.current = window.setTimeout(() => {
+      handleOpen()
+    }, AUTO_OPEN_DELAY)
+    return () => window.clearTimeout(autoOpenTimer.current)
+  }, [open, handleOpen])
 
   return (
     <AnimatePresence>
