@@ -3315,12 +3315,29 @@
   color: #d9b677;
 }
 .screen-envelope-credit {
-  margin-top: 3px;
+  margin-top: 4px;
   color: #c5a36d;
   font-family: var(--font-sans);
-  font-size: 10px;
-  letter-spacing: .15em;
+  font-size: 10.5px;
+  letter-spacing: .12em;
   text-decoration: none;
+  cursor: pointer;
+  opacity: .85;
+  transition: color .2s ease, opacity .2s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+.screen-envelope-credit:hover,
+.screen-envelope-credit:focus-visible {
+  color: #f6dc9f;
+  opacity: 1;
+}
+.screen-envelope-credit .screen-envelope-credit-name {
+  color: #e5c483;
+  text-decoration: underline;
+  text-underline-offset: 2.5px;
+}
+.screen-envelope-credit:hover .screen-envelope-credit-name {
+  color: #fff0c2;
 }
 .screen-envelope.is-opening .screen-envelope-countdown {
   opacity: 0;
@@ -3329,6 +3346,8 @@
 }
 .screen-envelope {
   --envelope-countdown-height: calc(130px + env(safe-area-inset-bottom));
+  --envelope-seal-size: clamp(84px, 9vw, 124px);
+  --envelope-seal-top: min(53%, calc(100% - var(--envelope-countdown-height) - 140px));
   position: fixed;
   inset: 0;
   z-index: 50;
@@ -3383,10 +3402,10 @@
 }
 .screen-envelope-seal {
   position: absolute;
-  top: min(53%, calc(100% - var(--envelope-countdown-height) - 140px));
+  top: var(--envelope-seal-top);
   left: 50%;
   transform: translate(-50%, -50%);
-  width: clamp(84px, 9vw, 124px);
+  width: var(--envelope-seal-size);
   aspect-ratio: 1;
   display: grid;
   place-items: center;
@@ -3409,15 +3428,25 @@
 .screen-envelope-seal:focus-visible { outline: 3px solid #fff0c2; outline-offset: 8px; }
 .screen-envelope-prompt {
   position: absolute;
-  top: calc(min(53%, 100% - var(--envelope-countdown-height) - 140px) + clamp(64px, 7vw, 90px));
-  left: 10%;
-  width: 80%;
+  top: calc((var(--envelope-seal-top) + (var(--envelope-seal-size) / 2) + 100% - var(--envelope-countdown-height)) / 2);
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: max-content;
+  max-width: min(240px, 80vw);
   text-align: center;
   color: #e7c68b;
-  font-size: clamp(12px, 1.1vw, 16px);
-  letter-spacing: .08em;
+  font-family: var(--font-sans);
+  font-size: clamp(11.5px, 2.5vw, 13.5px);
+  font-weight: 400;
+  line-height: 1.45;
+  letter-spacing: .06em;
   text-shadow: 0 2px 8px #21050b;
+  pointer-events: none;
   transition: opacity .25s;
+}
+.screen-envelope-prompt-line {
+  display: block;
+  white-space: nowrap;
 }
 .screen-envelope.is-opening .screen-envelope-seal { transform: translate(-50%, -65%) rotate(-12deg) scale(1.25); opacity: 0; pointer-events: none; }
 .screen-envelope.is-opening .screen-envelope-prompt,
@@ -3428,4 +3457,60 @@
 .screen-envelope.is-opening .screen-envelope-right { transform: rotateY(130deg); }
 @media (prefers-reduced-motion: reduce) {
   .screen-envelope *, .screen-envelope *::before { transition: none !important; }
+}
+
+.screen-envelope-heading {
+  position: absolute;
+  top: max(5dvh, env(safe-area-inset-top));
+  left: 12%;
+  width: 76%;
+  text-align: center;
+  pointer-events: none;
+  transition: opacity .3s ease, transform .5s ease;
+}
+.screen-envelope-eyebrow {
+  margin-bottom: 10px;
+  color: #e2bd78;
+  font-family: var(--font-sans);
+  font-size: clamp(7px, 1.7vw, 11px);
+  letter-spacing: .22em;
+  text-transform: uppercase;
+}
+.screen-envelope-names {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0;
+  color: #fff0ce;
+  font-family: var(--font-display);
+  font-size: clamp(18px, 5.3vw, 40px);
+  font-weight: 400;
+  line-height: 1.05;
+  text-transform: uppercase;
+  text-shadow: 0 2px 12px #25030b55;
+}
+.screen-envelope-names .screen-envelope-ampersand {
+  color: #dbb464;
+  font-family: var(--font-script);
+  font-size: .65em;
+  line-height: 1;
+}
+.screen-envelope-date {
+  display: block;
+  margin-top: 8px;
+  color: #f3dca8;
+  font-family: var(--font-sans);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: .3em;
+}
+.screen-envelope.is-opening .screen-envelope-heading {
+  opacity: 0;
+  transform: translateY(-20px);
+}
+@media (max-height: 600px) {
+  .screen-envelope-heading { top: max(16px, env(safe-area-inset-top)); }
+  .screen-envelope-eyebrow { margin-bottom: 6px; font-size: 8px; }
+  .screen-envelope-names { font-size: clamp(18px, 5.3vw, 24px); }
+  .screen-envelope-date { margin-top: 6px; font-size: 10px; }
 }

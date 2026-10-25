@@ -599,7 +599,7 @@ export const wedding = {
   // Audio (muted by default) — toggle hides itself if the file is missing
   audio: {
     // Royalty-free Pixabay nadaswaram instrumental (Tamil wedding mangala isai)
-    src: '/audio/nadaswaram-bgm.mp3',
+    src: '/audio/dheeni-premantara.mp3',
     mutedByDefault: false,
     autoplayOnOpen: true,
     targetVolume: 0.28,

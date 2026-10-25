@@ -6,6 +6,7 @@ import { CoverCountdown } from './Countdown'
 import { wedding } from '../data/wedding'
 
 const OPEN_DELAY = 1100
+const envelopeDate = wedding.muhurtham.datetime.slice(0, 10).split('-').reverse().join(' · ')
 
 function EnvelopeFold({ side, points, colors }) {
   return (
@@ -81,10 +82,25 @@ export function OpeningDoor({ open, onOpen }) {
           <EnvelopeFold side="bottom" points="0,100 50,46 100,100" colors={['#732331', '#3b0812']} />
           <EnvelopeFold side="top" points="0,0 100,0 50,53" colors={['#7a2734', '#400813']} />
           <div className="screen-envelope-grain" aria-hidden="true" />
+          <div className="screen-envelope-heading">
+            <p className="screen-envelope-eyebrow">You are invited to the wedding of</p>
+            <h1 className="screen-envelope-names">
+              <span>{wedding.bride.name.en}</span>
+              <span className="screen-envelope-ampersand">&</span>
+              <span>{wedding.groom.name.en}</span>
+            </h1>
+            <time className="screen-envelope-date" dateTime={wedding.muhurtham.datetime.slice(0, 10)}>{envelopeDate}</time>
+          </div>
           <div className="screen-envelope-countdown">
             <CoverCountdown />
-            <a className="screen-envelope-credit" href={wedding.footer.creditUrl} target="_blank" rel="noopener noreferrer">
-              Powered by Techloom.ai
+            <a
+              className="screen-envelope-credit"
+              href={wedding.footer.creditUrl || 'https://techloom.ai'}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Powered by Techloom.ai"
+            >
+              Powered by <span className="screen-envelope-credit-name">Techloom.ai</span>
             </a>
           </div>
           <button
@@ -99,7 +115,17 @@ export function OpeningDoor({ open, onOpen }) {
             </svg>
           </button>
           <p className="screen-envelope-prompt">
-            {lang === 'ta' ? 'இதயத்தைத் தொட்டு அழைப்பிதழைத் திறக்கவும்' : 'Touch the heart to open your invitation'}
+            {lang === 'ta' ? (
+              <>
+                <span className="screen-envelope-prompt-line">இதயத்தைத் தொட்டு</span>
+                <span className="screen-envelope-prompt-line">அழைப்பிதழைத் திறக்கவும்</span>
+              </>
+            ) : (
+              <>
+                <span className="screen-envelope-prompt-line">Touch the heart</span>
+                <span className="screen-envelope-prompt-line">to open your invitation</span>
+              </>
+            )}
           </p>
         </motion.div>
       )}
