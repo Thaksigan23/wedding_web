@@ -227,8 +227,8 @@ export const wedding = {
   // Share & calendar actions
   share: {
     whatsappMessage: {
-      ta: 'திருமண அழைப்பிதழ் - பிரதீபா & விக்னேஸ்வரன் · நவம்பர் 15, 2026 · Glen Rest, அத்திதியா. விவரங்களுக்கு இங்கே பாருங்கள்:',
-      en: 'Wedding invitation - Pradeepa & Vickneshwaran · Nov 15, 2026 · Glen Rest, Attidiya. See details here:',
+      ta: 'திருமண அழைப்பிதழ் · பிரதீபா & விக்னேஸ்வரன் · ஞாயிறு, நவம்பர் 15, 2026 · Glen Rest, அத்திதியா, தெஹிவளை. அன்புடன் அழைக்கிறோம்:',
+      en: 'Wedding Invitation · Pradeepa & Vickneshwaran · Sunday, Nov 15, 2026 · Glen Rest, Attidiya, Dehiwala. You are warmly invited:',
     },
     addToCalendar: {
       ta: 'நாட்காட்டியில் சேர்',
