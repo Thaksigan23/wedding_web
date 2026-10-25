@@ -574,7 +574,7 @@ export const wedding = {
   footer: {
     blessing: {
       ta: 'வாழ்த்துங்கள் வாழ்க வளமுடன்',
-      en: 'Bless us - may you live and prosper',
+      en: 'Wishing you a long, fruitful, and blessed life.',
     },
     families: {
       ta: 'சுப்பையா குடும்பம் & ராஜரத்தினம் குடும்பம்',
