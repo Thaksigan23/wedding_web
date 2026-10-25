@@ -102,10 +102,12 @@ function PersonCard({ person, role, delay, parallaxSign }) {
           {t(person.parents)}
         </p>
 
-        <p className="mt-3 inline-flex items-center gap-2 font-sans text-[0.62rem] tracking-[0.2em] text-gold/75 uppercase">
-          <LotusGlyph className="h-3 w-3" />
-          {t(person.hometown)}
-        </p>
+        {t(person.hometown) ? (
+          <p className="mt-3 inline-flex items-center gap-2 font-sans text-[0.62rem] tracking-[0.2em] text-gold/75 uppercase">
+            <LotusGlyph className="h-3 w-3" />
+            {t(person.hometown)}
+          </p>
+        ) : null}
       </motion.article>
     </ScrollReveal>
   )

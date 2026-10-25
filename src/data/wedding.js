@@ -21,8 +21,8 @@ export const wedding = {
       en: 'Daughter of Mr. Rajarathnam & Mrs. SeethaLetchumi',
     },
     hometown: {
-      ta: 'தெஹிவளை',
-      en: 'Dehiwala',
+      ta: '',
+      en: '',
     },
     photo: '/images/Maroon%20and%20Gold%20Bridal%20Portrait.png',
   },
@@ -37,8 +37,8 @@ export const wedding = {
       en: 'Son of Mr. Suppaiha & Mrs. Paranjothi',
     },
     hometown: {
-      ta: 'தெஹிவளை',
-      en: 'Dehiwala',
+      ta: '',
+      en: '',
     },
     photo: '/images/Maroon%20and%20Gold%20Groom%20Portrait.jpg',
   },
