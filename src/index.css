@@ -3444,6 +3444,36 @@
   pointer-events: none;
   transition: opacity .25s;
 }
+
+.screen-envelope-audio-toggle {
+  position: absolute;
+  top: max(16px, env(safe-area-inset-top));
+  right: max(16px, env(safe-area-inset-right));
+  z-index: 60;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #c9a05280;
+  background: rgba(36, 3, 9, 0.72);
+  color: #f5dfa8;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.35);
+  backdrop-filter: blur(8px);
+  cursor: pointer;
+  transition: opacity .3s ease, transform .3s ease, border-color .2s;
+  -webkit-tap-highlight-color: transparent;
+}
+.screen-envelope-audio-toggle:hover {
+  border-color: #e8d19a;
+  transform: scale(1.06);
+}
+.screen-envelope.is-opening .screen-envelope-audio-toggle {
+  opacity: 0;
+  pointer-events: none;
+}
+
 .screen-envelope-prompt-line {
   display: block;
   white-space: nowrap;

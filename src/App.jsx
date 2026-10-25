@@ -1,6 +1,7 @@
 import { lazy, Suspense, useState, useCallback, useRef, useEffect } from 'react'
 import { motion } from 'framer-motion'
 import { LanguageProvider } from './context/LanguageContext'
+import { AudioProvider } from './context/AudioContext'
 import { OpeningDoor } from './components/OpeningDoor'
 import { Hero } from './components/Hero'
 import { Countdown } from './components/Countdown'
@@ -66,7 +67,8 @@ export default function App() {
 
   return (
     <LanguageProvider>
-      <div className="min-h-dvh bg-maroon text-ivory antialiased">
+      <AudioProvider>
+        <div className="min-h-dvh bg-maroon text-ivory antialiased">
         <OpeningDoor open={revealed} onOpen={handleOpen} />
         {doorOpen && (
           <motion.div
@@ -116,6 +118,7 @@ export default function App() {
           </motion.div>
         )}
       </div>
+      </AudioProvider>
     </LanguageProvider>
   )
 }

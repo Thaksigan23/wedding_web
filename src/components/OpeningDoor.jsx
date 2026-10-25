@@ -2,6 +2,8 @@ import { useCallback, useEffect, useRef, useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import { usePrefersReducedMotion } from '../hooks/usePrefersReducedMotion'
 import { useLanguage } from '../context/LanguageContext'
+import { useAudio } from '../context/AudioContext'
+import { IconMuted, IconPlaying } from './AudioToggle'
 import { CoverCountdown } from './Countdown'
 import { wedding } from '../data/wedding'
 
@@ -25,6 +27,7 @@ function EnvelopeFold({ side, points, colors }) {
 export function OpeningDoor({ open, onOpen }) {
   const reduced = usePrefersReducedMotion()
   const { lang } = useLanguage()
+  const { startPlayback, toggle: toggleAudio, muted: audioMuted, playing: audioPlaying, available: audioAvailable } = useAudio()
   const [opening, setOpening] = useState(false)
   const coverRef = useRef(null)
   const letterRef = useRef(null)
@@ -49,6 +52,7 @@ export function OpeningDoor({ open, onOpen }) {
 
   const handleOpen = useCallback(() => {
     if (openingRef.current) return
+    startPlayback()
     openingRef.current = true
     setOpening(true)
     openTimer.current = window.setTimeout(() => {
@@ -62,7 +66,7 @@ export function OpeningDoor({ open, onOpen }) {
         viewportHeight: window.innerHeight,
       } : null)
     }, reduced ? 0 : OPEN_DELAY)
-  }, [onOpen, reduced])
+  }, [onOpen, reduced, startPlayback])
 
   return (
     <AnimatePresence>
@@ -82,6 +86,20 @@ export function OpeningDoor({ open, onOpen }) {
           <EnvelopeFold side="bottom" points="0,100 50,46 100,100" colors={['#732331', '#3b0812']} />
           <EnvelopeFold side="top" points="0,0 100,0 50,53" colors={['#7a2734', '#400813']} />
           <div className="screen-envelope-grain" aria-hidden="true" />
+          {audioAvailable !== false && (
+            <button
+              type="button"
+              className="screen-envelope-audio-toggle"
+              onClick={(e) => {
+                e.stopPropagation()
+                toggleAudio()
+              }}
+              aria-label={audioMuted || !audioPlaying ? (lang === 'ta' ? 'இசையை இயக்கு' : 'Play music') : (lang === 'ta' ? 'இசையை நிறுத்து' : 'Mute music')}
+              title={audioMuted || !audioPlaying ? (lang === 'ta' ? 'இசையை இயக்கு' : 'Play music') : (lang === 'ta' ? 'இசையை நிறுத்து' : 'Mute music')}
+            >
+              {audioMuted || !audioPlaying ? <IconMuted /> : <IconPlaying />}
+            </button>
+          )}
           <div className="screen-envelope-heading">
             <p className="screen-envelope-eyebrow">You are invited to the wedding of</p>
             <h1 className="screen-envelope-names">
