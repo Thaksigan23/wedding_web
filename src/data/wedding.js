@@ -169,7 +169,7 @@ export const wedding = {
     minutes: { ta: 'நிமிடம்', en: 'Minutes' },
     seconds: { ta: 'வினாடி', en: 'Seconds' },
     todayMessage: {
-      ta: 'இன்று திருமணம்!',
+      ta: 'இன்று திருமணப் பதிவு!',
       en: 'Today is the day!',
     },
   },
@@ -227,8 +227,8 @@ export const wedding = {
   // Share & calendar actions
   share: {
     whatsappMessage: {
-      ta: 'திருமண அழைப்பிதழ் · பிரதீபா & விக்னேஸ்வரன் · ஞாயிறு, நவம்பர் 15, 2026 · Glen Rest, அத்திதியா, தெஹிவளை. அன்புடன் அழைக்கிறோம்:',
-      en: 'Wedding Invitation · Pradeepa & Vickneshwaran · Sunday, Nov 15, 2026 · Glen Rest, Attidiya, Dehiwala. You are warmly invited:',
+      ta: 'திருமணப் பதிவு அழைப்பிதழ் · பிரதீபா & விக்னேஸ்வரன் · ஞாயிறு, நவம்பர் 15, 2026 · Glen Rest, அத்திதியா, தெஹிவளை. அன்புடன் அழைக்கிறோம்:',
+      en: 'Wedding Registration Invitation · Pradeepa & Vickneshwaran · Sunday, Nov 15, 2026 · Glen Rest, Attidiya, Dehiwala. You are warmly invited:',
     },
     addToCalendar: {
       ta: 'நாட்காட்டியில் சேர்',
@@ -585,7 +585,7 @@ export const wedding = {
   // ogImage path is relative; absolute URL is built as meta.siteUrl + ogImage
   meta: {
     title: {
-      ta: 'திருமண அழைப்பிதழ் - பிரதீபா & விக்னேஸ்வரன்',
+      ta: 'திருமணப் பதிவு அழைப்பிதழ் - பிரதீபா & விக்னேஸ்வரன்',
       en: 'Wedding Registration - Pradeepa & Vickneshwaran',
     },
     description: {

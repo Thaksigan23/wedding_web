@@ -312,11 +312,11 @@ function SuccessState({ t, lang, reduced }) {
 function FallbackContacts({ t, lang }) {
   const email = wedding.rsvp.fallbackEmailAddress
   const wa = wedding.rsvp.fallbackWhatsAppNumber
-  const subject = encodeURIComponent('Wedding RSVP')
+  const subject = encodeURIComponent('Wedding Registration RSVP')
   const waText = encodeURIComponent(
     t({
-      ta: 'வணக்கம், திருமண அழைப்பிதழுக்கான வருகை உறுதியைத் தெரிவிக்க விரும்புகிறேன்.',
-      en: 'Hello, I would like to RSVP for the wedding invitation.',
+      ta: 'வணக்கம், திருமணப் பதிவு அழைப்பிதழுக்கான வருகை உறுதியைத் தெரிவிக்க விரும்புகிறேன்.',
+      en: 'Hello, I would like to RSVP for the wedding registration.',
     }),
   )
   const textFont = lang === 'ta' ? 'font-tamil leading-[1.7]' : 'font-sans'

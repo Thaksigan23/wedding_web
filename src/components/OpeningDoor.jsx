@@ -126,7 +126,7 @@ export function OpeningDoor({ open, onOpen }) {
             className="screen-envelope-seal"
             onClick={handleOpen}
             disabled={opening}
-            aria-label={lang === 'ta' ? 'அழைப்பிதழைத் திறக்க' : 'Open wedding invitation'}
+            aria-label={lang === 'ta' ? 'திருமணப் பதிவு அழைப்பிதழைத் திறக்க' : 'Open wedding registration invitation'}
           >
             <svg viewBox="0 0 64 64" aria-hidden="true">
               <path d="M32 53 10 32C-5 17 16 1 32 17 48 1 69 17 54 32Z" />
