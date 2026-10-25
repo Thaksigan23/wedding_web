@@ -14,13 +14,9 @@ function getPrimaryVenueLocation(t) {
 }
 
 function getSiteUrl() {
-  if (typeof window !== 'undefined' && window.location?.origin) {
-    const { origin, pathname } = window.location
-    if (!origin.includes('localhost') && !origin.includes('127.0.0.1')) {
-      return wedding.meta.siteUrl || origin + pathname
-    }
-  }
-  return wedding.meta.siteUrl || ''
+  const base = wedding.meta.siteUrl || (typeof window !== 'undefined' ? window.location.origin : '')
+  const cleanBase = base.replace(/\/+$/, '')
+  return cleanBase ? `${cleanBase}/?invitation=pv` : ''
 }
 
 export function useShareLinks() {

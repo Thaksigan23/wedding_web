@@ -3489,6 +3489,31 @@
   .screen-envelope *, .screen-envelope *::before { transition: none !important; }
 }
 
+
+.screen-envelope-monogram-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 8px;
+}
+.screen-envelope-monogram {
+  width: clamp(62px, 8.5vw, 92px);
+  height: auto;
+  aspect-ratio: 1024 / 895;
+  object-fit: contain;
+  filter: drop-shadow(0 4px 14px rgba(0, 0, 0, 0.55)) drop-shadow(0 0 16px rgba(226, 189, 120, 0.35));
+  animation: envelopeMonogramGlow 4s ease-in-out infinite alternate;
+  pointer-events: none;
+}
+@keyframes envelopeMonogramGlow {
+  0% {
+    filter: drop-shadow(0 4px 14px rgba(0, 0, 0, 0.55)) drop-shadow(0 0 12px rgba(226, 189, 120, 0.25));
+  }
+  100% {
+    filter: drop-shadow(0 6px 18px rgba(0, 0, 0, 0.65)) drop-shadow(0 0 22px rgba(246, 216, 140, 0.5));
+  }
+}
+
 .screen-envelope-heading {
   position: absolute;
   top: max(5dvh, env(safe-area-inset-top));
@@ -3539,7 +3564,9 @@
   transform: translateY(-20px);
 }
 @media (max-height: 600px) {
-  .screen-envelope-heading { top: max(16px, env(safe-area-inset-top)); }
+  .screen-envelope-heading { top: max(12px, env(safe-area-inset-top)); }
+  .screen-envelope-monogram { width: clamp(42px, 7vw, 54px); }
+  .screen-envelope-monogram-wrapper { margin-bottom: 4px; }
   .screen-envelope-eyebrow { margin-bottom: 6px; font-size: 8px; }
   .screen-envelope-names { font-size: clamp(18px, 5.3vw, 24px); }
   .screen-envelope-date { margin-top: 6px; font-size: 10px; }

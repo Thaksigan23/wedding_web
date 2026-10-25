@@ -101,6 +101,17 @@ export function OpeningDoor({ open, onOpen }) {
             </button>
           )}
           <div className="screen-envelope-heading">
+            <div className="screen-envelope-monogram-wrapper" aria-hidden="true">
+              <img
+                src="/images/envelope-monogram.png"
+                alt="PV Monogram"
+                className="screen-envelope-monogram"
+                width={90}
+                height={78}
+                loading="eager"
+                decoding="async"
+              />
+            </div>
             <p className="screen-envelope-eyebrow">{lang === 'ta' ? 'திருமணப் பதிவு அழைப்பிதழ்' : 'You are invited to the wedding registration of'}</p>
             <h1 className="screen-envelope-names">
               <span>{wedding.bride.name.en}</span>
