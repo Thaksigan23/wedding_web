@@ -16,7 +16,7 @@ function getPrimaryVenueLocation(t) {
 function getSiteUrl() {
   const base = wedding.meta.siteUrl || (typeof window !== 'undefined' ? window.location.origin : '')
   const cleanBase = base.replace(/\/+$/, '')
-  return cleanBase ? `${cleanBase}/?v=groom-first` : ''
+  return cleanBase ? `${cleanBase}/?banner=vickneshwaran-pradeepa` : ''
 }
 
 export function useShareLinks() {

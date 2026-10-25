@@ -490,6 +490,13 @@ export const wedding = {
   },
   gallery: [
     {
+      src: '/images/wedding-registration-banner.jpg',
+      alt: {
+        ta: 'விக்னேஸ்வரன் மற்றும் பிரதீபா - திருமணப் பதிவு',
+        en: 'Vickneshwaran and Pradeepa - Wedding Registration',
+      },
+    },
+    {
       src: '/images/Romantic%20Maroon%20and%20Gold%20Wedding%20Portrait.png',
       alt: {
         ta: 'விக்னேஸ்வரன் மற்றும் பிரதீபா',
@@ -593,7 +600,7 @@ export const wedding = {
       ta: 'நவம்பர் 15, 2026 · Glen Rest, அத்திதியா, தெஹிவளை - திருமணப் பதிவுக்கு அன்புடன் அழைக்கிறோம்.',
       en: 'Sunday, November 15, 2026 · Glen Rest, Attidiya, Dehiwala - you are warmly invited to our wedding registration.',
     },
-    ogImage: '/wedding-banner-vp.jpg', // 1200×630, keep under 300KB
+    ogImage: '/vickneshwaran-pradeepa-banner.jpg', // 1200×630, keep under 300KB
     siteUrl: 'https://vicknesh-weds-pradeepa-weddingregistration.techloom.ai',
   },
 
