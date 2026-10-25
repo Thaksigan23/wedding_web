@@ -28,7 +28,7 @@ export function Footer() {
         <div className="mx-auto my-3 flex justify-center" aria-hidden="true">
           <img
             src="/images/envelope-monogram.png"
-            alt="Pradeepa & Vickneshwaran Monogram"
+            alt="Vickneshwaran & Pradeepa Monogram"
             className="h-20 w-auto object-contain md:h-24"
             style={{
               filter: 'drop-shadow(0 4px 12px rgba(0, 0, 0, 0.45)) drop-shadow(0 0 14px rgba(226, 189, 120, 0.3))',

@@ -153,8 +153,8 @@ export const wedding = {
       en: '10:00 AM onwards',
     },
     calendarTitle: {
-      ta: 'திருமணப் பதிவு - பிரதீபா & விக்னேஸ்வரன்',
-      en: 'Wedding Registration - Pradeepa & Vickneshwaran',
+      ta: 'திருமணப் பதிவு - விக்னேஸ்வரன் & பிரதீபா',
+      en: 'Wedding Registration - Vickneshwaran & Pradeepa',
     },
     calendarDescription: {
       ta: 'திருமணப் பதிவு விழா · Glen Rest, அத்திதியா, தெஹிவளை. உங்கள் வருகையும் ஆசீர்வாதமும் வரவேற்கப்படுகிறது.',
@@ -227,8 +227,8 @@ export const wedding = {
   // Share & calendar actions
   share: {
     whatsappMessage: {
-      ta: 'திருமணப் பதிவு அழைப்பிதழ் · பிரதீபா & விக்னேஸ்வரன் · ஞாயிறு, நவம்பர் 15, 2026 · Glen Rest, அத்திதியா, தெஹிவளை. அன்புடன் அழைக்கிறோம்:',
-      en: 'Wedding Registration Invitation · Pradeepa & Vickneshwaran · Sunday, Nov 15, 2026 · Glen Rest, Attidiya, Dehiwala. You are warmly invited:',
+      ta: 'திருமணப் பதிவு அழைப்பிதழ் · விக்னேஸ்வரன் & பிரதீபா · ஞாயிறு, நவம்பர் 15, 2026 · Glen Rest, அத்திதியா, தெஹிவளை. அன்புடன் அழைக்கிறோம்:',
+      en: 'Wedding Registration Invitation · Vickneshwaran & Pradeepa · Sunday, Nov 15, 2026 · Glen Rest, Attidiya, Dehiwala. You are warmly invited:',
     },
     addToCalendar: {
       ta: 'நாட்காட்டியில் சேர்',
@@ -459,7 +459,7 @@ export const wedding = {
     title: { ta: 'ரகசிய சாவிகள் விளையாட்டு', en: 'The Secret Keys Game' },
     intro: {
       ta: 'அட்டைகளைத் திருப்பி புனித அடையாளங்களைப் பொருத்தி மணமக்களுக்கு ஆசீர்வாதத்தைத் திறக்கவும்!',
-      en: 'Flip the cards and match the sacred symbols to unlock a blessing for {bride} & {groom}!',
+      en: 'Flip the cards and match the sacred symbols to unlock a blessing for {groom} & {bride}!',
     },
     moves: { ta: 'நகர்வுகள்', en: 'Moves' },
     time: { ta: 'நேரம்', en: 'Time' },
@@ -492,8 +492,8 @@ export const wedding = {
     {
       src: '/images/Romantic%20Maroon%20and%20Gold%20Wedding%20Portrait.png',
       alt: {
-        ta: 'பிரதீபா மற்றும் விக்னேஸ்வரன்',
-        en: 'Pradeepa and Vickneshwaran',
+        ta: 'விக்னேஸ்வரன் மற்றும் பிரதீபா',
+        en: 'Vickneshwaran and Pradeepa',
       },
     },
   ],
@@ -550,15 +550,16 @@ export const wedding = {
   // Contacts (footer tap-to-call)
   contacts: [
     {
+      id: 'groom',
+      label: { ta: 'மணமகன் குடும்பம்', en: "Groom's family" },
+      phone: '+94 76 138 8527',
+      display: '+94 76 138 8527',
+    },
+    {
       id: 'bride',
       label: { ta: 'மணமகள் குடும்பம்', en: "Bride's family" },
       phone: '+94 70 323 7827',
       display: '+94 70 323 7827',
-    },
-    {
-      label: { ta: 'மணமகன் குடும்பம்', en: "Groom's family" },
-      phone: '+94 76 138 8527',
-      display: '+94 76 138 8527',
     },
   ],
 
@@ -569,8 +570,8 @@ export const wedding = {
       en: 'Bless us - may you live and prosper',
     },
     families: {
-      ta: 'ராஜரத்தினம் குடும்பம் & சுப்பையா குடும்பம்',
-      en: 'The Rajarathnam & Suppaiha families',
+      ta: 'சுப்பையா குடும்பம் & ராஜரத்தினம் குடும்பம்',
+      en: 'The Suppaiha & Rajarathnam families',
     },
     madeWithLove: {
       ta: 'அன்புடன் உருவாக்கியது',
@@ -585,8 +586,8 @@ export const wedding = {
   // ogImage path is relative; absolute URL is built as meta.siteUrl + ogImage
   meta: {
     title: {
-      ta: 'திருமணப் பதிவு அழைப்பிதழ் - பிரதீபா & விக்னேஸ்வரன்',
-      en: 'Wedding Registration - Pradeepa & Vickneshwaran',
+      ta: 'திருமணப் பதிவு அழைப்பிதழ் - விக்னேஸ்வரன் & பிரதீபா',
+      en: 'Wedding Registration - Vickneshwaran & Pradeepa',
     },
     description: {
       ta: 'நவம்பர் 15, 2026 · Glen Rest, அத்திதியா, தெஹிவளை - திருமணப் பதிவுக்கு அன்புடன் அழைக்கிறோம்.',

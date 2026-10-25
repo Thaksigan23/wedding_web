@@ -20,7 +20,7 @@ function coupleInitials() {
       .trim()
     return cleaned.charAt(0).toUpperCase() || '·'
   }
-  return `${letter(wedding.bride.name.en)} · ${letter(wedding.groom.name.en)}`
+  return `${letter(wedding.groom.name.en)} · ${letter(wedding.bride.name.en)}`
 }
 
 /**

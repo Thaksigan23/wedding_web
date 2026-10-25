@@ -114,9 +114,9 @@ export function OpeningDoor({ open, onOpen }) {
             </div>
             <p className="screen-envelope-eyebrow">{lang === 'ta' ? 'திருமணப் பதிவு அழைப்பிதழ்' : 'You are invited to the wedding registration of'}</p>
             <h1 className="screen-envelope-names">
-              <span>{wedding.bride.name.en}</span>
-              <span className="screen-envelope-ampersand">&</span>
               <span>{wedding.groom.name.en}</span>
+              <span className="screen-envelope-ampersand">&</span>
+              <span>{wedding.bride.name.en}</span>
             </h1>
             <time className="screen-envelope-date" dateTime={wedding.muhurtham.datetime.slice(0, 10)}>{envelopeDate}</time>
           </div>

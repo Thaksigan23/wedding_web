@@ -25,8 +25,8 @@ export function BrideGroom() {
 
         <div className="mx-auto flex max-w-4xl flex-col items-stretch gap-8 md:grid md:grid-cols-[1fr_auto_1fr] md:items-start md:gap-8 lg:gap-12">
           <PersonCard
-            person={wedding.bride}
-            role={{ ta: 'மணமகள்', en: 'Bride' }}
+            person={wedding.groom}
+            role={{ ta: 'மணமகன்', en: 'Groom' }}
             delay={0.05}
             parallaxSign={-1}
           />
@@ -39,8 +39,8 @@ export function BrideGroom() {
           </div>
 
           <PersonCard
-            person={wedding.groom}
-            role={{ ta: 'மணமகன்', en: 'Groom' }}
+            person={wedding.bride}
+            role={{ ta: 'மணமகள்', en: 'Bride' }}
             delay={0.12}
             parallaxSign={1}
           />

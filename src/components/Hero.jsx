@@ -81,17 +81,17 @@ export function Hero() {
             <motion.div className="invite-letter-names" {...fade(0.4, 16)}>
               {lang === 'ta' ? (
                 <>
-                  <p className="invite-letter-name-ta">{wedding.bride.name.ta}</p>
+                  <p className="invite-letter-name-ta">{wedding.groom.name.ta}</p>
                   <p className="invite-letter-amp" aria-hidden="true">
                     &
                   </p>
-                  <p className="invite-letter-name-ta">{wedding.groom.name.ta}</p>
+                  <p className="invite-letter-name-ta">{wedding.bride.name.ta}</p>
                 </>
               ) : (
                 <p className="invite-letter-name-script">
-                  <span>{brideEn}</span>
-                  <span className="invite-letter-amp is-inline">&</span>
                   <span>{groomEn}</span>
+                  <span className="invite-letter-amp is-inline">&</span>
+                  <span>{brideEn}</span>
                 </p>
               )}
             </motion.div>
@@ -106,9 +106,9 @@ export function Hero() {
             <motion.div className="invite-letter-split" {...fade(0.52)}>
               <FamilyLine
                 lang={lang}
-                label={lang === 'ta' ? 'மணமகள்' : 'Bride'}
-                name={lang === 'ta' ? wedding.bride.name.ta : brideEn}
-                parents={t(wedding.bride.parents)}
+                label={lang === 'ta' ? 'மணமகன்' : 'Groom'}
+                name={lang === 'ta' ? wedding.groom.name.ta : groomEn}
+                parents={t(wedding.groom.parents)}
               />
               <div className="invite-letter-split-rule" aria-hidden="true">
                 <span />
@@ -117,9 +117,9 @@ export function Hero() {
               </div>
               <FamilyLine
                 lang={lang}
-                label={lang === 'ta' ? 'மணமகன்' : 'Groom'}
-                name={lang === 'ta' ? wedding.groom.name.ta : groomEn}
-                parents={t(wedding.groom.parents)}
+                label={lang === 'ta' ? 'மணமகள்' : 'Bride'}
+                name={lang === 'ta' ? wedding.bride.name.ta : brideEn}
+                parents={t(wedding.bride.parents)}
               />
             </motion.div>
 
