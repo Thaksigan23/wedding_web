@@ -194,8 +194,8 @@ export function StickyNav({ audioUnlocked = false }) {
       <MobileNavLink id="hero" label={lang === 'ta' ? 'முகப்பு' : 'Home'} active={active === 'hero'} onNavigate={go}><HomeIcon /></MobileNavLink>
       <MobileNavLink id="story" label={t(wedding.nav.story)} active={active === 'story'} onNavigate={go}><HeartIcon /></MobileNavLink>
       <MobileNavLink id="countdown" label={t(wedding.sectionTitles.countdown)} active={active === 'countdown'} onNavigate={go}><CalendarIcon /></MobileNavLink>
-      <MobileNavLink id="gallery" label={t(wedding.nav.gallery)} active={active === 'gallery'} onNavigate={go}><PhotoIcon /></MobileNavLink>
       <MobileNavLink id="venue" label={t(wedding.nav.venue)} active={active === 'venue'} onNavigate={go}><PinIcon /></MobileNavLink>
+      <MobileNavLink id="gallery" label={t(wedding.nav.gallery)} active={active === 'gallery'} onNavigate={go}><PhotoIcon /></MobileNavLink>
       {isMobile && <AudioToggle unlocked={audioUnlocked} className="mobile-bottom-nav-control mobile-bottom-nav-audio" />}
     </nav>
     </>

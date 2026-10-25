@@ -119,9 +119,9 @@ export const wedding = {
 
   // Sticky nav labels (short)
   nav: {
-    story: { ta: 'கதை', en: 'Story' },
-    events: { ta: 'நிகழ்வுகள்', en: 'Events' },
-    venue: { ta: 'இடம்', en: 'Venue' },
+    story: { ta: 'மணமக்கள்', en: 'Couple' },
+    events: { ta: 'நாள் கணக்கு', en: 'Countdown' },
+    venue: { ta: 'நிகழ்விடம்', en: 'Venue' },
     gallery: { ta: 'படங்கள்', en: 'Gallery' },
     rsvp: { ta: 'RSVP', en: 'RSVP' },
     menu: { ta: 'பட்டி', en: 'Menu' },
