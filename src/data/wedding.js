@@ -593,7 +593,7 @@ export const wedding = {
       en: 'Sunday, November 15, 2026 · Glen Rest, Attidiya, Dehiwala - you are warmly invited to our wedding registration.',
     },
     ogImage: '/og-image.jpg', // 1200×630, keep under 300KB
-    siteUrl: 'https://your-wedding.vercel.app',
+    siteUrl: 'https://vicknesh-weds-pradeepa-weddingregistration.techloom.ai',
   },
 
   // Audio (muted by default) — toggle hides itself if the file is missing
