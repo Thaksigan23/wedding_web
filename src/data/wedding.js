@@ -550,6 +550,7 @@ export const wedding = {
   // Contacts (footer tap-to-call)
   contacts: [
     {
+      id: 'bride',
       label: { ta: 'மணமகள் குடும்பம்', en: "Bride's family" },
       phone: '+94 70 323 7827',
       display: '+94 70 323 7827',

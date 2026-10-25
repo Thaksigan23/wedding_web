@@ -73,8 +73,9 @@ export function ShareActions() {
 
 /** Floating WhatsApp stays on the right, above the mobile navigation. */
 export function FloatingWhatsApp() {
-  const { t } = useLanguage()
-  const { whatsappUrl } = useShareLinks()
+  const bridePhone = wedding.contacts.find((contact) => contact.id === 'bride')?.phone
+  const whatsappUrl = `https://wa.me/${(bridePhone || '').replace(/\D/g, '')}`
+  const label = 'Message the bride on WhatsApp'
   const [hidden, setHidden] = useState(false)
 
   useEffect(() => {
@@ -135,12 +136,12 @@ export function FloatingWhatsApp() {
         bottom: 'calc(5.75rem + env(safe-area-inset-bottom))',
         boxShadow: '0 8px 24px rgba(0,0,0,0.35)',
       }}
-      aria-label={t(wedding.share.shareWhatsApp)}
+      aria-label={label}
       aria-hidden={hidden}
       tabIndex={hidden ? -1 : 0}
     >
       <WhatsAppIcon className="text-gold" />
-      <span className="sr-only">{t(wedding.share.shareWhatsApp)}</span>
+      <span className="sr-only">{label}</span>
     </a>
   )
 }
