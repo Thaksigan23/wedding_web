@@ -142,15 +142,15 @@ export const wedding = {
   // Main event — Wedding Registration
   // Use ISO 8601 with Sri Lanka offset (+05:30) so countdown is timezone-correct worldwide
   muhurtham: {
-    datetime: '2026-11-15T10:00:00+05:30',
+    datetime: '2026-11-15T10:30:00+05:30',
     endDatetime: '2026-11-15T14:00:00+05:30',
     dateDisplay: {
       ta: 'ஞாயிறு, நவம்பர் 15, 2026',
       en: 'Sunday, November 15, 2026',
     },
     nallaNeram: {
-      ta: 'காலை 10:00 முதல்',
-      en: '10:00 AM onwards',
+      ta: 'காலை 10:30 முதல்',
+      en: '10:30 AM onwards',
     },
     calendarTitle: {
       ta: 'திருமணப் பதிவு - விக்னேஸ்வரன் & பிரதீபா',
@@ -367,8 +367,8 @@ export const wedding = {
         en: 'Sunday, November 15, 2026',
       },
       time: {
-        ta: 'காலை 10:00 முதல்',
-        en: '10:00 AM onwards',
+        ta: 'காலை 10:30 முதல்',
+        en: '10:30 AM onwards',
       },
       venue: {
         ta: 'Glen Rest, அத்திதியா, தெஹிவளை',
