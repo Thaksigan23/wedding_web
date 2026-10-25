@@ -51,8 +51,8 @@ export const wedding = {
 
   // Hero titles
   invitationTitle: {
-    ta: 'திருமண அழைப்பிதழ்',
-    en: 'Wedding Invitation',
+    ta: 'திருமணப் பதிவு அழைப்பிதழ்',
+    en: 'Wedding Registration Invitation',
   },
 
   // Soft invitation-card hero (script title + lead line)
@@ -586,7 +586,7 @@ export const wedding = {
   meta: {
     title: {
       ta: 'திருமண அழைப்பிதழ் - பிரதீபா & விக்னேஸ்வரன்',
-      en: 'Wedding Invitation - Pradeepa & Vickneshwaran',
+      en: 'Wedding Registration - Pradeepa & Vickneshwaran',
     },
     description: {
       ta: 'நவம்பர் 15, 2026 · Glen Rest, அத்திதியா, தெஹிவளை - திருமணப் பதிவுக்கு அன்புடன் அழைக்கிறோம்.',
