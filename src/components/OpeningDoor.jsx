@@ -8,7 +8,7 @@ import { CoverCountdown } from './Countdown'
 import { wedding } from '../data/wedding'
 
 const OPEN_DELAY = 1100
-const AUTO_OPEN_DELAY = 5000
+const AUTO_OPEN_DELAY = 7000
 const envelopeDate = wedding.muhurtham.datetime.slice(0, 10).split('-').reverse().join(' · ')
 
 function EnvelopeFold({ side, points, colors }) {
