@@ -130,16 +130,42 @@ function VenueSplit({ venue, t, lang, googleUrl }) {
       </div>
 
       {venue.mapsEmbedUrl && (
-        <div className="min-h-[220px] overflow-hidden border-t border-gold/25 bg-maroon-deep md:min-h-full md:border-t-0 md:border-l">
+        <a
+          href={venue.mapsLink}
+          target="_blank"
+          rel="noopener noreferrer"
+          title={`${t(venue.name)} - ${t(wedding.share.getDirections)}`}
+          aria-label={`${t(venue.name)} - ${t(wedding.share.getDirections)}`}
+          className="group relative block min-h-[220px] overflow-hidden border-t border-gold/25 bg-maroon-deep md:min-h-full md:border-t-0 md:border-l cursor-pointer"
+        >
           <iframe
             title={`${t(venue.name)} map`}
             src={venue.mapsEmbedUrl}
             loading="lazy"
             referrerPolicy="no-referrer-when-downgrade"
-            className="h-full min-h-[220px] w-full border-0 md:min-h-[320px]"
-            allowFullScreen
+            className="pointer-events-none h-full min-h-[220px] w-full border-0 md:min-h-[320px]"
+            tabIndex="-1"
+            aria-hidden="true"
           />
-        </div>
+          <div className="absolute inset-0 bg-transparent transition-colors group-hover:bg-gold/10" />
+          <div className="absolute bottom-3 right-3 flex items-center gap-1.5 rounded-full border border-gold/40 bg-maroon-deep/90 px-3.5 py-1.5 text-[0.72rem] font-sans font-medium tracking-wider text-gold shadow-md backdrop-blur-sm transition-all group-hover:border-gold group-hover:bg-gold group-hover:text-maroon-deep">
+            <span>{t(wedding.share.getDirections)}</span>
+            <svg
+              className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              aria-hidden="true"
+            >
+              <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
+              <polyline points="15 3 21 3 21 9" />
+              <line x1="10" y1="14" x2="21" y2="3" />
+            </svg>
+          </div>
+        </a>
       )}
     </div>
     </InviteFrame>

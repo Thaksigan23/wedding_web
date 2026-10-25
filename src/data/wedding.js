@@ -197,8 +197,9 @@ export const wedding = {
         en: 'Parking available. Please arrive 30 minutes before the ceremony begins.',
       },
       mapsEmbedUrl:
-        'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3961.5!2d79.875!3d6.84!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNsKwNTAnMjQuMCJOIDc5wrA1MiczMC4wIkU!5e0!3m2!1sen!2slk!4v1700000000000',
-      mapsLink: 'https://share.google/9H83HTt2c7fGxCpib',
+        'https://maps.google.com/maps?q=Glen+Rest,+325+Attidiya+Road,+Dehiwala&t=&z=15&ie=UTF8&iwloc=&output=embed',
+      mapsLink:
+        'https://www.google.com/maps/dir/?api=1&destination=Glen+Rest,+325+Attidiya+Road,+Dehiwala',
     },
     {
       id: 'reception',
@@ -220,7 +221,8 @@ export const wedding = {
         en: '',
       },
       mapsEmbedUrl: '',
-      mapsLink: 'https://share.google/9H83HTt2c7fGxCpib',
+      mapsLink:
+        'https://www.google.com/maps/dir/?api=1&destination=Glen+Rest,+325+Attidiya+Road,+Dehiwala',
     },
   ],
 
