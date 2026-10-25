@@ -97,7 +97,7 @@
     font-size: var(--text-body);
     line-height: 1.65;
     letter-spacing: 0.01em;
-    background-color: var(--color-maroon-deep);
+    background-color: #5b0b18;
     color: var(--color-ivory);
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
@@ -282,9 +282,7 @@
     position: relative;
     border: 1px solid color-mix(in srgb, var(--color-gold) 50%, transparent);
     border-radius: 4px;
-    background:
-      radial-gradient(ellipse at 50% 0%, rgba(201, 160, 75, 0.1) 0%, transparent 52%),
-      linear-gradient(180deg, #480912 0%, #38060d 100%);
+    background: #38060d;
     color: var(--color-ivory);
     box-shadow:
       inset 0 0 0 5px color-mix(in srgb, var(--color-gold) 14%, transparent),
@@ -385,38 +383,27 @@
   }
 
   .invite-wash {
-    background:
-      radial-gradient(ellipse 70% 48% at 50% 0%, rgba(201, 160, 75, 0.16) 0%, transparent 56%),
-      radial-gradient(ellipse 50% 40% at 0% 100%, rgba(91, 11, 24, 0.85) 0%, transparent 52%),
-      linear-gradient(180deg, #5b0b18 0%, #480912 42%, #38060d 78%, #240309 100%);
+    background: #5b0b18;
     color: var(--color-ivory);
   }
 
   .band-maroon {
-    background:
-      radial-gradient(ellipse at 50% 0%, rgba(201, 160, 75, 0.16) 0%, transparent 48%),
-      linear-gradient(165deg, #5b0b18 0%, #480912 42%, #240309 100%);
+    background: #5b0b18;
     color: var(--color-ivory);
   }
 
   .band-maroon-deep {
-    background:
-      radial-gradient(ellipse at 50% 0%, rgba(201, 160, 75, 0.12) 0%, transparent 50%),
-      linear-gradient(180deg, #38060d 0%, #240309 58%, #140206 100%);
+    background: #38060d;
     color: var(--color-ivory);
   }
 
   .surface-maroon {
-    background:
-      radial-gradient(ellipse at 50% 0%, rgba(201, 160, 75, 0.08) 0%, transparent 46%),
-      linear-gradient(180deg, #480912 0%, #38060d 100%);
+    background: #5b0b18;
     color: var(--color-ivory);
   }
 
   .surface-maroon-soft {
-    background:
-      radial-gradient(ellipse at 80% 18%, rgba(201, 160, 75, 0.08) 0%, transparent 42%),
-      linear-gradient(180deg, #5b0b18 0%, #480912 100%);
+    background: #5b0b18;
     color: var(--color-ivory);
   }
 
@@ -738,22 +725,11 @@
   isolation: isolate;
   overflow: hidden;
   color: var(--letter-ivory);
-  background:
-    radial-gradient(ellipse 58% 42% at 50% 12%, rgba(201, 160, 82, 0.16) 0%, transparent 58%),
-    radial-gradient(ellipse 80% 55% at 50% 100%, #1a0206 0%, transparent 58%),
-    radial-gradient(ellipse 42% 70% at 0% 50%, rgba(26, 2, 6, 0.72) 0%, transparent 62%),
-    radial-gradient(ellipse 42% 70% at 100% 50%, rgba(26, 2, 6, 0.72) 0%, transparent 62%),
-    linear-gradient(180deg, #5a1019 0%, #43070d 42%, #310409 78%, #300408 100%);
+  background: #5b0b18;
 }
 
 .invite-letter::before {
-  content: "";
-  pointer-events: none;
-  position: absolute;
-  inset: 0;
-  z-index: 1;
-  background:
-    radial-gradient(ellipse 78% 68% at 50% 42%, transparent 38%, rgba(18, 2, 6, 0.58) 100%);
+  content: none;
 }
 
 .invite-letter::after {
@@ -828,9 +804,57 @@
 }
 
 @media (max-width: 767px) {
-  /* Sit the language tab above the 48px WhatsApp FAB. */
+  /* Sit the language tab above the 48px WhatsApp FAB with a clear gap. */
   .invite-inner-lang {
-    margin-bottom: 3.9rem;
+    margin-bottom: 4.25rem;
+  }
+}
+
+/* Inner countdown meta: keep date/time from splitting mid-phrase on phones. */
+.invite-countdown-meta {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.2rem;
+  margin-top: 2rem;
+  padding-inline: 0.25rem;
+  font-size: 0.875rem;
+  line-height: 1.65;
+  color: color-mix(in srgb, var(--color-ivory) 70%, transparent);
+}
+
+.invite-countdown-meta-label {
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-gold);
+}
+
+.invite-countdown-meta-dot {
+  display: none;
+  color: color-mix(in srgb, var(--color-gold) 40%, transparent);
+}
+
+@media (min-width: 640px) {
+  .invite-countdown-meta {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    column-gap: 0;
+    row-gap: 0.2rem;
+    line-height: 1.7;
+  }
+
+  .invite-countdown-meta-label {
+    letter-spacing: 0.14em;
+  }
+
+  .invite-countdown-meta-date {
+    white-space: nowrap;
+  }
+
+  .invite-countdown-meta-dot {
+    display: inline;
+    margin-inline: 0.5rem;
   }
 }
 
@@ -846,9 +870,7 @@
   position: relative;
   isolation: isolate;
   overflow: hidden;
-  background:
-    radial-gradient(ellipse 70% 38% at 50% 0%, rgba(201, 160, 82, 0.13) 0%, transparent 58%),
-    linear-gradient(180deg, rgba(89, 12, 21, 0.28) 0%, rgba(49, 4, 9, 0.12) 100%);
+  background: #38060d;
   box-shadow:
     0 28px 70px rgba(0, 0, 0, 0.42),
     inset 0 0 90px rgba(201, 160, 82, 0.045);
@@ -2100,13 +2122,7 @@
   touch-action: manipulation;
   scrollbar-width: none;
   color: var(--invite-champagne);
-  background:
-    radial-gradient(ellipse 42% 36% at 50% 28%, rgba(201, 160, 75, 0.12) 0%, transparent 58%),
-    radial-gradient(ellipse 58% 62% at 50% 42%, #4a0a12 0%, transparent 72%),
-    radial-gradient(ellipse 90% 80% at 50% 100%, #1a0206 0%, transparent 55%),
-    radial-gradient(ellipse 50% 40% at 0% 0%, rgba(91, 11, 24, 0.85) 0%, transparent 60%),
-    radial-gradient(ellipse 50% 40% at 100% 0%, rgba(91, 11, 24, 0.85) 0%, transparent 60%),
-    radial-gradient(ellipse 70% 85% at 50% 46%, #5b0b18 0%, #38060d 48%, #240309 100%);
+  background: #5b0b18;
 }
 
 .invite-cover-bar {
@@ -2239,9 +2255,7 @@
   padding-bottom: max(0.28rem, env(safe-area-inset-bottom));
   pointer-events: auto;
   text-align: center;
-  background:
-    radial-gradient(ellipse 70% 50% at 50% 0%, rgba(201, 160, 82, 0.12) 0%, transparent 58%),
-    linear-gradient(180deg, #f8ebd7 0%, #f3e4cc 100%);
+  background: #f8ebd7;
 }
 
 .invite-cover-credit {
@@ -2280,13 +2294,7 @@
 }
 
 .invite-cover::before {
-  content: "";
-  pointer-events: none;
-  position: absolute;
-  inset: 0;
-  z-index: 1;
-  background:
-    radial-gradient(ellipse at center, transparent 32%, rgba(12, 1, 3, 0.55) 100%);
+  content: none;
 }
 
 .invite-cover::after {

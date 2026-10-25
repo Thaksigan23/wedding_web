@@ -77,7 +77,7 @@ function VenueSplit({ venue, t, lang, googleUrl }) {
   return (
     <InviteFrame padded={false} className="overflow-hidden p-2 sm:p-3">
     <div className="grid items-stretch gap-0 md:grid-cols-2">
-      <div className="flex flex-col justify-center px-4 py-8 sm:px-6 md:px-10 md:py-12">
+      <div className="flex flex-col justify-center px-4 py-6 sm:px-6 md:px-10 md:py-12">
         {venue.label && (
           <p className="font-sans text-[0.65rem] tracking-[0.2em] text-gold/80 uppercase">
             {t(venue.label)}

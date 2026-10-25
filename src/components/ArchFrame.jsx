@@ -42,7 +42,7 @@ export function ArchFrame({ src, alt, label, className = '', parallaxY = 0 }) {
 function PlaceholderSilhouette({ label }) {
   return (
     <div
-      className="flex h-full w-full flex-col items-end justify-end bg-gradient-to-b from-[#480912] to-[#240309]"
+      className="flex h-full w-full flex-col items-end justify-end bg-[#38060D]"
       role="img"
       aria-label={label || 'Photo placeholder'}
     >

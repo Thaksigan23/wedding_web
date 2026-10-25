@@ -55,7 +55,7 @@ export default function App() {
 
   return (
     <LanguageProvider>
-      <div className="min-h-dvh bg-maroon-deep text-ivory antialiased">
+      <div className="min-h-dvh bg-maroon text-ivory antialiased">
         <OpeningDoor open={doorOpen} onOpen={handleOpen} />
         {doorOpen && (
           <>

@@ -168,15 +168,23 @@ export function Countdown() {
                 )}
               </AnimatePresence>
 
-              <p className="mt-8 px-1 text-sm leading-relaxed text-ivory/70">
-                <span className="tracking-[0.1em] text-gold uppercase sm:tracking-[0.14em]">
+              <p className="invite-countdown-meta">
+                <span className="invite-countdown-meta-label">
                   {lang === 'ta' ? 'திருமணப் பதிவு' : 'Registration'}
                 </span>
-                <span className="mx-2 text-gold/40">·</span>
-                <span className={lang === 'ta' ? 'font-tamil leading-[1.7]' : ''}>
+                <span className="invite-countdown-meta-dot" aria-hidden="true">
+                  ·
+                </span>
+                <span
+                  className={`invite-countdown-meta-date ${
+                    lang === 'ta' ? 'font-tamil leading-[1.7]' : ''
+                  }`}
+                >
                   {t(wedding.muhurtham.dateDisplay)}
                 </span>
-                <span className="mx-2 text-gold/40">·</span>
+                <span className="invite-countdown-meta-dot" aria-hidden="true">
+                  ·
+                </span>
                 <span className={lang === 'ta' ? 'font-tamil' : ''}>
                   {t(wedding.muhurtham.nallaNeram)}
                 </span>
