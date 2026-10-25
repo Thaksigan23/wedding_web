@@ -1,10 +1,10 @@
 /**
- * Calendar helpers — ICS download + Google Calendar link.
+ * Calendar helpers — Google Calendar link and countdown.
  * Datetimes should be ISO 8601 with offset (e.g. 2026-12-15T09:30:00+05:30).
  */
 
-/** Format a Date as UTC ICS stamp: 20261215T040000Z */
-function toIcsUtc(date) {
+/** Format a Date as UTC compact stamp: 20261215T040000Z */
+function toUtcStamp(date) {
   const pad = (n) => String(n).padStart(2, '0')
   return (
     date.getUTCFullYear() +
@@ -18,55 +18,10 @@ function toIcsUtc(date) {
   )
 }
 
-function escapeIcs(text) {
-  return String(text)
-    .replace(/\\/g, '\\\\')
-    .replace(/;/g, '\\;')
-    .replace(/,/g, '\\,')
-    .replace(/\n/g, '\\n')
-}
-
-export function buildIcs({ title, description, location, startIso, endIso }) {
-  const start = new Date(startIso)
-  const end = new Date(endIso || startIso)
-  const stamp = toIcsUtc(new Date())
-  const uid = `muhurtham-${start.getTime()}@wedding-invite`
-
-  return [
-    'BEGIN:VCALENDAR',
-    'VERSION:2.0',
-    'PRODID:-//Wedding Invitation//EN',
-    'CALSCALE:GREGORIAN',
-    'METHOD:PUBLISH',
-    'BEGIN:VEVENT',
-    `UID:${uid}`,
-    `DTSTAMP:${stamp}`,
-    `DTSTART:${toIcsUtc(start)}`,
-    `DTEND:${toIcsUtc(end)}`,
-    `SUMMARY:${escapeIcs(title)}`,
-    `DESCRIPTION:${escapeIcs(description)}`,
-    `LOCATION:${escapeIcs(location)}`,
-    'END:VEVENT',
-    'END:VCALENDAR',
-  ].join('\r\n')
-}
-
-export function downloadIcs(filename, icsContent) {
-  const blob = new Blob([icsContent], { type: 'text/calendar;charset=utf-8' })
-  const url = URL.createObjectURL(blob)
-  const a = document.createElement('a')
-  a.href = url
-  a.download = filename
-  document.body.appendChild(a)
-  a.click()
-  a.remove()
-  URL.revokeObjectURL(url)
-}
-
 /** Google Calendar template URL (dates in UTC compact form) */
 export function buildGoogleCalendarUrl({ title, description, location, startIso, endIso }) {
-  const start = toIcsUtc(new Date(startIso)).replace(/Z$/, '')
-  const end = toIcsUtc(new Date(endIso || startIso)).replace(/Z$/, '')
+  const start = toUtcStamp(new Date(startIso)).replace(/Z$/, '')
+  const end = toUtcStamp(new Date(endIso || startIso)).replace(/Z$/, '')
   const params = new URLSearchParams({
     action: 'TEMPLATE',
     text: title,

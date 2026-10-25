@@ -4,32 +4,19 @@ import { ScrollReveal } from './ScrollReveal'
 import { GoldDivider } from './GoldDivider'
 
 /**
- * Section eyebrow + gold heading, in the active language only.
- * eyebrowKey: key on wedding.sectionEyebrows
+ * Section gold heading, in the active language only.
  * titleKey: key on wedding.sectionTitles
  */
 export function SectionHeader({
-  eyebrowKey,
   titleKey,
   titleId,
-  light = false,
   className = '',
 }) {
   const { t, lang } = useLanguage()
-  const eyebrow = wedding.sectionEyebrows[eyebrowKey]
   const title = wedding.sectionTitles[titleKey]
 
   return (
     <ScrollReveal className={`mb-10 text-center md:mb-12 ${className}`}>
-      {eyebrow && (
-        <p
-          className={`eyebrow mb-4 ${light ? '!text-gold !opacity-100' : ''} ${
-            lang === 'ta' ? 'font-tamil normal-case tracking-normal' : ''
-          }`}
-        >
-          {t(eyebrow)}
-        </p>
-      )}
       <h2
         id={titleId}
         className={`${

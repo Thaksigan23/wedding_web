@@ -126,12 +126,9 @@ export function SecretKeysGame() {
           <InviteFrame className="relative overflow-hidden">
 
             <div className="relative z-10 text-center">
-              <p className="font-sans text-[0.62rem] tracking-[0.3em] text-gold uppercase">
-                {t(cfg.eyebrow)}
-              </p>
               <h2
                 id="secret-keys-heading"
-                className={`mt-3 text-gold-ink ${
+                className={`text-gold-ink ${
                   lang === 'ta'
                     ? 'font-tamil text-[clamp(1.35rem,1.1rem+1.1vw,2rem)] leading-[1.65]'
                     : 'font-display text-[clamp(1.55rem,1.2rem+1.5vw,2.35rem)] font-light tracking-[0.12em] uppercase'

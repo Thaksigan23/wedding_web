@@ -3,7 +3,9 @@ import { LanguageProvider } from './context/LanguageContext'
 import { OpeningDoor } from './components/OpeningDoor'
 import { Hero } from './components/Hero'
 import { StickyNav } from './components/StickyNav'
+import { InviteControlsDock } from './components/InviteControlsDock'
 import { SiteFloralHeader } from './components/GoldDivider'
+import { trackPageView } from './analytics'
 
 const BlessingNote = lazy(() =>
   import('./components/BlessingNote').then((m) => ({ default: m.BlessingNote })),
@@ -48,6 +50,7 @@ export default function App() {
   const handleOpen = useCallback(() => {
     setDoorOpen(true)
     setAudioUnlocked(true)
+    trackPageView('/invite')
   }, [])
 
   return (
@@ -57,9 +60,9 @@ export default function App() {
         {doorOpen && (
           <>
             <SiteFloralHeader />
-            <StickyNav audioUnlocked={audioUnlocked} />
+            <StickyNav />
             <main>
-              <Hero audioUnlocked={audioUnlocked} />
+              <Hero />
               <Suspense fallback={<SectionFallback />}>
                 <BlessingNote />
                 <BrideGroom />
@@ -71,6 +74,7 @@ export default function App() {
                 <ShareActions />
               </Suspense>
             </main>
+            <InviteControlsDock audioUnlocked={audioUnlocked} />
             <Suspense fallback={null}>
               <Footer />
               <FloatingWhatsApp />

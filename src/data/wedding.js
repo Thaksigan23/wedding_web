@@ -13,8 +13,8 @@ export const wedding = {
   // Couple
   bride: {
     name: {
-      ta: 'பிரியாதர்ஷினி',
-      en: 'Priyadharshini',
+      ta: 'பிரதீபா',
+      en: 'Pradeepa',
     },
     parents: {
       ta: 'திரு. ராஜரத்தினம் & திருமதி. சீதாலட்சுமி அவர்களின் மகள்',
@@ -24,7 +24,7 @@ export const wedding = {
       ta: 'தெஹிவளை',
       en: 'Dehiwala',
     },
-    photo: '/images/bride.jpg',
+    photo: '/images/Maroon%20and%20Gold%20Bridal%20Portrait.png',
   },
 
   groom: {
@@ -33,14 +33,14 @@ export const wedding = {
       en: 'Vickneshwaran',
     },
     parents: {
-      ta: 'காலஞ்சென்ற திரு. சுப்பையா & திருமதி. பரஞ்சோதி அவர்களின் மகன்',
-      en: 'Son of Late Mr. Suppaiha & Mrs. Paranjothi',
+      ta: 'திரு. சுப்பையா & திருமதி. பரஞ்சோதி அவர்களின் மகன்',
+      en: 'Son of Mr. Suppaiha & Mrs. Paranjothi',
     },
     hometown: {
       ta: 'தெஹிவளை',
       en: 'Dehiwala',
     },
-    photo: '/images/groom.jpg',
+    photo: '/images/Maroon%20and%20Gold%20Wedding%20Portrait.png',
   },
 
   // Families line under names
@@ -153,8 +153,8 @@ export const wedding = {
       en: '10:00 AM onwards',
     },
     calendarTitle: {
-      ta: 'திருமணப் பதிவு - பிரியாதர்ஷினி & விக்னேஸ்வரன்',
-      en: 'Wedding Registration - Priyadharshini & Vickneshwaran',
+      ta: 'திருமணப் பதிவு - பிரதீபா & விக்னேஸ்வரன்',
+      en: 'Wedding Registration - Pradeepa & Vickneshwaran',
     },
     calendarDescription: {
       ta: 'திருமணப் பதிவு விழா · Glen Rest, அத்திதியா, தெஹிவளை. உங்கள் வருகையும் ஆசீர்வாதமும் வரவேற்கப்படுகிறது.',
@@ -198,8 +198,7 @@ export const wedding = {
       },
       mapsEmbedUrl:
         'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3961.5!2d79.875!3d6.84!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNsKwNTAnMjQuMCJOIDc5wrA1MiczMC4wIkU!5e0!3m2!1sen!2slk!4v1700000000000',
-      mapsLink:
-        'https://www.google.com/maps/search/?api=1&query=Glen+Rest+Attidiya+Dehiwala',
+      mapsLink: 'https://share.google/9H83HTt2c7fGxCpib',
     },
     {
       id: 'reception',
@@ -221,24 +220,19 @@ export const wedding = {
         en: '',
       },
       mapsEmbedUrl: '',
-      mapsLink:
-        'https://www.google.com/maps/search/?api=1&query=Glen+Rest+Attidiya+Dehiwala',
+      mapsLink: 'https://share.google/9H83HTt2c7fGxCpib',
     },
   ],
 
   // Share & calendar actions
   share: {
     whatsappMessage: {
-      ta: 'திருமண அழைப்பிதழ் - பிரியாதர்ஷினி & விக்னேஸ்வரன் · நவம்பர் 15, 2026 · Glen Rest, அத்திதியா. விவரங்களுக்கு இங்கே பாருங்கள்:',
-      en: 'Wedding invitation - Priyadharshini & Vickneshwaran · Nov 15, 2026 · Glen Rest, Attidiya. See details here:',
+      ta: 'திருமண அழைப்பிதழ் - பிரதீபா & விக்னேஸ்வரன் · நவம்பர் 15, 2026 · Glen Rest, அத்திதியா. விவரங்களுக்கு இங்கே பாருங்கள்:',
+      en: 'Wedding invitation - Pradeepa & Vickneshwaran · Nov 15, 2026 · Glen Rest, Attidiya. See details here:',
     },
     addToCalendar: {
       ta: 'நாட்காட்டியில் சேர்',
       en: 'Add to Calendar',
-    },
-    downloadIcs: {
-      ta: 'ICS பதிவிறக்கம்',
-      en: 'Download .ics',
     },
     googleCalendar: {
       ta: 'Google Calendar',
@@ -486,14 +480,22 @@ export const wedding = {
     ],
   },
 
-  // Gallery (pre-wedding) — missing images are hidden gracefully
+  // Gallery — one published photo; more after the event (typography, not extra frames)
+  galleryComingSoon: {
+    kicker: { ta: 'விரைவில்', en: 'Coming soon' },
+    message: {
+      ta: 'நிகழ்வுக்குப் பிறகு மேலும் நினைவுப் படங்கள் வெளியிடுவோம்',
+      en: 'More photographs will follow after the ceremony',
+    },
+  },
   gallery: [
-    { src: '/images/gallery-1.jpg', alt: { ta: 'முன் திருமண புகைப்படம் 1', en: 'Pre-wedding photo 1' } },
-    { src: '/images/gallery-2.jpg', alt: { ta: 'முன் திருமண புகைப்படம் 2', en: 'Pre-wedding photo 2' } },
-    { src: '/images/gallery-3.jpg', alt: { ta: 'முன் திருமண புகைப்படம் 3', en: 'Pre-wedding photo 3' } },
-    { src: '/images/gallery-4.jpg', alt: { ta: 'முன் திருமண புகைப்படம் 4', en: 'Pre-wedding photo 4' } },
-    { src: '/images/gallery-5.jpg', alt: { ta: 'முன் திருமண புகைப்படம் 5', en: 'Pre-wedding photo 5' } },
-    { src: '/images/gallery-6.jpg', alt: { ta: 'முன் திருமண புகைப்படம் 6', en: 'Pre-wedding photo 6' } },
+    {
+      src: '/images/Romantic%20Maroon%20and%20Gold%20Wedding%20Portrait.png',
+      alt: {
+        ta: 'பிரதீபா மற்றும் விக்னேஸ்வரன்',
+        en: 'Pradeepa and Vickneshwaran',
+      },
+    },
   ],
 
   // RSVP — set endpoint to your Formspree URL, or leave '' for mailto/WhatsApp fallback
@@ -542,20 +544,20 @@ export const wedding = {
     },
     // Used when endpoint is empty
     fallbackEmailAddress: 'family@example.com',
-    fallbackWhatsAppNumber: '94771234567', // country code, no + or spaces
+    fallbackWhatsAppNumber: '94703237827', // country code, no + or spaces
   },
 
   // Contacts (footer tap-to-call)
   contacts: [
     {
       label: { ta: 'மணமகள் குடும்பம்', en: "Bride's family" },
-      phone: '+94 77 123 4567',
-      display: '+94 77 123 4567',
+      phone: '+94 70 323 7827',
+      display: '+94 70 323 7827',
     },
     {
       label: { ta: 'மணமகன் குடும்பம்', en: "Groom's family" },
-      phone: '+94 77 765 4321',
-      display: '+94 77 765 4321',
+      phone: '+94 76 138 8527',
+      display: '+94 76 138 8527',
     },
   ],
 
@@ -582,8 +584,8 @@ export const wedding = {
   // ogImage path is relative; absolute URL is built as meta.siteUrl + ogImage
   meta: {
     title: {
-      ta: 'திருமண அழைப்பிதழ் - பிரியாதர்ஷினி & விக்னேஸ்வரன்',
-      en: 'Wedding Invitation - Priyadharshini & Vickneshwaran',
+      ta: 'திருமண அழைப்பிதழ் - பிரதீபா & விக்னேஸ்வரன்',
+      en: 'Wedding Invitation - Pradeepa & Vickneshwaran',
     },
     description: {
       ta: 'நவம்பர் 15, 2026 · Glen Rest, அத்திதியா, தெஹிவளை - திருமணப் பதிவுக்கு அன்புடன் அழைக்கிறோம்.',
@@ -595,8 +597,8 @@ export const wedding = {
 
   // Audio (muted by default) — toggle hides itself if the file is missing
   audio: {
-    // Royalty-free Pixabay instrumental (replace with your own track anytime)
-    src: '/audio/wedding-bgm.mp3',
+    // Royalty-free Pixabay nadaswaram instrumental (Tamil wedding mangala isai)
+    src: '/audio/nadaswaram-bgm.mp3',
     mutedByDefault: false,
     autoplayOnOpen: true,
     targetVolume: 0.28,

@@ -18,10 +18,8 @@ export function BrideGroom() {
       <FloralCorners variant="couple" />
       <div className="site-shell relative z-10">
         <SectionHeader
-          eyebrowKey="couple"
           titleKey="couple"
           titleId="couple-heading"
-          light
           className="!mb-10 md:!mb-14"
         />
 

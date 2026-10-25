@@ -18,17 +18,6 @@ export function BlessingNote() {
           <InviteFrame className="overflow-hidden">
             <MandalaWatermark />
             <div className="relative z-10 mx-auto max-w-xl text-center">
-              <p
-                className={`eyebrow mb-5 ${
-                  lang === 'ta' ? 'font-tamil normal-case tracking-normal' : ''
-                }`}
-              >
-                {lang === 'ta'
-                  ? wedding.sectionEyebrows.blessing.ta
-                  : wedding.sectionEyebrows.blessing.en}
-              </p>
-              <GoldDivider small className="mb-6" />
-
               <h2 id="blessing-heading" className="sr-only">
                 {lang === 'ta' ? wedding.blessingNote.title.ta : wedding.blessingNote.title.en}
               </h2>
@@ -42,6 +31,8 @@ export function BlessingNote() {
                   {wedding.blessingNote.title.ta}
                 </p>
               )}
+
+              <GoldDivider small className="mt-5" />
 
               {lang === 'ta' ? (
                 <blockquote

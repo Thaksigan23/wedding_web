@@ -10,7 +10,7 @@ export function Venue() {
   const { t, lang } = useLanguage()
   const venues = (wedding.venues || []).filter((v) => v.enabled !== false)
   const [activeId, setActiveId] = useState(venues[0]?.id)
-  const { ics, googleUrl } = useShareLinks()
+  const { googleUrl } = useShareLinks()
 
   if (venues.length === 0) return null
 
@@ -25,7 +25,7 @@ export function Venue() {
     >
       <FloralCorners variant="venue" />
       <div className="site-shell relative z-10">
-        <SectionHeader eyebrowKey="venue" titleKey="venue" titleId="venue-heading" light />
+        <SectionHeader titleKey="venue" titleId="venue-heading" />
 
         {useTabs && (
           <div
@@ -64,7 +64,6 @@ export function Venue() {
               venue={active}
               t={t}
               lang={lang}
-              onIcs={ics}
               googleUrl={googleUrl}
             />
           </div>
@@ -74,7 +73,7 @@ export function Venue() {
   )
 }
 
-function VenueSplit({ venue, t, lang, onIcs, googleUrl }) {
+function VenueSplit({ venue, t, lang, googleUrl }) {
   return (
     <InviteFrame padded={false} className="overflow-hidden p-2 sm:p-3">
     <div className="grid items-stretch gap-0 md:grid-cols-2">
@@ -119,13 +118,6 @@ function VenueSplit({ venue, t, lang, onIcs, googleUrl }) {
           >
             {t(wedding.share.getDirections)}
           </a>
-          <button
-            type="button"
-            onClick={onIcs}
-            className="btn-pill btn-pill-outline min-h-[44px] w-full sm:w-auto"
-          >
-            {t(wedding.share.downloadIcs)}
-          </button>
           <a
             href={googleUrl}
             target="_blank"

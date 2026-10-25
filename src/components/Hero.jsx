@@ -2,8 +2,6 @@ import { motion } from 'framer-motion'
 import { wedding } from '../data/wedding'
 import { useLanguage } from '../context/LanguageContext'
 import { usePrefersReducedMotion } from '../hooks/usePrefersReducedMotion'
-import { LanguageToggle } from './LanguageToggle'
-import { AudioToggle } from './AudioToggle'
 import { InviteDateBlock } from './InviteDateBlock'
 import {
   FloralCorners,
@@ -19,7 +17,7 @@ function displayEn(name) {
   return String(name || '').replace(/^\[|\]$/g, '') || name
 }
 
-export function Hero({ audioUnlocked }) {
+export function Hero() {
   const { t, lang } = useLanguage()
   const reduced = usePrefersReducedMotion()
 
@@ -41,11 +39,6 @@ export function Hero({ audioUnlocked }) {
     <section id="hero" className="invite-letter">
       <FloralCorners variant="hero" />
 
-      <div className="invite-letter-bar">
-        <AudioToggle className="invite-control" unlocked={audioUnlocked} />
-        <LanguageToggle compact className="invite-control" />
-      </div>
-
       <div className="invite-letter-shell">
         <article className="invite-letter-card">
           <LetterEmblem />
@@ -54,7 +47,7 @@ export function Hero({ audioUnlocked }) {
             <motion.div className="invite-letter-invocation" {...fade(0.06)}>
               <JewelGlyph className="invite-letter-jewel" />
               <p className={`invite-letter-mantra ${lang === 'en' ? 'is-en' : ''}`}>
-                {lang === 'ta' ? '|| ஸ்ரீ கணபதயே நம: ||' : '|| Sri Ganapataye Namah ||'}
+                {lang === 'ta' ? '|| ஸ்ரீ கணபதயே நம ||' : '|| Sri Ganapataye Namah ||'}
               </p>
               <JewelGlyph className="invite-letter-jewel" />
             </motion.div>

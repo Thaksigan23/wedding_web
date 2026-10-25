@@ -89,10 +89,8 @@ export function RSVP() {
       <FloralCorners variant="rsvp" />
       <div className="site-shell relative z-10">
         <SectionHeader
-          eyebrowKey="rsvp"
           titleKey="rsvp"
           titleId="rsvp-heading"
-          light
           className="!mb-8 md:!mb-10"
         />
         {wedding.rsvp.deadline && (

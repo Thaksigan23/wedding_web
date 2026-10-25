@@ -3,9 +3,7 @@ import { wedding } from '../data/wedding'
 import { useLanguage } from '../context/LanguageContext'
 import {
   buildGoogleCalendarUrl,
-  buildIcs,
   buildWhatsAppShareUrl,
-  downloadIcs,
 } from '../utils/calendar'
 
 function getPrimaryVenueLocation(t) {
@@ -34,11 +32,6 @@ export function useShareLinks() {
   const startIso = wedding.muhurtham.datetime
   const endIso = wedding.muhurtham.endDatetime || wedding.muhurtham.datetime
 
-  const ics = () => {
-    const content = buildIcs({ title, description, location, startIso, endIso })
-    downloadIcs('muhurtham.ics', content)
-  }
-
   const googleUrl = buildGoogleCalendarUrl({
     title,
     description,
@@ -50,7 +43,7 @@ export function useShareLinks() {
   const siteUrl = getSiteUrl()
   const whatsappUrl = buildWhatsAppShareUrl(t(wedding.share.whatsappMessage), siteUrl)
 
-  return { ics, googleUrl, whatsappUrl, siteUrl }
+  return { googleUrl, whatsappUrl, siteUrl }
 }
 
 /** Desktop WhatsApp share strip (calendar lives on Venue) */

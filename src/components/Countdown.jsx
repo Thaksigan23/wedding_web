@@ -103,13 +103,6 @@ export function Countdown() {
         <ScrollReveal className="mx-auto max-w-3xl">
           <InviteFrame>
             <div className="text-center">
-              <p
-                className={`eyebrow mb-4 !text-gold ${
-                  lang === 'ta' ? 'font-tamil normal-case tracking-normal' : ''
-                }`}
-              >
-                {t(wedding.sectionEyebrows.countdown)}
-              </p>
               <h2
                 id="countdown-heading"
                 className={`font-light text-gold-ink ${

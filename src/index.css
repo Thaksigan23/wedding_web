@@ -771,44 +771,67 @@
   z-index: 2;
 }
 
-.invite-letter-bar {
-  position: relative;
-  z-index: 20;
+/* Inner invite after unlock: audio pill bottom-left, language tab
+   flush to the right edge (cover-style). Clears top florals (z 35). */
+.invite-controls-dock {
+  --invite-gold: #c9a04b;
+  --invite-champagne: #e8cd83;
+  position: fixed;
+  inset-inline: 0;
+  bottom: 0;
+  z-index: 45;
   display: flex;
-  align-items: flex-start;
+  align-items: flex-end;
   justify-content: space-between;
-  gap: 0.75rem;
-  padding: 0.7rem var(--section-pad-x) 0.1rem;
+  pointer-events: none;
+  padding-left: max(0.75rem, env(safe-area-inset-left));
+  padding-right: 0;
+  padding-bottom: max(1.15rem, env(safe-area-inset-bottom));
 }
 
-.invite-letter-bar > :last-child {
-  margin-left: auto;
+.invite-controls-dock > * {
+  pointer-events: auto;
 }
 
-@media (min-width: 900px) {
-  .invite-letter-bar {
-    position: absolute;
-    inset: 0 0 auto;
-    padding: 0.85rem var(--section-pad-x) 0;
-    pointer-events: none;
-  }
-
-  .invite-letter-bar > * {
-    pointer-events: auto;
-  }
+.invite-controls-dock-audio {
+  position: relative;
+  display: inline-flex;
 }
 
-.invite-letter .invite-control {
-  border-color: color-mix(in srgb, var(--letter-gold) 55%, transparent);
-  background: color-mix(in srgb, #310409 78%, transparent);
-  color: var(--letter-champagne);
+.invite-controls-dock-audio audio {
+  position: absolute;
+  width: 0;
+  height: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.invite-controls-dock-btn {
+  min-height: 44px;
+  border-color: color-mix(in srgb, var(--color-gold) 55%, transparent);
+  background: color-mix(in srgb, #310409 88%, transparent);
+  color: var(--color-gold-ink);
   letter-spacing: 0.14em;
-  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.22);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.28);
+  backdrop-filter: blur(12px);
 }
 
-.invite-letter .invite-control:hover {
-  border-color: var(--letter-champagne);
-  background: color-mix(in srgb, var(--letter-gold) 12%, transparent);
+.invite-controls-dock-btn:hover {
+  border-color: var(--color-gold-ink);
+  background: color-mix(in srgb, var(--color-gold) 12%, transparent);
+}
+
+.invite-inner-lang.language-toggle-vertical {
+  flex-shrink: 0;
+  border-right: 0;
+  border-radius: 0.55rem 0 0 0.55rem;
+}
+
+@media (max-width: 767px) {
+  /* Sit the language tab above the 48px WhatsApp FAB. */
+  .invite-inner-lang {
+    margin-bottom: 3.9rem;
+  }
 }
 
 .invite-letter-shell {
@@ -1749,13 +1772,6 @@
 
 /* Compact tablet invitation */
 @media (max-width: 768px) {
-  .invite-letter-bar {
-    position: relative;
-    inset: auto;
-    pointer-events: auto;
-    padding: 0.6rem var(--section-pad-x) 0.05rem;
-  }
-
   .invite-letter-shell {
     width: min(100% - 1.85rem, 46rem);
     padding: 0.15rem 0 0.85rem;
@@ -1782,11 +1798,11 @@
     --section-pad-x: 0.85rem;
   }
 
-  .invite-letter-bar {
-    padding: 0.65rem 0.85rem 0.15rem;
+  .invite-controls-dock {
+    padding-left: max(0.65rem, env(safe-area-inset-left));
   }
 
-  .invite-letter .invite-control {
+  .invite-controls-dock-btn {
     min-height: 40px;
     padding: 0.32rem 0.7rem;
     font-size: 0.62rem;
@@ -2127,22 +2143,25 @@
   color: var(--invite-gold);
 }
 
-/* Cover-only right-edge language tab. Out of flow so it cannot shift the main column. */
+/* Cover-only language tab. Pinned to the bottom-right of the cover viewport,
+   just above the cream countdown band — fully below the top-right floral cascade. */
 .invite-cover-lang-dock {
   position: absolute;
-  top: 0;
+  top: auto;
   right: max(0px, env(safe-area-inset-right, 0px));
-  bottom: var(--cover-cream-h);
+  bottom: calc(var(--cover-cream-h) + 0.75rem);
   left: auto;
-  z-index: 22;
+  z-index: 24;
+  isolation: isolate;
   display: flex;
   box-sizing: border-box;
   width: max-content;
   max-width: 2.5rem;
+  height: auto;
   align-items: center;
   justify-content: flex-end;
   margin: 0;
-  padding: max(0.55rem, env(safe-area-inset-top, 0px)) 0 0.5rem;
+  padding: 0;
   pointer-events: none;
 }
 
@@ -2150,6 +2169,7 @@
 .language-toggle-vertical {
   pointer-events: auto;
   position: relative;
+  z-index: 1;
   box-sizing: border-box;
   display: flex;
   align-items: center;

@@ -1,8 +1,6 @@
 import { useEffect, useMemo, useState } from 'react'
 import { wedding } from '../data/wedding'
 import { useLanguage } from '../context/LanguageContext'
-import { LanguageToggle } from './LanguageToggle'
-import { AudioToggle } from './AudioToggle'
 
 const LINKS = [
   { id: 'story', key: 'story' },
@@ -24,7 +22,7 @@ function coupleInitials() {
 /**
  * Minimal sticky bar — appears after the hero scrolls out of view.
  */
-export function StickyNav({ audioUnlocked }) {
+export function StickyNav() {
   const { t, lang } = useLanguage()
   const [visible, setVisible] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
@@ -124,11 +122,10 @@ export function StickyNav({ audioUnlocked }) {
             ))}
           </nav>
 
-          <div className="flex shrink-0 items-center gap-1.5 sm:gap-2">
-            <AudioToggle unlocked={audioUnlocked} />
+          <div className="flex shrink-0 items-center md:hidden">
             <button
               type="button"
-              className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-gold/40 text-ivory md:hidden"
+              className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-gold/40 text-ivory"
               aria-expanded={menuOpen}
               aria-controls="mobile-nav-menu"
               aria-label={menuOpen ? t(wedding.nav.close) : t(wedding.nav.menu)}
@@ -136,7 +133,6 @@ export function StickyNav({ audioUnlocked }) {
             >
               <MenuIcon open={menuOpen} />
             </button>
-            <LanguageToggle compact />
           </div>
         </div>
 

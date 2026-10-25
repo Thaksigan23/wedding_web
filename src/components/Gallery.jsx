@@ -5,16 +5,7 @@ import { useLanguage } from '../context/LanguageContext'
 import { usePrefersReducedMotion } from '../hooks/usePrefersReducedMotion'
 import { ScrollReveal } from './ScrollReveal'
 import { SectionHeader } from './SectionHeader'
-import { FloralCorners } from './GoldDivider'
-
-const FRAMES = [
-  'col-span-2 aspect-[4/5] sm:col-span-1 sm:aspect-[3/4]',
-  'col-span-1 aspect-[3/4]',
-  'col-span-1 aspect-[3/4]',
-  'col-span-2 aspect-[4/5] sm:col-span-1 sm:aspect-[3/4]',
-  'col-span-1 aspect-[3/4]',
-  'col-span-1 aspect-[3/4]',
-]
+import { FloralCorners, GoldDivider, LotusGlyph } from './GoldDivider'
 
 export function Gallery() {
   const { t, lang } = useLanguage()
@@ -23,28 +14,30 @@ export function Gallery() {
   const [broken, setBroken] = useState(() => new Set())
   const [lightboxIndex, setLightboxIndex] = useState(null)
 
-  const visible = items
+  const photos = items
     .map((item, i) => ({ ...item, originalIndex: i }))
-    .filter((item) => item.src && !broken.has(item.originalIndex))
+    .filter((item) => item.src && !item.comingSoon && !broken.has(item.originalIndex))
+
+  const featured = photos[0]
 
   const markBroken = useCallback((index) => {
     setBroken((prev) => new Set(prev).add(index))
   }, [])
 
-  const openAt = (visibleIndex) => setLightboxIndex(visibleIndex)
+  const openFeatured = () => {
+    if (featured) setLightboxIndex(0)
+  }
   const close = () => setLightboxIndex(null)
 
   const go = useCallback(
     (delta) => {
       setLightboxIndex((current) => {
-        if (current == null || visible.length === 0) return current
-        return (current + delta + visible.length) % visible.length
+        if (current == null || photos.length === 0) return current
+        return (current + delta + photos.length) % photos.length
       })
     },
-    [visible.length],
+    [photos.length],
   )
-
-  if (items.length === 0) return null
 
   return (
     <section
@@ -54,52 +47,39 @@ export function Gallery() {
     >
       <FloralCorners variant="gallery" />
       <div className="site-shell relative z-10">
-        <SectionHeader eyebrowKey="gallery" titleKey="gallery" titleId="gallery-heading" light />
+        <SectionHeader titleKey="gallery" titleId="gallery-heading" />
 
-        {visible.length === 0 ? (
-          <p
-            className={`mx-auto max-w-md text-center text-sm text-ivory/50 ${
-              lang === 'ta' ? 'font-tamil leading-[1.7]' : 'font-sans'
-            }`}
-          >
-            {lang === 'ta' ? 'படங்கள் விரைவில் சேர்க்கப்படும்' : 'Photos will be added soon'}
-          </p>
-        ) : (
-          <ul className="mx-auto grid list-none grid-cols-2 gap-3 p-0 sm:grid-cols-3 md:gap-5">
-            {visible.map((item, visibleIndex) => (
-              <li
-                key={`${item.src}-${item.originalIndex}`}
-                className={FRAMES[visibleIndex % FRAMES.length]}
+        <div className="mx-auto flex max-w-3xl flex-col items-center gap-10 md:flex-row md:items-center md:justify-center md:gap-14 lg:gap-20">
+          {featured && (
+            <ScrollReveal y={16} className="w-full max-w-[17.5rem] sm:max-w-[19rem]">
+              <button
+                type="button"
+                onClick={openFeatured}
+                className="album-frame group relative block aspect-[3/4] w-full min-h-[44px] overflow-hidden p-1.5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gold"
+                aria-label={t(featured.alt)}
               >
-                <ScrollReveal delay={Math.min(visibleIndex * 0.05, 0.3)} y={16} className="h-full">
-                  <button
-                    type="button"
-                    onClick={() => openAt(visibleIndex)}
-                    className="album-frame group relative block h-full min-h-[44px] w-full overflow-hidden p-1.5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gold"
-                    aria-label={t(item.alt)}
-                  >
-                    <img
-                      src={item.src}
-                      alt={t(item.alt)}
-                      width={800}
-                      height={1000}
-                      loading="lazy"
-                      decoding="async"
-                      className={`h-full w-full object-cover ${
-                        reduced ? '' : 'transition duration-500 group-hover:scale-[1.03]'
-                      }`}
-                      onError={() => markBroken(item.originalIndex)}
-                    />
-                  </button>
-                </ScrollReveal>
-              </li>
-            ))}
-          </ul>
-        )}
+                <img
+                  src={featured.src}
+                  alt={t(featured.alt)}
+                  width={800}
+                  height={1000}
+                  loading="lazy"
+                  decoding="async"
+                  className={`h-full w-full object-cover ${
+                    reduced ? '' : 'transition duration-500 group-hover:scale-[1.03]'
+                  }`}
+                  onError={() => markBroken(featured.originalIndex)}
+                />
+              </button>
+            </ScrollReveal>
+          )}
+
+          <ComingSoonCopy t={t} lang={lang} />
+        </div>
       </div>
 
       <Lightbox
-        items={visible}
+        items={photos}
         index={lightboxIndex}
         onClose={close}
         onPrev={() => go(-1)}
@@ -108,6 +88,35 @@ export function Gallery() {
         reduced={reduced}
       />
     </section>
+  )
+}
+
+function ComingSoonCopy({ t, lang }) {
+  const copy = wedding.galleryComingSoon || {}
+
+  return (
+    <ScrollReveal delay={0.12} y={12} className="max-w-xs text-center md:text-left">
+      <LotusGlyph className="mx-auto h-4 w-4 text-gold md:mx-0" />
+      <p
+        className={`mt-4 text-gold-ink ${
+          lang === 'ta'
+            ? 'font-tamil text-[1.35rem] leading-snug'
+            : 'font-script text-[2.15rem] leading-tight'
+        }`}
+      >
+        {t(copy.kicker)}
+      </p>
+      <GoldDivider small className="mt-4 mb-4 !w-36 md:!mx-0" />
+      <p
+        className={`text-ivory/72 ${
+          lang === 'ta'
+            ? 'font-tamil text-[0.92rem] leading-[1.85]'
+            : 'font-sans text-[0.78rem] tracking-[0.06em] leading-relaxed'
+        }`}
+      >
+        {t(copy.message)}
+      </p>
+    </ScrollReveal>
   )
 }
 
@@ -194,29 +203,33 @@ function Lightbox({ items, index, onClose, onPrev, onNext, t, reduced }) {
             <CloseIcon />
           </button>
 
-          <button
-            type="button"
-            onClick={(e) => {
-              e.stopPropagation()
-              onPrev()
-            }}
-            className="absolute left-2 z-10 flex h-11 w-11 items-center justify-center rounded-full border border-gold/40 bg-maroon/70 text-ivory md:left-6"
-            aria-label={t({ ta: 'முந்தைய படம்', en: 'Previous photo' })}
-          >
-            <ChevronIcon dir="left" />
-          </button>
+          {items.length > 1 && (
+            <>
+              <button
+                type="button"
+                onClick={(e) => {
+                  e.stopPropagation()
+                  onPrev()
+                }}
+                className="absolute left-2 z-10 flex h-11 w-11 items-center justify-center rounded-full border border-gold/40 bg-maroon/70 text-ivory md:left-6"
+                aria-label={t({ ta: 'முந்தைய படம்', en: 'Previous photo' })}
+              >
+                <ChevronIcon dir="left" />
+              </button>
 
-          <button
-            type="button"
-            onClick={(e) => {
-              e.stopPropagation()
-              onNext()
-            }}
-            className="absolute right-2 z-10 flex h-11 w-11 items-center justify-center rounded-full border border-gold/40 bg-maroon/70 text-ivory md:right-6"
-            aria-label={t({ ta: 'அடுத்த படம்', en: 'Next photo' })}
-          >
-            <ChevronIcon dir="right" />
-          </button>
+              <button
+                type="button"
+                onClick={(e) => {
+                  e.stopPropagation()
+                  onNext()
+                }}
+                className="absolute right-2 z-10 flex h-11 w-11 items-center justify-center rounded-full border border-gold/40 bg-maroon/70 text-ivory md:right-6"
+                aria-label={t({ ta: 'அடுத்த படம்', en: 'Next photo' })}
+              >
+                <ChevronIcon dir="right" />
+              </button>
+            </>
+          )}
 
           <motion.figure
             className="relative max-h-[85dvh] max-w-3xl"
