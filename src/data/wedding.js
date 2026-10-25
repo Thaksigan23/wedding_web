@@ -490,13 +490,6 @@ export const wedding = {
   },
   gallery: [
     {
-      src: '/images/wedding-registration-banner.jpg',
-      alt: {
-        ta: 'விக்னேஸ்வரன் மற்றும் பிரதீபா - திருமணப் பதிவு',
-        en: 'Vickneshwaran and Pradeepa - Wedding Registration',
-      },
-    },
-    {
       src: '/images/Romantic%20Maroon%20and%20Gold%20Wedding%20Portrait.png',
       alt: {
         ta: 'விக்னேஸ்வரன் மற்றும் பிரதீபா',
