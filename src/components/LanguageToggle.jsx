@@ -1,6 +1,6 @@
 import { useLanguage } from '../context/LanguageContext'
 
-export function LanguageToggle({ className = '', compact = false, vertical = false }) {
+export function LanguageToggle({ className = '', compact = false, vertical = false, iconOnly = false }) {
   const { lang, toggleLang } = useLanguage()
 
   const pillClass = vertical
@@ -20,7 +20,12 @@ export function LanguageToggle({ className = '', compact = false, vertical = fal
       className={`${pillClass} ${className}`}
       aria-label={lang === 'ta' ? 'Switch to English' : 'தமிழுக்கு மாற்று'}
     >
-      {vertical ? (
+      {iconOnly ? (
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" aria-hidden="true">
+          <circle cx="12" cy="12" r="9" stroke="currentColor" strokeWidth="1.6" />
+          <path d="M3.5 12h17M12 3c2.2 2.4 3.2 5.4 3.2 9s-1 6.6-3.2 9c-2.2-2.4-3.2-5.4-3.2-9s1-6.6 3.2-9Z" stroke="currentColor" strokeWidth="1.4" />
+        </svg>
+      ) : vertical ? (
         <span className="language-toggle-vertical-label">
           <span className={lang === 'ta' ? 'font-tamil text-gold' : 'opacity-40'}>தமிழ்</span>
           <span className="text-ivory/35" aria-hidden="true">

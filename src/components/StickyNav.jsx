@@ -1,12 +1,16 @@
 import { useEffect, useMemo, useState } from 'react'
 import { wedding } from '../data/wedding'
 import { useLanguage } from '../context/LanguageContext'
+import { AudioToggle } from './AudioToggle'
+import { useIsMobile } from '../hooks/useMediaQuery'
+import { usePrefersReducedMotion } from '../hooks/usePrefersReducedMotion'
+
 
 const LINKS = [
   { id: 'story', key: 'story' },
+  { id: 'countdown', key: 'events' },
   { id: 'venue', key: 'venue' },
   { id: 'gallery', key: 'gallery' },
-  { id: 'rsvp', key: 'rsvp' },
 ]
 
 function coupleInitials() {
@@ -22,11 +26,13 @@ function coupleInitials() {
 /**
  * Minimal sticky bar — appears after the hero scrolls out of view.
  */
-export function StickyNav() {
+export function StickyNav({ audioUnlocked = false }) {
   const { t, lang } = useLanguage()
+  const isMobile = useIsMobile()
+  const reduced = usePrefersReducedMotion()
   const [visible, setVisible] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
-  const [active, setActive] = useState('')
+  const [active, setActive] = useState('hero')
   const initials = useMemo(() => coupleInitials(), [])
 
   useEffect(() => {
@@ -44,22 +50,37 @@ export function StickyNav() {
   }, [])
 
   useEffect(() => {
-    const sections = LINKS.map((l) => document.getElementById(l.id)).filter(Boolean)
-    if (sections.length === 0) return undefined
-
+    const ids = ['hero', ...LINKS.map((link) => link.id)]
+    const observed = new Set()
+    const visibleSections = new Map()
     const io = new IntersectionObserver(
       (entries) => {
-        const visibleEntries = entries
-          .filter((e) => e.isIntersecting)
-          .sort((a, b) => b.intersectionRatio - a.intersectionRatio)
-        if (visibleEntries[0]?.target?.id) {
-          setActive(visibleEntries[0].target.id)
-        }
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) visibleSections.set(entry.target.id, entry.intersectionRatio)
+          else visibleSections.delete(entry.target.id)
+        })
+        const current = [...visibleSections].sort((a, b) => b[1] - a[1])[0]
+        if (current) setActive(current[0])
       },
       { rootMargin: '-30% 0px -55% 0px', threshold: [0, 0.2, 0.5] },
     )
-    sections.forEach((s) => io.observe(s))
-    return () => io.disconnect()
+    // Suspense sections may mount after the navigation's first effect.
+    const attach = () => {
+      ids.forEach((id) => {
+        const section = document.getElementById(id)
+        if (section && !observed.has(section)) {
+          observed.add(section)
+          io.observe(section)
+        }
+      })
+    }
+    const mutations = new MutationObserver(attach)
+    mutations.observe(document.getElementById('root'), { childList: true, subtree: true })
+    attach()
+    return () => {
+      io.disconnect()
+      mutations.disconnect()
+    }
   }, [])
 
   useEffect(() => {
@@ -73,12 +94,16 @@ export function StickyNav() {
 
   const go = (id) => {
     setMenuOpen(false)
-    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+    const section = document.getElementById(id)
+    if (!section) return
+    setActive(id)
+    section.scrollIntoView({ behavior: reduced ? 'instant' : 'smooth', block: 'start' })
   }
 
   return (
+    <>
     <header
-      className={`fixed inset-x-0 top-0 z-40 transition-all duration-500 ${
+      className={`fixed inset-x-0 top-0 z-40 hidden transition-all duration-500 md:block ${
         visible
           ? 'translate-y-0 opacity-100'
           : 'pointer-events-none -translate-y-full opacity-0'
@@ -165,8 +190,27 @@ export function StickyNav() {
         </div>
       </div>
     </header>
+    <nav className="mobile-bottom-nav" aria-label={lang === 'ta' ? 'முதன்மை வழிசெலுத்தல்' : 'Main navigation'}>
+      <MobileNavLink id="hero" label={lang === 'ta' ? 'முகப்பு' : 'Home'} active={active === 'hero'} onNavigate={go}><HomeIcon /></MobileNavLink>
+      <MobileNavLink id="story" label={t(wedding.nav.story)} active={active === 'story'} onNavigate={go}><HeartIcon /></MobileNavLink>
+      <MobileNavLink id="countdown" label={t(wedding.sectionTitles.countdown)} active={active === 'countdown'} onNavigate={go}><CalendarIcon /></MobileNavLink>
+      <MobileNavLink id="gallery" label={t(wedding.nav.gallery)} active={active === 'gallery'} onNavigate={go}><PhotoIcon /></MobileNavLink>
+      <MobileNavLink id="venue" label={t(wedding.nav.venue)} active={active === 'venue'} onNavigate={go}><PinIcon /></MobileNavLink>
+      {isMobile && <AudioToggle unlocked={audioUnlocked} className="mobile-bottom-nav-control mobile-bottom-nav-audio" />}
+    </nav>
+    </>
   )
 }
+
+function MobileNavLink({ id, label, active, onNavigate, children }) {
+  return <a href={`#${id}`} aria-label={label} aria-current={active ? 'page' : undefined} title={label} onClick={(event) => { event.preventDefault(); onNavigate(id) }} className={`mobile-bottom-nav-link${active ? ' is-active' : ''}`}>{children}</a>
+}
+
+function HomeIcon() { return <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m3.5 10 8.5-7 8.5 7M5.5 9v11h5v-6h3v6h5V9" /></svg> }
+function HeartIcon() { return <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.5 8.6c0 5.1-8.5 11-8.5 11s-8.5-5.9-8.5-11a4.2 4.2 0 0 1 8.5-.3 4.2 4.2 0 0 1 8.5.3Z" /></svg> }
+function CalendarIcon() { return <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="5" width="16" height="16" rx="1.5"/><path d="M8 3v4m8-4v4M4 9h16m-11 4h.01M12 13h.01M16 13h.01M8 17h.01M12 17h.01" /></svg> }
+function PhotoIcon() { return <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="4" width="17" height="16" rx="1.5"/><circle cx="9" cy="9" r="1.5"/><path d="m5 18 5-5 3 3 2-2 4 4" /></svg> }
+function PinIcon() { return <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 10c0 5.2-7 11-7 11S5 15.2 5 10a7 7 0 1 1 14 0Z"/><circle cx="12" cy="10" r="2.3" /></svg> }
 
 function MenuIcon({ open }) {
   return (

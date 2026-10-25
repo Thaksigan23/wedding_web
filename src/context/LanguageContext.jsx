@@ -1,30 +1,18 @@
-import { createContext, useContext, useState, useCallback, useEffect } from 'react'
-import { wedding } from '../data/wedding'
+import { createContext, useContext, useEffect } from 'react'
 
 const LanguageContext = createContext(null)
+const english = {
+  lang: 'en',
+  t: (field) => typeof field === 'string' ? field : field?.en ?? '',
+}
 
 export function LanguageProvider({ children }) {
-  const [lang, setLang] = useState(wedding.defaultLang)
-
   useEffect(() => {
-    document.documentElement.lang = lang
-  }, [lang])
-
-  const t = useCallback(
-    (field) => {
-      if (!field) return ''
-      if (typeof field === 'string') return field
-      return field[lang] ?? field.ta ?? field.en ?? ''
-    },
-    [lang],
-  )
-
-  const toggleLang = useCallback(() => {
-    setLang((prev) => (prev === 'ta' ? 'en' : 'ta'))
+    document.documentElement.lang = 'en'
   }, [])
 
   return (
-    <LanguageContext.Provider value={{ lang, setLang, toggleLang, t }}>
+    <LanguageContext.Provider value={english}>
       {children}
     </LanguageContext.Provider>
   )

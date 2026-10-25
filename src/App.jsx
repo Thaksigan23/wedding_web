@@ -1,7 +1,9 @@
-import { lazy, Suspense, useState, useCallback } from 'react'
+import { lazy, Suspense, useState, useCallback, useRef, useEffect } from 'react'
+import { motion } from 'framer-motion'
 import { LanguageProvider } from './context/LanguageContext'
 import { OpeningDoor } from './components/OpeningDoor'
 import { Hero } from './components/Hero'
+import { Countdown } from './components/Countdown'
 import { StickyNav } from './components/StickyNav'
 import { InviteControlsDock } from './components/InviteControlsDock'
 import { SiteFloralHeader } from './components/GoldDivider'
@@ -13,9 +15,6 @@ const BlessingNote = lazy(() =>
 const BrideGroom = lazy(() =>
   import('./components/BrideGroom').then((m) => ({ default: m.BrideGroom })),
 )
-const Countdown = lazy(() =>
-  import('./components/Countdown').then((m) => ({ default: m.Countdown })),
-)
 const Venue = lazy(() => import('./components/Venue').then((m) => ({ default: m.Venue })))
 const Gallery = lazy(() =>
   import('./components/Gallery').then((m) => ({ default: m.Gallery })),
@@ -23,7 +22,6 @@ const Gallery = lazy(() =>
 const SecretKeysGame = lazy(() =>
   import('./components/SecretKeysGame').then((m) => ({ default: m.SecretKeysGame })),
 )
-const RSVP = lazy(() => import('./components/RSVP').then((m) => ({ default: m.RSVP })))
 const ShareActions = lazy(() =>
   import('./components/ShareActions').then((m) => ({ default: m.ShareActions })),
 )
@@ -45,23 +43,60 @@ function SectionFallback() {
 
 export default function App() {
   const [doorOpen, setDoorOpen] = useState(false)
+  const [revealed, setRevealed] = useState(false)
+  const [revealOrigin, setRevealOrigin] = useState(null)
+  const mainRef = useRef(null)
   const [audioUnlocked, setAudioUnlocked] = useState(false)
 
-  const handleOpen = useCallback(() => {
+  const handleOpen = useCallback((origin) => {
+    setRevealOrigin(origin)
     setDoorOpen(true)
+    setRevealed(!origin)
     setAudioUnlocked(true)
     trackPageView('/invite')
   }, [])
 
+  const finishReveal = useCallback(() => {
+    setRevealed(true)
+  }, [])
+
+  useEffect(() => {
+    if (revealed) mainRef.current?.focus({ preventScroll: true })
+  }, [revealed])
+
   return (
     <LanguageProvider>
       <div className="min-h-dvh bg-maroon text-ivory antialiased">
-        <OpeningDoor open={doorOpen} onOpen={handleOpen} />
+        <OpeningDoor open={revealed} onOpen={handleOpen} />
         {doorOpen && (
-          <>
+          <motion.div
+            className="invitation-reveal"
+            inert={!revealed}
+            initial={revealOrigin ? {
+              x: revealOrigin.left,
+              y: revealOrigin.top,
+              scaleX: revealOrigin.width / revealOrigin.viewportWidth,
+              scaleY: revealOrigin.height / revealOrigin.viewportHeight,
+              borderRadius: 12,
+            } : false}
+            animate={{ x: 0, y: 0, scaleX: 1, scaleY: 1, borderRadius: 0 }}
+            transition={{ duration: revealOrigin ? 1.2 : 0, ease: [0.22, 1, 0.36, 1] }}
+            onAnimationComplete={finishReveal}
+            transformTemplate={revealed ? () => 'none' : undefined}
+            style={{
+              position: revealed ? 'relative' : 'fixed',
+              inset: revealed ? undefined : 0,
+              height: revealed ? undefined : '100dvh',
+              overflow: revealed ? undefined : 'hidden',
+              zIndex: 60,
+              transformOrigin: '0 0',
+              background: 'var(--color-maroon)',
+              willChange: revealed ? 'auto' : 'transform',
+            }}
+          >
             <SiteFloralHeader />
-            <StickyNav />
-            <main>
+            <StickyNav audioUnlocked={audioUnlocked} />
+            <main ref={mainRef} tabIndex={-1} style={{ outline: 'none' }}>
               <Hero />
               <Suspense fallback={<SectionFallback />}>
                 <BlessingNote />
@@ -70,7 +105,6 @@ export default function App() {
                 <Venue />
                 <Gallery />
                 <SecretKeysGame />
-                <RSVP />
                 <ShareActions />
               </Suspense>
             </main>
@@ -79,7 +113,7 @@ export default function App() {
               <Footer />
               <FloatingWhatsApp />
             </Suspense>
-          </>
+          </motion.div>
         )}
       </div>
     </LanguageProvider>

@@ -4,8 +4,8 @@
  */
 
 export const wedding = {
-  // Language: 'ta' (Tamil, default) | 'en' (English)
-  defaultLang: 'ta',
+  // The invitation is displayed in English.
+  defaultLang: 'en',
 
   // Optional full-bleed hero photo (soft invite card uses mandap art instead)
   heroPhoto: '/images/invite-mandap.jpg',

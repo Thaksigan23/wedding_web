@@ -94,6 +94,7 @@ export function Countdown() {
 
   return (
     <section
+      id="countdown"
       className="band-maroon section-pad relative overflow-hidden"
       aria-labelledby="countdown-heading"
     >

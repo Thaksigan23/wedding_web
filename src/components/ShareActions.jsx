@@ -71,7 +71,7 @@ export function ShareActions() {
   )
 }
 
-/** Floating WhatsApp — icon-only so it does not cover Tamil copy; hides over RSVP and the game */
+/** Floating WhatsApp stays on the right, above the mobile navigation. */
 export function FloatingWhatsApp() {
   const { t } = useLanguage()
   const { whatsappUrl } = useShareLinks()
@@ -131,7 +131,8 @@ export function FloatingWhatsApp() {
       }`}
       style={{
         right: 'max(1rem, env(safe-area-inset-right))',
-        bottom: 'max(1.15rem, env(safe-area-inset-bottom))',
+        left: 'auto',
+        bottom: 'calc(5.75rem + env(safe-area-inset-bottom))',
         boxShadow: '0 8px 24px rgba(0,0,0,0.35)',
       }}
       aria-label={t(wedding.share.shareWhatsApp)}
