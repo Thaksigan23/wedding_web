@@ -1,3 +1,4 @@
+import { Analytics } from '@vercel/analytics/react'
 import { lazy, Suspense, useState, useCallback, useRef, useEffect } from 'react'
 import { motion } from 'framer-motion'
 import { LanguageProvider } from './context/LanguageContext'
@@ -68,6 +69,7 @@ export default function App() {
   return (
     <LanguageProvider>
       <AudioProvider>
+        <Analytics />
         <div className="min-h-dvh bg-maroon text-ivory antialiased">
         <OpeningDoor open={revealed} onOpen={handleOpen} />
         {doorOpen && (
