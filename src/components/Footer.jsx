@@ -6,16 +6,6 @@ function telHref(phone) {
   return `tel:${String(phone).replace(/[^\d+]/g, '')}`
 }
 
-function coupleInitials() {
-  const letter = (name) => {
-    const cleaned = String(name || '')
-      .replace(/[[\]]/g, '')
-      .trim()
-    return cleaned.charAt(0).toUpperCase() || '·'
-  }
-  return `${letter(wedding.bride.name.en)}  ·  ${letter(wedding.groom.name.en)}`
-}
-
 function formatInviteDate(iso) {
   const m = String(iso).match(/^(\d{4})-(\d{2})-(\d{2})/)
   if (!m) return ''
@@ -35,9 +25,18 @@ export function Footer() {
         <InviteFrame className="text-center">
         <GoldDivider className="mb-6" />
 
-        <p className="font-display text-xl tracking-[0.28em] text-gold-ink">
-          {coupleInitials()}
-        </p>
+        <div className="mx-auto my-3 flex justify-center" aria-hidden="true">
+          <img
+            src="/images/envelope-monogram.png"
+            alt="Pradeepa & Vickneshwaran Monogram"
+            className="h-20 w-auto object-contain md:h-24"
+            style={{
+              filter: 'drop-shadow(0 4px 12px rgba(0, 0, 0, 0.45)) drop-shadow(0 0 14px rgba(226, 189, 120, 0.3))',
+            }}
+            loading="lazy"
+            decoding="async"
+          />
+        </div>
         <p className="mt-2 font-display text-sm tracking-[0.32em] text-gold/80">
           {formatInviteDate(wedding.muhurtham.datetime)}
         </p>
