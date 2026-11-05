@@ -320,15 +320,29 @@
     transform: scaleX(-1);
   }
 
-  @media (max-width: 700px) {
+  /* iPhone / small phones: keep florals in the corners without clipping mid-bloom,
+     and scroll them away with the hero so they don't cover later sections. */
+  @media (max-width: 767px) {
     .site-floral-header {
-      height: 6rem;
+      position: absolute;
+      top: 0;
+      right: 0;
+      left: 0;
+      height: 7.25rem;
+      overflow: visible;
+      z-index: 6;
     }
 
     .site-floral-header img {
-      top: -5%;
-      width: clamp(9rem, 36vw, 15rem);
-      opacity: 0.86;
+      top: -0.35rem;
+      left: -0.85rem;
+      width: clamp(6.75rem, 34vw, 9.5rem);
+      opacity: 0.92;
+    }
+
+    .site-floral-header img + img {
+      right: -0.85rem;
+      left: auto;
     }
   }
 
@@ -1432,7 +1446,11 @@
 
 @media (max-width: 767px) {
   body {
-    padding-bottom: calc(5.1rem + env(safe-area-inset-bottom));
+    padding-bottom: calc(5.5rem + env(safe-area-inset-bottom));
+  }
+
+  .invitation-reveal {
+    position: relative;
   }
 
   .mobile-bottom-nav {
@@ -1443,10 +1461,11 @@
     left: 0;
     display: flex;
     align-items: center;
-    justify-content: center;
-    gap: clamp(0.05rem, 1vw, 0.35rem);
-    min-height: calc(4.1rem + env(safe-area-inset-bottom));
-    padding: 0.45rem max(0.65rem, env(safe-area-inset-right)) calc(0.45rem + env(safe-area-inset-bottom)) max(0.65rem, env(safe-area-inset-left));
+    justify-content: space-between;
+    gap: 0.2rem;
+    box-sizing: border-box;
+    min-height: calc(4.55rem + env(safe-area-inset-bottom));
+    padding: 0.55rem max(0.85rem, env(safe-area-inset-right)) calc(0.55rem + env(safe-area-inset-bottom)) max(0.85rem, env(safe-area-inset-left));
     border-top: 1px solid rgba(212, 176, 92, 0.38);
     background: linear-gradient(180deg, #5e121c 0%, #36070d 100%);
     box-shadow: 0 -8px 24px rgba(15, 2, 5, 0.42), inset 0 1px rgba(255, 230, 170, 0.06);
@@ -1456,11 +1475,10 @@
     content: '';
     position: absolute;
     z-index: 0;
-    top: 50%;
-    right: max(0.55rem, env(safe-area-inset-right));
-    left: max(0.55rem, env(safe-area-inset-left));
-    height: 2.75rem;
-    transform: translateY(-50%);
+    top: 0.55rem;
+    right: max(0.75rem, env(safe-area-inset-right));
+    left: max(0.75rem, env(safe-area-inset-left));
+    height: 3.05rem;
     border: 1px solid rgba(212, 176, 92, 0.48);
     border-radius: 999px;
     background: linear-gradient(180deg, rgba(48, 6, 12, 0.96), rgba(37, 4, 9, 0.98));
@@ -1473,7 +1491,7 @@
     inset: 0 0 auto;
     height: 2.6rem;
     pointer-events: none;
-    opacity: 0.12;
+    opacity: 0.1;
     background: url('/images/floral-corner-top.png') center 42% / 100% auto no-repeat;
     mask-image: linear-gradient(to bottom, #000, transparent);
   }
@@ -1483,12 +1501,14 @@
     z-index: 1;
     display: grid;
     flex: 1 1 0;
-    min-width: 2.25rem;
-    height: 2.65rem;
+    min-width: 0;
+    max-width: 3.1rem;
+    height: 2.55rem;
+    margin-inline: auto;
     place-items: center;
     color: #d9bd78;
     border-radius: 999px;
-    transition: color 180ms ease, background-color 180ms ease, transform 180ms ease;
+    transition: color 180ms ease, background-color 180ms ease, box-shadow 180ms ease;
     -webkit-tap-highlight-color: transparent;
   }
 
@@ -1505,8 +1525,8 @@
   .mobile-bottom-nav-link.is-active {
     color: #2b060b;
     background: linear-gradient(155deg, #f0d98f 0%, #c9a052 100%);
-    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.35), inset 0 0 0 1px rgba(255, 241, 193, 0.65);
-    transform: translateY(-1px);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3), inset 0 0 0 1px rgba(255, 241, 193, 0.65);
+    transform: none;
   }
 
   .mobile-bottom-nav-link:focus-visible {
@@ -1528,8 +1548,10 @@
     display: inline-flex;
     flex: 1 1 0;
     min-width: 0;
-    height: 2.65rem;
-    min-height: 2.65rem;
+    max-width: 3.1rem;
+    height: 2.55rem;
+    min-height: 2.55rem;
+    margin-inline: auto;
     align-items: center;
     justify-content: center;
     padding: 0;
@@ -1538,7 +1560,7 @@
     background: transparent !important;
     color: #d9bd78 !important;
     box-shadow: none !important;
-    transition: color 180ms ease, background-color 180ms ease, transform 180ms ease;
+    transition: color 180ms ease, background-color 180ms ease, box-shadow 180ms ease;
   }
 
   .mobile-bottom-nav-control:hover {
