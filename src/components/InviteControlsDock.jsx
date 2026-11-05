@@ -1,7 +1,7 @@
 import { AudioToggle } from './AudioToggle'
 import { useIsMobile } from '../hooks/useMediaQuery'
 
-/** Desktop music control; mobile music lives inside the bottom navigation. */
+/** Desktop music control; on mobile, audio lives in the bottom nav. */
 export function InviteControlsDock({ audioUnlocked }) {
   const isMobile = useIsMobile()
   if (isMobile) return null

@@ -49,7 +49,7 @@ export function Gallery() {
       <div className="site-shell relative z-10">
         <SectionHeader titleKey="gallery" titleId="gallery-heading" />
 
-        <div className="mx-auto flex max-w-3xl flex-col items-center gap-10 md:flex-row md:items-center md:justify-center md:gap-14 lg:gap-20">
+        <div className="mx-auto flex max-w-3xl flex-col items-center gap-10">
           {featured && (
             <ScrollReveal y={16} className="w-full max-w-[17.5rem] sm:max-w-[19rem]">
               <button

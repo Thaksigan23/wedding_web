@@ -79,27 +79,23 @@ export function InviteDateBlock({ className = '', light = true }) {
   const label = light ? 'text-gold/85' : 'text-maroon/70'
   const dayTone = light ? 'text-gold' : 'text-maroon'
   const yearTone = light ? 'text-gold/70' : 'text-maroon/55'
-  const captionFont =
-    lang === 'ta'
-      ? 'font-tamil text-[0.7rem] font-medium tracking-normal sm:text-[0.82rem]'
-      : 'font-sans text-[0.52rem] font-medium tracking-[0.12em] uppercase sm:text-[0.72rem] sm:tracking-[0.28em]'
 
   return (
     <div
-      className={`invite-date mx-auto flex max-w-lg items-center justify-center gap-2 sm:gap-4 ${className}`}
+      className={`invite-date ${className}`}
       role="group"
       aria-label={`${weekday} ${month} ${day}, ${year}`}
     >
-      <div className="flex min-w-0 flex-1 items-center justify-end gap-2">
-        <span className={`${captionFont} ${label}`}>
+      <div className="invite-date-side is-start">
+        <span className={`invite-date-caption ${lang === 'ta' ? 'is-ta' : ''} ${label}`}>
           {month}
         </span>
         <DiamondRule />
       </div>
 
-      <div className="relative flex flex-col items-center px-1.5 sm:px-4">
+      <div className="invite-date-center">
         <div
-          className="invite-date-day relative flex items-center justify-center"
+          className="invite-date-day"
           style={{
             border: '1px solid color-mix(in srgb, var(--color-gold) 55%, transparent)',
             boxShadow: 'inset 0 0 0 4px color-mix(in srgb, var(--color-maroon) 40%, transparent)',
@@ -109,14 +105,12 @@ export function InviteDateBlock({ className = '', light = true }) {
             {day}
           </span>
         </div>
-        <span className={`invite-date-year mt-1.5 font-sans text-[0.55rem] tracking-[0.22em] sm:mt-2 sm:text-[0.58rem] sm:tracking-[0.32em] ${yearTone}`}>
-          {year}
-        </span>
+        <span className={`invite-date-year ${yearTone}`}>{year}</span>
       </div>
 
-      <div className="flex min-w-0 flex-1 items-center justify-start gap-2">
+      <div className="invite-date-side is-end">
         <DiamondRule />
-        <span className={`${captionFont} ${label}`}>
+        <span className={`invite-date-caption ${lang === 'ta' ? 'is-ta' : ''} ${label}`}>
           {weekday}
         </span>
       </div>
@@ -126,9 +120,9 @@ export function InviteDateBlock({ className = '', light = true }) {
 
 function DiamondRule() {
   return (
-    <span className="hidden items-center gap-1.5 text-gold/50 sm:inline-flex" aria-hidden="true">
-      <span className="h-px w-6 bg-current sm:w-10" />
-      <span className="inline-block h-1.5 w-1.5 rotate-45 border border-current" />
+    <span className="invite-date-rule" aria-hidden="true">
+      <span className="invite-date-rule-line" />
+      <span className="invite-date-rule-diamond" />
     </span>
   )
 }

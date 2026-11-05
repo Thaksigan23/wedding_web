@@ -146,7 +146,7 @@ export function SecretKeysGame() {
               </p>
 
               {/* Stats */}
-              <div className="mt-8 flex flex-wrap items-center justify-center gap-x-5 gap-y-3 font-display text-gold sm:gap-x-8">
+              <div className="mt-8 flex flex-wrap items-center justify-center gap-x-5 gap-y-3 font-display text-gold">
                 <Stat label={t(cfg.moves)} value={String(moves)} />
                 <Stat label={t(cfg.time)} value={formatTime(seconds)} />
                 <Stat label={t(cfg.matched)} value={`${matched.size}/${pairCount}`} />
@@ -154,7 +154,7 @@ export function SecretKeysGame() {
 
               {/* Grid */}
               <ul
-                className="mx-auto mt-8 grid max-w-lg list-none grid-cols-3 gap-2.5 p-0 sm:grid-cols-4 sm:gap-3 md:max-w-xl"
+                className="mx-auto mt-8 grid max-w-sm list-none grid-cols-3 gap-2.5 p-0"
                 role="list"
               >
                 {deck.map((card) => {
@@ -225,9 +225,9 @@ export function SecretKeysGame() {
 
 function Stat({ label, value }) {
   return (
-    <div className="min-w-[3.5rem] text-center sm:min-w-[4.5rem]">
-      <p className="font-sans text-[0.55rem] tracking-[0.12em] text-gold/70 uppercase sm:tracking-[0.22em]">{label}</p>
-      <p className="mt-1 text-xl font-light tabular-nums tracking-wide md:text-2xl">{value}</p>
+    <div className="min-w-[3.5rem] text-center">
+      <p className="font-sans text-[0.55rem] tracking-[0.12em] text-gold/70 uppercase">{label}</p>
+      <p className="mt-1 text-xl font-light tabular-nums tracking-wide">{value}</p>
     </div>
   )
 }
@@ -266,7 +266,7 @@ function MemoryCard({ card, faceUp, matched, reduced, lang, disabled, onFlip }) 
             background: 'linear-gradient(160deg, #e0b84a 0%, #c9a24a 45%, #a88435 100%)',
           }}
         >
-          <LockIcon className="h-6 w-6 text-maroon-deep/80 opacity-80 transition group-hover:opacity-100 sm:h-7 sm:w-7" />
+          <LockIcon className="h-6 w-6 text-maroon-deep/80 opacity-80 transition group-hover:opacity-100" />
         </div>
 
         {/* Front */}

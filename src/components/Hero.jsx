@@ -89,9 +89,11 @@ export function Hero() {
                 </>
               ) : (
                 <p className="invite-letter-name-script">
-                  <span>{groomEn}</span>
-                  <span className="invite-letter-amp is-inline">&</span>
-                  <span>{brideEn}</span>
+                  <span className="invite-letter-name-line">{groomEn}</span>
+                  <span className="invite-letter-amp" aria-hidden="true">
+                    &
+                  </span>
+                  <span className="invite-letter-name-line">{brideEn}</span>
                 </p>
               )}
             </motion.div>

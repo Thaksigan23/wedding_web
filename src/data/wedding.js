@@ -24,7 +24,7 @@ export const wedding = {
       ta: '',
       en: '',
     },
-    photo: '/images/Maroon%20and%20Gold%20Bridal%20Portrait.png',
+    photo: '/images/Maroon%20and%20Gold%20Bridal%20Portrait.jpg',
   },
 
   groom: {
@@ -33,8 +33,8 @@ export const wedding = {
       en: 'Vickneshwaran',
     },
     parents: {
-      ta: 'திரு. சுப்பையா & திருமதி. பரஞ்சோதி அவர்களின் மகன்',
-      en: 'Son of Mr. Suppaiha & Mrs. Paranjothi',
+      ta: 'மறைந்த திரு. சுப்பையா & திருமதி. பரஞ்சோதி அவர்களின் மகன்',
+      en: 'Son of Late Mr. Suppaiha & Mrs. Paranjothi',
     },
     hometown: {
       ta: '',
@@ -595,7 +595,7 @@ export const wedding = {
       ta: 'நவம்பர் 15, 2026 · Glen Rest, அத்திதியா, தெஹிவளை - திருமணப் பதிவுக்கு அன்புடன் அழைக்கிறோம்.',
       en: 'Sunday, November 15, 2026 · Glen Rest, Attidiya, Dehiwala - you are warmly invited to our wedding registration.',
     },
-    ogImage: '/vickneshwaran-pradeepa-banner.jpg', // 1200×630, keep under 300KB
+    ogImage: '/vickneshwaran-pradeepa-banner.jpg', // 1024×575 share cover
     siteUrl: 'https://vicknesh-weds-pradeepa-weddingregistration.techloom.ai',
   },
 

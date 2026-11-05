@@ -63,13 +63,17 @@ export function OpeningDoor({ open, onOpen }) {
     setOpening(true)
     openTimer.current = window.setTimeout(() => {
       const rect = letterRef.current?.getBoundingClientRect()
+      const screen = document.querySelector('[data-phone-screen]')
+      const usePhone =
+        screen instanceof Element && window.matchMedia('(min-width: 768px)').matches
+      const screenRect = usePhone ? screen.getBoundingClientRect() : null
       onOpen(!reduced && rect ? {
-        left: rect.left,
-        top: rect.top,
+        left: rect.left - (screenRect?.left ?? 0),
+        top: rect.top - (screenRect?.top ?? 0),
         width: rect.width,
         height: rect.height,
-        viewportWidth: document.documentElement.clientWidth,
-        viewportHeight: window.innerHeight,
+        viewportWidth: screenRect?.width ?? document.documentElement.clientWidth,
+        viewportHeight: screenRect?.height ?? window.innerHeight,
       } : null)
     }, reduced ? 0 : OPEN_DELAY)
   }, [onOpen, reduced, startPlayback])
@@ -127,11 +131,20 @@ export function OpeningDoor({ open, onOpen }) {
                 decoding="async"
               />
             </div>
-            <p className="screen-envelope-eyebrow">{lang === 'ta' ? 'திருமணப் பதிவு அழைப்பிதழ்' : 'You are invited to the wedding registration of'}</p>
+            <p className="screen-envelope-eyebrow">
+              {lang === 'ta' ? (
+                'திருமணப் பதிவு அழைப்பிதழ்'
+              ) : (
+                <>
+                  <span>You are invited to the wedding</span>
+                  <span>registration of</span>
+                </>
+              )}
+            </p>
             <h1 className="screen-envelope-names">
-              <span>{wedding.groom.name.en}</span>
+              <span className="screen-envelope-name">{wedding.groom.name.en}</span>
               <span className="screen-envelope-ampersand">&</span>
-              <span>{wedding.bride.name.en}</span>
+              <span className="screen-envelope-name">{wedding.bride.name.en}</span>
             </h1>
             <time className="screen-envelope-date" dateTime={wedding.muhurtham.datetime.slice(0, 10)}>{envelopeDate}</time>
           </div>

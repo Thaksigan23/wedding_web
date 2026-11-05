@@ -70,56 +70,100 @@ export default function App() {
     <LanguageProvider>
       <AudioProvider>
         <Analytics />
-        <div className="min-h-dvh bg-maroon text-ivory antialiased">
-        <OpeningDoor open={revealed} onOpen={handleOpen} />
-        {doorOpen && (
-          <motion.div
-            className="invitation-reveal"
-            inert={!revealed}
-            initial={revealOrigin ? {
-              x: revealOrigin.left,
-              y: revealOrigin.top,
-              scaleX: revealOrigin.width / revealOrigin.viewportWidth,
-              scaleY: revealOrigin.height / revealOrigin.viewportHeight,
-              borderRadius: 12,
-            } : false}
-            animate={{ x: 0, y: 0, scaleX: 1, scaleY: 1, borderRadius: 0 }}
-            transition={{ duration: revealOrigin ? 1.2 : 0, ease: [0.22, 1, 0.36, 1] }}
-            onAnimationComplete={finishReveal}
-            transformTemplate={revealed ? () => 'none' : undefined}
-            style={{
-              position: revealed ? 'relative' : 'fixed',
-              inset: revealed ? undefined : 0,
-              height: revealed ? undefined : '100dvh',
-              overflow: revealed ? undefined : 'hidden',
-              zIndex: 60,
-              transformOrigin: '0 0',
-              background: 'var(--color-maroon)',
-              willChange: revealed ? 'auto' : 'transform',
-            }}
-          >
-            <SiteFloralHeader />
-            <StickyNav audioUnlocked={audioUnlocked} />
-            <main ref={mainRef} tabIndex={-1} style={{ outline: 'none' }}>
-              <Hero />
-              <Suspense fallback={<SectionFallback />}>
-                <BlessingNote />
-                <BrideGroom />
-                <Countdown />
-                <Venue />
-                <Gallery />
-                <SecretKeysGame />
-                <ShareActions />
-              </Suspense>
-            </main>
-            <InviteControlsDock audioUnlocked={audioUnlocked} />
-            <Suspense fallback={null}>
-              <Footer />
-              <FloatingWhatsApp />
-            </Suspense>
-          </motion.div>
-        )}
-      </div>
+        <div className="app-stage min-h-dvh bg-maroon text-ivory antialiased">
+          <div className="app-stage-backdrop" aria-hidden="true">
+            <img
+              className="app-stage-floral app-stage-floral-tl"
+              src="/images/floral-corner-top.png"
+              alt=""
+            />
+            <img
+              className="app-stage-floral app-stage-floral-tr"
+              src="/images/floral-corner-top.png"
+              alt=""
+            />
+            <img
+              className="app-stage-floral app-stage-floral-bl"
+              src="/images/floral-corner-bottom.png"
+              alt=""
+            />
+            <img
+              className="app-stage-floral app-stage-floral-br"
+              src="/images/floral-corner-bottom.png"
+              alt=""
+            />
+            <img
+              className="app-stage-lamp app-stage-lamp-l"
+              src="/images/hanging-lamp.png"
+              alt=""
+            />
+            <img
+              className="app-stage-lamp app-stage-lamp-r"
+              src="/images/hanging-lamp.png"
+              alt=""
+            />
+          </div>
+
+          <div className="phone-frame">
+            <div className="phone-frame-bezel" aria-hidden="true" />
+            <div className="phone-frame-screen" data-phone-screen>
+              <OpeningDoor open={revealed} onOpen={handleOpen} />
+              {doorOpen && (
+                <motion.div
+                  className="invitation-reveal"
+                  inert={!revealed}
+                  initial={revealOrigin ? {
+                    x: revealOrigin.left,
+                    y: revealOrigin.top,
+                    scaleX: revealOrigin.width / revealOrigin.viewportWidth,
+                    scaleY: revealOrigin.height / revealOrigin.viewportHeight,
+                    borderRadius: 12,
+                  } : false}
+                  animate={{ x: 0, y: 0, scaleX: 1, scaleY: 1, borderRadius: 0 }}
+                  transition={{ duration: revealOrigin ? 1.2 : 0, ease: [0.22, 1, 0.36, 1] }}
+                  onAnimationComplete={finishReveal}
+                  transformTemplate={revealed ? () => 'none' : undefined}
+                  style={{
+                    position: revealed ? 'relative' : 'absolute',
+                    inset: revealed ? undefined : 0,
+                    height: revealed ? undefined : '100%',
+                    overflow: revealed ? undefined : 'hidden',
+                    zIndex: 60,
+                    transformOrigin: '0 0',
+                    background: 'var(--color-maroon)',
+                    willChange: revealed ? 'auto' : 'transform',
+                  }}
+                >
+                  <SiteFloralHeader />
+                  <StickyNav audioUnlocked={audioUnlocked} />
+                  <main ref={mainRef} tabIndex={-1} style={{ outline: 'none' }}>
+                    <Hero />
+                    <Suspense fallback={<SectionFallback />}>
+                      <BlessingNote />
+                      <BrideGroom />
+                      <Countdown />
+                      <Venue />
+                      <Gallery />
+                      <SecretKeysGame />
+                      <ShareActions />
+                    </Suspense>
+                  </main>
+                  <InviteControlsDock audioUnlocked={audioUnlocked} />
+                  <Suspense fallback={null}>
+                    <Footer />
+                    <FloatingWhatsApp />
+                  </Suspense>
+                </motion.div>
+              )}
+            </div>
+          </div>
+
+          <p className="app-stage-caption">
+            <span>Vickneshwaran &amp; Pradeepa</span>
+            <span aria-hidden="true"> · </span>
+            <span>15.11.2026</span>
+          </p>
+        </div>
       </AudioProvider>
     </LanguageProvider>
   )

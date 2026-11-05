@@ -5,7 +5,6 @@ import { AudioToggle } from './AudioToggle'
 import { useIsMobile } from '../hooks/useMediaQuery'
 import { usePrefersReducedMotion } from '../hooks/usePrefersReducedMotion'
 
-
 const LINKS = [
   { id: 'story', key: 'story' },
   { id: 'countdown', key: 'events' },
@@ -24,7 +23,8 @@ function coupleInitials() {
 }
 
 /**
- * Minimal sticky bar — appears after the hero scrolls out of view.
+ * Sticky top bar (desktop-capable) + mobile bottom nav.
+ * Bottom nav is CSS-hidden on the desktop phone shell.
  */
 export function StickyNav({ audioUnlocked = false }) {
   const { t, lang } = useLanguage()
@@ -41,9 +41,14 @@ export function StickyNav({ audioUnlocked = false }) {
       setVisible(true)
       return undefined
     }
+    const screen = document.querySelector('[data-phone-screen]')
+    const root =
+      screen instanceof Element && window.matchMedia('(min-width: 768px)').matches
+        ? screen
+        : null
     const io = new IntersectionObserver(
       ([entry]) => setVisible(!entry.isIntersecting),
-      { threshold: 0.12 },
+      { root, threshold: 0.12 },
     )
     io.observe(hero)
     return () => io.disconnect()
@@ -53,6 +58,11 @@ export function StickyNav({ audioUnlocked = false }) {
     const ids = ['hero', ...LINKS.map((link) => link.id)]
     const observed = new Set()
     const visibleSections = new Map()
+    const screen = document.querySelector('[data-phone-screen]')
+    const root =
+      screen instanceof Element && window.matchMedia('(min-width: 768px)').matches
+        ? screen
+        : null
     const io = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
@@ -62,9 +72,12 @@ export function StickyNav({ audioUnlocked = false }) {
         const current = [...visibleSections].sort((a, b) => b[1] - a[1])[0]
         if (current) setActive(current[0])
       },
-      { rootMargin: '-30% 0px -55% 0px', threshold: [0, 0.2, 0.5] },
+      {
+        root,
+        rootMargin: '-30% 0px -55% 0px',
+        threshold: [0, 0.2, 0.5],
+      },
     )
-    // Suspense sections may mount after the navigation's first effect.
     const attach = () => {
       ids.forEach((id) => {
         const section = document.getElementById(id)
@@ -103,7 +116,7 @@ export function StickyNav({ audioUnlocked = false }) {
   return (
     <>
     <header
-      className={`fixed inset-x-0 top-0 z-40 hidden transition-all duration-500 md:block ${
+      className={`desktop-sticky-nav fixed inset-x-0 top-0 z-40 hidden transition-all duration-500 ${
         visible
           ? 'translate-y-0 opacity-100'
           : 'pointer-events-none -translate-y-full opacity-0'
@@ -203,7 +216,21 @@ export function StickyNav({ audioUnlocked = false }) {
 }
 
 function MobileNavLink({ id, label, active, onNavigate, children }) {
-  return <a href={`#${id}`} aria-label={label} aria-current={active ? 'page' : undefined} title={label} onClick={(event) => { event.preventDefault(); onNavigate(id) }} className={`mobile-bottom-nav-link${active ? ' is-active' : ''}`}>{children}</a>
+  return (
+    <a
+      href={`#${id}`}
+      aria-label={label}
+      aria-current={active ? 'page' : undefined}
+      title={label}
+      onClick={(event) => {
+        event.preventDefault()
+        onNavigate(id)
+      }}
+      className={`mobile-bottom-nav-link${active ? ' is-active' : ''}`}
+    >
+      {children}
+    </a>
+  )
 }
 
 function HomeIcon() { return <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m3.5 10 8.5-7 8.5 7M5.5 9v11h5v-6h3v6h5V9" /></svg> }

@@ -49,7 +49,7 @@ export function ShareActions() {
 
   return (
     <section
-      className="band-maroon-deep relative hidden py-8 md:block"
+      className="desktop-share-strip band-maroon-deep relative hidden py-8"
       aria-label={t(wedding.share.shareWhatsApp)}
     >
       <div className="site-shell flex justify-center">
@@ -121,7 +121,7 @@ export function FloatingWhatsApp() {
       href={whatsappUrl}
       target="_blank"
       rel="noopener noreferrer"
-      className={`fixed z-40 inline-flex h-12 w-12 items-center justify-center rounded-full border border-gold/45 bg-maroon-deep/92 text-gold-ink backdrop-blur-md transition-all duration-300 md:hidden ${
+      className={`floating-whatsapp fixed z-40 inline-flex h-12 w-12 items-center justify-center rounded-full border border-gold/45 bg-maroon-deep/92 text-gold-ink backdrop-blur-md transition-all duration-300 ${
         hidden
           ? 'pointer-events-none translate-y-4 opacity-0'
           : 'translate-y-0 opacity-100'

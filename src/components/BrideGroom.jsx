@@ -23,7 +23,7 @@ export function BrideGroom() {
           className="!mb-10 md:!mb-14"
         />
 
-        <div className="mx-auto flex max-w-4xl flex-col items-stretch gap-8 md:grid md:grid-cols-[1fr_auto_1fr] md:items-start md:gap-8 lg:gap-12">
+        <div className="mx-auto flex max-w-4xl flex-col items-stretch gap-8">
           <PersonCard
             person={wedding.groom}
             role={{ ta: 'மணமகன்', en: 'Groom' }}
@@ -31,11 +31,8 @@ export function BrideGroom() {
             parallaxSign={-1}
           />
 
-          <div className="flex items-center justify-center py-1 md:pt-28" aria-hidden="true">
-            <span className="font-display text-3xl text-gold md:hidden">&</span>
-            <span className="hidden md:block">
-              <KolamKnot />
-            </span>
+          <div className="flex items-center justify-center py-1" aria-hidden="true">
+            <span className="font-display text-3xl text-gold">&</span>
           </div>
 
           <PersonCard
@@ -71,7 +68,12 @@ function PersonCard({ person, role, delay, parallaxSign }) {
         className="flex h-full min-h-[44px] flex-col items-center px-2 py-2 text-center md:px-3"
       >
         <motion.div style={{ y }}>
-          <ArchFrame src={person.photo} alt={t(person.name)} label={t(role)} />
+          <ArchFrame
+            src={person.photo}
+            alt={t(person.name)}
+            label={t(role)}
+            composed
+          />
         </motion.div>
 
         <p className="mt-6 font-sans text-[0.62rem] tracking-[0.24em] text-gold/85 uppercase">
@@ -110,36 +112,5 @@ function PersonCard({ person, role, delay, parallaxSign }) {
         ) : null}
       </motion.article>
     </ScrollReveal>
-  )
-}
-
-function KolamKnot() {
-  return (
-    <svg
-      width="36"
-      height="88"
-      viewBox="0 0 36 88"
-      fill="none"
-      aria-hidden="true"
-      className="text-gold"
-    >
-      <path d="M18 4v80" stroke="currentColor" strokeWidth="0.8" opacity="0.55" />
-      <path
-        d="M18 28 L26 40 L18 50 L10 40 Z"
-        stroke="currentColor"
-        strokeWidth="1"
-      />
-      <circle cx="18" cy="40" r="1.6" fill="currentColor" />
-      <text
-        x="18"
-        y="72"
-        textAnchor="middle"
-        fill="currentColor"
-        fontFamily="Cormorant Garamond, serif"
-        fontSize="18"
-      >
-        &
-      </text>
-    </svg>
   )
 }

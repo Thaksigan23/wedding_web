@@ -808,9 +808,19 @@
 }
 
 @media (max-width: 767px) {
-  /* Sit the language tab above the 48px WhatsApp FAB with a clear gap. */
+  /* Clear the WhatsApp FAB above the bottom nav. */
   .invite-inner-lang {
     margin-bottom: 4.25rem;
+  }
+
+  .floating-whatsapp {
+    bottom: calc(5.75rem + env(safe-area-inset-bottom)) !important;
+  }
+}
+
+@media (min-width: 768px) {
+  .floating-whatsapp {
+    bottom: max(1.25rem, env(safe-area-inset-bottom)) !important;
   }
 }
 
@@ -1136,25 +1146,24 @@
 }
 
 .invite-letter-name-script {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  align-items: center;
+  margin: 0;
   font-family: var(--font-script);
-  font-size: clamp(2.2rem, 1.4rem + 3.2vw, 3.6rem);
-  line-height: 1.18;
+  font-size: clamp(1.85rem, 1.35rem + 2vw, 2.75rem);
+  line-height: 1.12;
   color: var(--letter-gold);
 }
 
-.invite-letter-name-script span {
+.invite-letter-name-line {
   display: block;
-}
-
-@media (min-width: 640px) {
-  .invite-letter-name-script span {
-    display: inline;
-  }
-
-  .invite-letter-amp.is-inline {
-    display: inline;
-    margin-inline: 0.45rem;
-  }
+  max-width: 100%;
+  padding-inline: 0.15rem;
+  overflow-wrap: normal;
+  text-align: center;
+  white-space: normal;
 }
 
 .invite-letter-dot {
@@ -1557,16 +1566,6 @@
     box-shadow: inset 0 0 0 1px rgba(255, 241, 193, 0.65) !important;
   }
 
-  .mobile-bottom-nav-language {
-    font-size: 0.48rem !important;
-    letter-spacing: 0.04em !important;
-    white-space: nowrap;
-  }
-
-  .mobile-bottom-nav-language > span {
-    gap: 0.14rem;
-  }
-
   .invite-language-edge {
     pointer-events: none;
     position: fixed;
@@ -1586,7 +1585,6 @@
     background: rgba(49, 4, 9, 0.92);
     color: #e8cd83;
   }
-
 }
 
 .invite-envelope-svg {
@@ -1973,24 +1971,100 @@
   letter-spacing: 0.04em;
 }
 
+.invite-date {
+  display: grid;
+  width: 100%;
+  max-width: 22rem;
+  margin-inline: auto;
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+  align-items: center;
+  column-gap: 0.45rem;
+}
+
+.invite-date-side {
+  display: flex;
+  min-width: 0;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.invite-date-side.is-start {
+  justify-content: flex-end;
+}
+
+.invite-date-side.is-end {
+  justify-content: flex-start;
+}
+
+.invite-date-caption {
+  min-width: 0;
+  font-family: var(--font-sans);
+  font-size: 0.58rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  line-height: 1.2;
+  text-align: center;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.invite-date-caption.is-ta {
+  font-family: var(--font-tamil);
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  text-transform: none;
+  white-space: normal;
+}
+
+.invite-date-center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-inline: 0.15rem;
+}
+
 .invite-date-day {
-  height: 3.05rem;
-  width: 3.05rem;
+  position: relative;
+  display: flex;
+  height: 2.9rem;
+  width: 2.9rem;
+  align-items: center;
+  justify-content: center;
 }
 
 .invite-date-numeral {
-  font-size: clamp(1.65rem, 1.35rem + 1.1vw, 2.45rem);
+  font-size: clamp(1.55rem, 1.3rem + 0.8vw, 2rem);
 }
 
 .invite-date-year {
   margin-top: 0.3rem !important;
+  font-family: var(--font-sans);
+  font-size: 0.55rem;
+  letter-spacing: 0.22em;
 }
 
-@media (min-width: 640px) {
-  .invite-date-day {
-    height: 3.4rem;
-    width: 3.4rem;
-  }
+.invite-date-rule {
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  gap: 0.28rem;
+  color: color-mix(in srgb, var(--color-gold) 50%, transparent);
+}
+
+.invite-date-rule-line {
+  display: block;
+  width: 0.7rem;
+  height: 1px;
+  background: currentColor;
+}
+
+.invite-date-rule-diamond {
+  display: block;
+  width: 0.35rem;
+  height: 0.35rem;
+  rotate: 45deg;
+  border: 1px solid currentColor;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -2150,7 +2224,25 @@
   }
 
   .invite-letter-name-script {
-    font-size: clamp(1.7rem, 7vw, 2.2rem);
+    font-size: clamp(1.65rem, 7vw, 2.05rem);
+  }
+
+  .invite-letter-name-line {
+    line-height: 1.1;
+  }
+
+  .invite-date {
+    max-width: 100%;
+    column-gap: 0.3rem;
+  }
+
+  .invite-date-caption {
+    font-size: 0.5rem;
+    letter-spacing: 0.08em;
+  }
+
+  .invite-date-rule-line {
+    width: 0.4rem;
   }
 
   .invite-letter-name-ta.is-secondary {
@@ -3492,12 +3584,13 @@
 
 .screen-envelope-monogram-wrapper {
   display: flex;
+  flex-shrink: 0;
   justify-content: center;
   align-items: center;
-  margin-bottom: 8px;
+  margin-bottom: 6px;
 }
 .screen-envelope-monogram {
-  width: clamp(62px, 8.5vw, 92px);
+  width: clamp(52px, 7.2vw, 78px);
   height: auto;
   aspect-ratio: 1024 / 895;
   object-fit: contain;
@@ -3515,59 +3608,655 @@
 }
 
 .screen-envelope-heading {
+  /* Keep invite copy inside the wide upper part of the top flap. */
   position: absolute;
-  top: max(5dvh, env(safe-area-inset-top));
-  left: 12%;
-  width: 76%;
+  top: max(2%, env(safe-area-inset-top));
+  left: 50%;
+  z-index: 6;
+  display: flex;
+  width: min(78%, 22rem);
+  max-height: calc(var(--envelope-seal-top) - 12%);
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 0.2rem;
+  padding: 0 0.75rem 0.85rem;
+  overflow: visible;
   text-align: center;
   pointer-events: none;
+  transform: translateX(-50%);
   transition: opacity .3s ease, transform .5s ease;
 }
 .screen-envelope-eyebrow {
-  margin-bottom: 10px;
-  color: #e2bd78;
-  font-family: var(--font-sans);
-  font-size: clamp(7px, 1.7vw, 11px);
-  letter-spacing: .22em;
-  text-transform: uppercase;
-}
-.screen-envelope-names {
   display: flex;
   flex-direction: column;
   align-items: center;
+  gap: 0.12rem;
+  width: 100%;
+  max-width: 18rem;
   margin: 0;
-  color: #fff0ce;
+  color: #f0d395;
+  font-family: var(--font-sans);
+  font-size: clamp(0.58rem, 0.5rem + 0.55vw, 0.72rem);
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  line-height: 1.35;
+  text-transform: uppercase;
+  text-shadow: 0 1px 8px rgba(33, 5, 11, 0.75);
+}
+.screen-envelope-eyebrow span {
+  display: block;
+}
+.screen-envelope-names {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  align-items: center;
+  margin: 0.15rem 0 0;
+  color: #fff6df;
   font-family: var(--font-display);
-  font-size: clamp(18px, 5.3vw, 40px);
-  font-weight: 400;
+  font-weight: 500;
   line-height: 1.05;
   text-transform: uppercase;
-  text-shadow: 0 2px 12px #25030b55;
+  text-shadow:
+    0 1px 0 rgba(255, 236, 190, 0.22),
+    0 2px 14px rgba(20, 2, 6, 0.72);
+}
+.screen-envelope-name {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  font-size: clamp(1.05rem, 0.75rem + 2.1vw, 1.85rem);
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+  overflow: visible;
 }
 .screen-envelope-names .screen-envelope-ampersand {
-  color: #dbb464;
+  color: #e8cd83;
   font-family: var(--font-script);
-  font-size: .65em;
-  line-height: 1;
+  font-size: clamp(0.95rem, 0.7rem + 1.2vw, 1.35rem);
+  font-weight: 400;
+  line-height: 0.95;
+  text-transform: none;
 }
 .screen-envelope-date {
   display: block;
-  margin-top: 8px;
-  color: #f3dca8;
+  margin-top: 0.35rem;
+  color: #f6e2b0;
   font-family: var(--font-sans);
-  font-size: 11px;
-  font-weight: 500;
-  letter-spacing: .3em;
+  font-size: clamp(0.68rem, 0.6rem + 0.35vw, 0.8rem);
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-shadow: 0 1px 8px rgba(33, 5, 11, 0.7);
 }
 .screen-envelope.is-opening .screen-envelope-heading {
   opacity: 0;
-  transform: translateY(-20px);
+  transform: translateX(-50%) translateY(-20px);
 }
 @media (max-height: 600px) {
-  .screen-envelope-heading { top: max(12px, env(safe-area-inset-top)); }
-  .screen-envelope-monogram { width: clamp(42px, 7vw, 54px); }
-  .screen-envelope-monogram-wrapper { margin-bottom: 4px; }
-  .screen-envelope-eyebrow { margin-bottom: 6px; font-size: 8px; }
-  .screen-envelope-names { font-size: clamp(18px, 5.3vw, 24px); }
-  .screen-envelope-date { margin-top: 6px; font-size: 10px; }
+  .screen-envelope-heading {
+    top: max(6px, env(safe-area-inset-top));
+    width: min(82%, 20rem);
+    padding-bottom: 0.5rem;
+    gap: 0.1rem;
+  }
+  .screen-envelope-monogram { width: clamp(40px, 7vw, 52px); }
+  .screen-envelope-monogram-wrapper { margin-bottom: 2px; }
+  .screen-envelope-eyebrow { font-size: 0.55rem; letter-spacing: 0.1em; }
+  .screen-envelope-name { font-size: clamp(0.95rem, 0.7rem + 1.6vw, 1.25rem); }
+  .screen-envelope-date { margin-top: 0.2rem; font-size: 0.62rem; }
+}
+
+/* Desktop phone shell: size against the phone width, keep copy fully readable. */
+@media (min-width: 768px) {
+  .phone-frame-screen .screen-envelope-heading {
+    width: min(84%, 19rem);
+    max-height: calc(var(--envelope-seal-top) - 10%);
+    padding-inline: 0.9rem;
+  }
+
+  .phone-frame-screen .screen-envelope-eyebrow {
+    max-width: 16rem;
+    font-size: 0.62rem;
+    letter-spacing: 0.12em;
+  }
+
+  .phone-frame-screen .screen-envelope-name {
+    font-size: clamp(1.05rem, 4.6cqi, 1.35rem);
+    letter-spacing: 0.035em;
+  }
+
+  .phone-frame-screen .screen-envelope-names .screen-envelope-ampersand {
+    font-size: 1.05rem;
+  }
+
+  .phone-frame-screen .screen-envelope-date {
+    font-size: 0.68rem;
+    letter-spacing: 0.18em;
+  }
+
+  .phone-frame-screen .screen-envelope-monogram {
+    width: clamp(48px, 13cqi, 66px);
+  }
+
+  .phone-frame-screen .screen-envelope-monogram-wrapper {
+    margin-bottom: 4px;
+  }
+}
+
+
+/* —— Desktop phone-shell stage (centered mobile layout) —— */
+.app-stage {
+  position: relative;
+  isolation: isolate;
+}
+
+.app-stage-backdrop,
+.app-stage-caption {
+  display: none;
+}
+
+.phone-frame,
+.phone-frame-bezel,
+.phone-frame-screen {
+  display: contents;
+}
+
+@media (min-width: 768px) {
+  html,
+  body {
+    height: 100%;
+    overflow: hidden;
+  }
+
+  body {
+    padding-bottom: 0 !important;
+  }
+
+  .app-stage {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.85rem;
+    padding: 1.25rem 1rem 1rem;
+    background:
+      radial-gradient(ellipse 70% 55% at 50% 42%, #6e1420 0%, #4a0a14 48%, #240309 100%);
+    overflow: hidden;
+  }
+
+  .app-stage-backdrop {
+    display: block;
+    pointer-events: none;
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    overflow: hidden;
+  }
+
+  .app-stage-floral {
+    position: absolute;
+    width: min(46vw, 560px);
+    height: auto;
+    opacity: 0.95;
+    filter: saturate(1.14) brightness(1.05) contrast(1.05);
+    object-fit: contain;
+  }
+
+  .app-stage-floral-tl {
+    top: -6%;
+    left: -4%;
+  }
+
+  .app-stage-floral-tr {
+    top: -6%;
+    right: -4%;
+    transform: scaleX(-1);
+  }
+
+  .app-stage-floral-bl {
+    left: -4%;
+    bottom: -8%;
+    width: min(48vw, 580px);
+  }
+
+  .app-stage-floral-br {
+    right: -4%;
+    bottom: -8%;
+    width: min(48vw, 580px);
+    transform: scaleX(-1);
+  }
+
+  .app-stage-lamp {
+    position: absolute;
+    top: 0;
+    width: clamp(2.6rem, 3.4vw, 3.75rem);
+    height: auto;
+    opacity: 0.82;
+    filter: drop-shadow(0 8px 18px rgba(0, 0, 0, 0.35));
+  }
+
+  .app-stage-lamp-l {
+    left: clamp(5%, 9vw, 13%);
+  }
+
+  .app-stage-lamp-r {
+    right: clamp(5%, 9vw, 13%);
+    transform: scaleX(-1);
+  }
+
+  .phone-frame {
+    position: relative;
+    z-index: 1;
+    display: block;
+    width: min(430px, calc(100vw - 2.5rem));
+    height: min(860px, calc(100dvh - 5.25rem));
+    flex: 0 0 auto;
+    border-radius: 28px;
+    padding: 10px;
+    background:
+      linear-gradient(160deg, color-mix(in srgb, var(--color-gold) 55%, #2a060c) 0%, #1a0206 45%, color-mix(in srgb, var(--color-gold) 35%, #2a060c) 100%);
+    box-shadow:
+      0 0 0 1px color-mix(in srgb, var(--color-gold) 40%, transparent),
+      0 28px 64px rgba(0, 0, 0, 0.55),
+      0 8px 24px rgba(0, 0, 0, 0.35);
+  }
+
+  .phone-frame-bezel {
+    display: block;
+    pointer-events: none;
+    position: absolute;
+    top: 16px;
+    left: 50%;
+    z-index: 5;
+    width: 28%;
+    height: 8px;
+    transform: translateX(-50%);
+    border-radius: 999px;
+    background: color-mix(in srgb, #120105 88%, var(--color-gold));
+    box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--color-gold) 22%, transparent);
+  }
+
+  .phone-frame-screen {
+    position: relative;
+    display: block;
+    width: 100%;
+    height: 100%;
+    overflow: hidden auto;
+    overscroll-behavior: contain;
+    border-radius: 20px;
+    background: var(--color-maroon);
+    transform: translateZ(0);
+    container-type: inline-size;
+    container-name: phone;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: thin;
+    scrollbar-color: color-mix(in srgb, var(--color-gold) 45%, transparent) transparent;
+  }
+
+  /* Cover fills the phone exactly — countdown stays in view, no scroll. */
+  .phone-frame-screen:has(.screen-envelope) {
+    overflow: hidden;
+  }
+
+  .phone-frame-screen .screen-envelope {
+    position: absolute;
+    inset: 0;
+    height: 100%;
+    max-height: 100%;
+    --envelope-countdown-height: 118px;
+    --envelope-seal-size: clamp(72px, 22cqi, 96px);
+  }
+
+  .phone-frame-screen .screen-envelope-countdown {
+    height: var(--envelope-countdown-height);
+    padding: 6px 10px 8px;
+  }
+
+  .phone-frame-screen .screen-envelope-countdown .cover-countdown-digit {
+    height: 1.75rem;
+  }
+
+  .phone-frame-screen .screen-envelope-countdown .cover-countdown-numeral {
+    font-size: clamp(1.25rem, 6cqi, 1.55rem);
+  }
+
+  .phone-frame-screen .screen-envelope-countdown .cover-countdown-kicker {
+    font-size: 0.55rem;
+    margin-bottom: 2px;
+  }
+
+  .phone-frame-screen .screen-envelope-countdown .cover-countdown-label {
+    font-size: 0.52rem;
+  }
+
+  .phone-frame-screen .screen-envelope-credit {
+    font-size: 9.5px;
+    margin-top: 2px;
+  }
+
+  .app-stage-caption {
+    position: relative;
+    z-index: 1;
+    display: block;
+    margin: 0;
+    font-family: var(--font-sans);
+    font-size: 0.68rem;
+    font-weight: 500;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    text-align: center;
+    color: color-mix(in srgb, var(--color-gold-ink) 78%, transparent);
+  }
+
+  .desktop-sticky-nav,
+  .mobile-bottom-nav {
+    display: none !important;
+  }
+
+  .phone-frame-screen .invite-cover {
+    position: absolute;
+    inset: 0;
+    height: 100%;
+    max-height: 100%;
+  }
+
+  .phone-frame-screen .site-floral-header,
+  .phone-frame-screen .floating-whatsapp,
+  .phone-frame-screen .invite-controls-dock {
+    position: fixed;
+  }
+
+  /*
+   * Lock invite content to mobile design inside the phone shell.
+   * Viewport sm/md breakpoints still fire on desktop, so reset scale + layouts here.
+   */
+  .phone-frame-screen {
+    --section-pad-y: 2.35rem;
+    --section-pad-x: 1rem;
+    --content-max: 100%;
+    --text-eyebrow: 0.62rem;
+    --text-body: 0.95rem;
+    --text-lead: 1.08rem;
+    --text-h3: 1.35rem;
+    --text-h2: 1.75rem;
+    --text-display: 2.35rem;
+    --text-script: 2.55rem;
+  }
+
+  .phone-frame-screen .site-shell {
+    width: min(100% - 2rem, 100%);
+  }
+
+  .phone-frame-screen .section-pad {
+    padding-block: var(--section-pad-y);
+    padding-inline: var(--section-pad-x);
+  }
+
+  .phone-frame-screen .site-floral-header {
+    height: 6rem;
+  }
+
+  .phone-frame-screen .site-floral-header img {
+    top: -5%;
+    width: clamp(9rem, 42cqi, 14rem);
+    opacity: 0.86;
+  }
+
+  .phone-frame-screen .desktop-share-strip {
+    display: none !important;
+  }
+
+  .phone-frame-screen .invite-letter-shell {
+    width: min(100% - 1.5rem, 100%);
+    padding: 0.1rem 0 0.85rem;
+  }
+
+  .phone-frame-screen .invite-letter-body {
+    padding: 0.9rem 0.85rem 0.55rem;
+  }
+
+  .phone-frame-screen .invite-letter-frame-mid {
+    inset: 4px;
+  }
+
+  .phone-frame-screen .invite-letter-frame-inner {
+    inset: 9px;
+  }
+
+  .phone-frame-screen .invite-letter-corners {
+    inset: 5px;
+  }
+
+  .phone-frame-screen .invite-letter-corners svg {
+    height: 2.15rem;
+    width: 2.15rem;
+  }
+
+  .phone-frame-screen .invite-letter-mantra {
+    font-size: 0.82rem;
+    line-height: 1.4;
+  }
+
+  .phone-frame-screen .invite-letter-blessing {
+    margin-top: 0.06rem;
+    font-size: 0.76rem;
+    line-height: 1.4;
+  }
+
+  .phone-frame-screen .invite-letter-title {
+    font-size: clamp(1.35rem, 6.5cqi, 1.62rem);
+  }
+
+  .phone-frame-screen .invite-letter-title-en {
+    font-size: clamp(1.9rem, 9cqi, 2.4rem);
+  }
+
+  .phone-frame-screen .invite-letter-name-ta {
+    font-size: clamp(1.05rem, 5cqi, 1.3rem);
+  }
+
+  .phone-frame-screen .invite-letter-name-script {
+    font-size: clamp(1.7rem, 8cqi, 2.15rem);
+  }
+
+  .phone-frame-screen .invite-letter-name-line {
+    max-width: 100%;
+  }
+
+  .phone-frame-screen .invite-date {
+    max-width: 100%;
+    column-gap: 0.3rem;
+    padding-inline: 0.15rem;
+  }
+
+  .phone-frame-screen .invite-date-caption {
+    font-size: 0.52rem;
+    letter-spacing: 0.08em;
+  }
+
+  .phone-frame-screen .invite-date-rule-line {
+    width: 0.45rem;
+  }
+
+  .phone-frame-screen .invite-date-day {
+    height: 2.7rem;
+    width: 2.7rem;
+  }
+
+  .phone-frame-screen .invite-date-numeral {
+    font-size: 1.55rem;
+  }
+
+  .phone-frame-screen .invite-letter-split {
+    grid-template-columns: 1fr auto 1fr;
+    gap: 0.35rem 0.55rem;
+    align-items: start;
+  }
+
+  .phone-frame-screen .invite-letter-split-rule {
+    width: auto;
+    height: auto;
+    margin: 0.2rem 0;
+    flex-direction: column;
+    padding-block: 0.15rem;
+  }
+
+  .phone-frame-screen .invite-letter-split-rule span {
+    width: 1px;
+    height: auto;
+    flex: 1;
+    min-height: 1.5rem;
+    background: linear-gradient(to bottom, transparent, currentColor, transparent);
+  }
+
+  .phone-frame-screen .invite-letter-family {
+    padding-inline: 0.1rem;
+    text-align: center;
+  }
+
+  .phone-frame-screen .invite-letter-family-parents.is-en {
+    font-size: 0.68rem;
+    line-height: 1.45;
+  }
+
+  .phone-frame-screen .invite-letter-family-name.is-en {
+    font-size: 1.05rem;
+  }
+
+  .phone-frame-screen .invite-controls-dock-btn {
+    min-height: 40px;
+    padding: 0.32rem 0.7rem;
+    font-size: 0.62rem;
+    letter-spacing: 0.1em;
+  }
+
+  .phone-frame-screen .countdown-numeral {
+    font-size: clamp(1.45rem, 7cqi, 2rem);
+  }
+
+  .phone-frame-screen .heading-display {
+    font-size: var(--text-display);
+  }
+
+  .phone-frame-screen .heading-section {
+    font-size: var(--text-h2);
+  }
+
+  .phone-frame-screen .heading-script {
+    font-size: var(--text-script);
+  }
+
+  /* Undo common Tailwind desktop utilities inside the phone width. */
+  .phone-frame-screen .sm\:grid-cols-4 {
+    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+  }
+
+  .phone-frame-screen .sm\:flex-row,
+  .phone-frame-screen .md\:flex-row {
+    flex-direction: column !important;
+  }
+
+  .phone-frame-screen .sm\:w-auto,
+  .phone-frame-screen .md\:w-auto {
+    width: 100% !important;
+  }
+
+  .phone-frame-screen .md\:text-left {
+    text-align: center !important;
+  }
+
+  .phone-frame-screen .md\:mx-0 {
+    margin-left: auto !important;
+    margin-right: auto !important;
+  }
+
+  .phone-frame-screen .md\:text-2xl {
+    font-size: 1.25rem !important;
+  }
+
+  .phone-frame-screen .md\:text-3xl {
+    font-size: 1.5rem !important;
+  }
+
+  .phone-frame-screen .md\:text-base {
+    font-size: 0.875rem !important;
+  }
+
+  .phone-frame-screen .md\:min-h-\[320px\] {
+    min-height: 220px !important;
+  }
+
+  .phone-frame-screen .md\:border-l {
+    border-left-width: 0 !important;
+  }
+
+  .phone-frame-screen .md\:border-t-0 {
+    border-top-width: 1px !important;
+  }
+
+  .phone-frame-screen .md\:px-10 {
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
+  }
+
+  .phone-frame-screen .md\:py-12 {
+    padding-top: 1.5rem !important;
+    padding-bottom: 1.5rem !important;
+  }
+
+  .phone-frame-screen .sm\:px-6 {
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
+  }
+
+  .phone-frame-screen .sm\:p-3 {
+    padding: 0.5rem !important;
+  }
+
+  .phone-frame-screen .sm\:gap-x-8 {
+    column-gap: 1.25rem !important;
+  }
+
+  .phone-frame-screen .sm\:max-w-\[19rem\] {
+    max-width: 17.5rem !important;
+  }
+
+  .phone-frame-screen .md\:max-w-xl {
+    max-width: 24rem !important;
+  }
+
+  .phone-frame-screen .md\:h-24 {
+    height: 5rem !important;
+  }
+
+  .phone-frame-screen .md\:pb-16 {
+    padding-bottom: 6rem !important;
+  }
+
+  .phone-frame-screen .md\:pt-16 {
+    padding-top: 3.5rem !important;
+  }
+
+  .phone-frame-screen .md\:mb-12,
+  .phone-frame-screen .md\:mb-14,
+  .phone-frame-screen .md\:mb-10 {
+    margin-bottom: 2.5rem !important;
+  }
+
+  .phone-frame-screen .invite-countdown-meta {
+    flex-direction: column;
+  }
+
+  .phone-frame-screen .invite-countdown-meta-dot {
+    display: none;
+  }
+
+  .phone-frame-screen .floating-whatsapp {
+    right: max(0.85rem, env(safe-area-inset-right)) !important;
+    bottom: max(1.15rem, env(safe-area-inset-bottom)) !important;
+  }
 }

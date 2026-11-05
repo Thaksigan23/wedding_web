@@ -20,3 +20,15 @@ export function useMediaQuery(query) {
 export function useIsMobile() {
   return useMediaQuery('(max-width: 767px)')
 }
+
+/** Desktop/tablet uses a centered phone shell, so invite chrome stays mobile-style. */
+export function usePhoneShell() {
+  return useMediaQuery('(min-width: 768px)')
+}
+
+/** Compact invite chrome: real phones, or the desktop phone shell. */
+export function useCompactChrome() {
+  const isMobile = useIsMobile()
+  const phoneShell = usePhoneShell()
+  return isMobile || phoneShell
+}
